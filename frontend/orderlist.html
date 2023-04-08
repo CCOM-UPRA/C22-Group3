@@ -27,11 +27,6 @@
         <!--=====================================
                     CSS LINK PART START
         =======================================-->
-
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Tilt+Prism&display=swap" rel="stylesheet">
-
         <!-- FAVICON -->
         <link rel="icon" href="{{url_for('static', filename='images/favicon.png')}}">
 
@@ -75,7 +70,7 @@
                     </div>
 
                     <a href="index.html" class="header-logo">
-                        <img src="/static/images/brand/logo_morro_pr.png" alt="logo">
+                        <img src="images/logo.png" alt="logo">
                     </a>
                     <ul class="dropdown">
                     <a class="navbar-link dropdown-arrow" href="#">My Account</a>
@@ -121,7 +116,7 @@
             <div class="cart-header">
                 <div class="cart-total">
                     <i class="fas fa-shopping-basket"></i>
-                    <span>total item (3)</span>
+                    <span>total item ({{session['amount']}})</span>
                 </div>
                 <button class="cart-close"><i class="icofont-close"></i></button>
             </div>
@@ -131,7 +126,8 @@
                     {% for key, item in session['cart'].items() %}
                 <li class="cart-item">
                     <div class="cart-media">
-                        <a href="#"><img src="images/product/05.jpg" alt="product"></a>
+                        <a href="static/images/product-images/{{item['image']}}">
+                            <img src="static/images/product-images/{{item['image']}}" alt="product"></a>
                         <form action="{{url_for('delete', id=key)}}">
                         <button class="cart-delete"><i class="far fa-trash-alt"></i></button>
                         </form>
@@ -139,7 +135,7 @@
                     <div class="cart-info-group">
                         <div class="cart-info">
                             <h6><a href="product-single.html">{{item['name']}}</a></h6>
-                            <p>Unit Price - {{item['price']}}</p>
+                            <p>Unit Price - ${{item['price']}}0</p>
                         </div>
                         <div class="cart-action-group">
                             <div class="product-action">
@@ -150,7 +146,7 @@
                              <form action="{{url_for('editcart')}}" method="post">
                                     <button class="action">Edit</button>
                              </form>
-                            <h6>${{item['total_price']}}</h6>
+                            <h6>${{item['total_price']}}0</h6>
                         </div>
                     </div>
                 </li>
@@ -179,9 +175,9 @@
         <!--=====================================
                     BANNER PART START
         =======================================-->
-        <section class="inner-section single-banner" style="background: url(/static/images/brand/background_de_stickers.jpg) no-repeat center;">
+        <section class="inner-section single-banner" style="background: url(images/single-banner.jpg) no-repeat center;">
             <div class="container">
-                <h2 style="color: white; font-family: 'Tilt Prism', cursive; font-size: 7em; ">Order History</h2>
+                <h2>Order History</h2>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{url_for('shop')}}">Shop</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Orders</li>
@@ -435,7 +431,7 @@
                     <div class="col-sm-6 col-xl-3">
                         <div class="footer-widget">
                             <a class="footer-logo" href="#">
-                                <img src="/static/images/brand/logo_morro_pr.png" alt="logo">
+                                <img src="images/logo.png" alt="logo">
                             </a>
                             <p class="footer-desc">This e-commerce template has been created for the sole purpose of aiding the students for the Databases course</p>
 
@@ -448,14 +444,14 @@
                                 <li>
                                     <i class="icofont-ui-email"></i>
                                     <p>
-                                        <span> <a href="mailto:emanuel.martinez8@upr.edu"> emanuel.martinez8@upr.edu </a></span>
-                                        <span> <a href="mailto:eliana.valenzuela@upr.edu"> eliana.valenzuela@upr.edu </a></span>
+                                        <span>javier.quinones3@upr.edu</span>
+                                        <span>eliana.valenzuela@upr.edu</span>
                                     </p>
                                 </li>
                                 <li>
                                     <i class="icofont-ui-touch-phone"></i>
                                     <p>
-                                        <span><a href="tel:9392415738"> 939-241-5739 </a></span>
+                                        <span>+787 597 7369</span>
                                         <span>N/A</span>
                                     </p>
                                 </li>

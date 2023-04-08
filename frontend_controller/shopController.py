@@ -5,13 +5,6 @@ def getProducts():
     products = getProductsModel()
     return products
 
-def getProductAscending():
-    products = sort_productlistAscending(getProductsModel())
-    return products
-
-def getProductDescending():
-    products = sort_productlistDescending(getProductsModel())
-    return products
 
 def getBrands():
     return getBrandsModel()

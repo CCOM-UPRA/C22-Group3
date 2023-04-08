@@ -4037,8 +4037,8 @@ tbody tr td:last-child {
 }
 
 .header-logo img {
-  width: 170px;
-  height: 90px;
+  width: auto;
+  height: 45px;
   transition: all linear .3s;
   -webkit-transition: all linear .3s;
   -moz-transition: all linear .3s;
