@@ -70,25 +70,21 @@ def registerinfo():
         return redirect('/register/<message>')
 
 
+
 @app.route("/shop")
 def shop():
     # This is the shop's Flask portion
     # First we receive the list of products by accessing getProducts() from shopController
-    
-    products = getProducts()
-
-    #Testing to see if the sorting works, [IT DOES]
-    #products = getProductAscending()
-    #products = getProductDescending()
+    products = getNewProducts()
 
     # Then we create the shopping cart by accessing getCart in shopController
     getCart()
 
     # Find the different filter options for the products by accessing the functions from shopController
-    brands = getBrands()
-    colors = getColors()
-    videores = getVideoRes()
-    wifi = getWifi()
+    material = getMaterial()
+    primarycolor = getPrimaryColor()
+    size = getSize()
+    waterproof = getWaterProof()
 
     # Set the amount of items user currently has in cart
     amount = 3
@@ -101,8 +97,8 @@ def shop():
     session['total'] = 150.00
 
     # Redirect to shop page with the variables used
-    return render_template("shop-4column.html", products=products, amount=amount, total=total, brands=brands,
-                           colors=colors, videores=videores, wifi=wifi)
+    return render_template("shop-4column.html", products=products, amount=amount, total=total, material=material,
+                           pcolor=primarycolor, size=size, waterproof=waterproof)
 
 
 @app.route("/profile")

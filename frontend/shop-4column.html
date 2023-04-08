@@ -33,7 +33,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Tilt+Prism&display=swap" rel="stylesheet">
 
         <!-- FAVICON -->
-        <link rel="icon" href="{{url_for('static', filename='images/favicon.png')}}">
+        <link rel="icon" href="{{url_for('static', filename='images/favicon.ico')}}">
 
         <!-- FONTS -->
          <link rel="stylesheet" href="{{url_for('static', filename='fonts/flaticon/flaticon.css')}}">
@@ -195,15 +195,31 @@
                     <div class="col-lg-3">
 
                         <div class="shop-widget">
+                            <h6 class="shop-widget-title"></h6>
+                            <div class="shop-widget">
+                                <button class="shop-widget-btn">
+                                        <i class="fas fa-search"></i>
+                                        <span>Search by All Filters</span>
+                                    </button>
+                                    <br>
+                                    <button class="shop-widget-btn">                                       
+                                        <span><a href="shop"> Clear all Filters</a></span>
+                                    </button>
+                            </div>
+                        
+                    </div>
+                            <div class="shop-widget">
                             <h6 class="shop-widget-title">Sort by Price</h6>
                             <form>
                                 <div class="shop-widget-group">
                                     <button class="shop-widget-btn">
-                                        <span>Acsending</span>
-                          <!--          <input type="button" onclick="getProductAscending()"> -->
+                                        
+                                        <span><a href="Ascending"> Acsending</a></span>
+                        <!--        <input type="button" id="tag4" name="check" onclick="getProductAscending()">
+                                    <input type="button" onclick="getProductAscending()"> -->
                                     </button>
                                     <button class="shop-widget-btn">
-                                        <span>Descending</span>
+                                        <span><a href="Descending">Descending</a></span>
                                     </button>
                     <!--                <input type="text" placeholder="Min - 00">
                                     <input type="text" placeholder="Max - 5k">  -->
@@ -217,15 +233,15 @@
 
 
                         <div class="shop-widget">
-                            <h6 class="shop-widget-title">Filter by Type</h6>
+                            <h6 class="shop-widget-title">Filter by Material</h6>
                             <form>
                                 <ul class="shop-widget-list">
 
-                        {% for brand in brands %}
+                        {% for material in material %}
                             <li>
                                 <div class="shop-widget-content">
                                     <input type="checkbox" id="tag1">
-                                    <label for="tag1">{{brand}}</label>
+                                    <label for="tag1">{{material}}</label>
                                 </div>
 
                             </li>
@@ -234,22 +250,22 @@
                          </ul>
                                 <button class="shop-widget-btn">
                                     <i class="fas fa-search"></i>
-                                    <span>Search by type</span>
+                                    <span>Search by Material </span>
                                 </button>
                             </form>
                         </div>
 
 
                         <div class="shop-widget">
-                            <h6 class="shop-widget-title">Filter by Color</h6>
+                            <h6 class="shop-widget-title">Filter by Primary Color</h6>
                             <form>
                                 <ul class="shop-widget-list">
 
-                        {% for color in colors %}
+                        {% for pcolor in pcolor %}
                             <li>
                                 <div class="shop-widget-content">
                                     <input type="checkbox" id="tag3">
-                                    <label for="tag1">{{color}}</label>
+                                    <label for="tag1">{{pcolor}}</label>
                                 </div>
 
                             </li>
@@ -269,11 +285,11 @@
                             <form action="{{url_for('filter')}}" method="post">
                                 <ul class="shop-widget-list">
 
-                        {% for res in videores %}
+                        {% for size in size %}
                             <li>
                                 <div class="shop-widget-content">
-                                    <input type="checkbox" id="{{res}}" name="videores" value="{{res}}">
-                                    <label for="tag1">{{res}}</label>
+                                    <input type="checkbox" id="{{size}}" name="size" value="{{size}}">
+                                    <label for="tag1">{{size}}</label>
                                 </div>
 
                             </li>
@@ -293,7 +309,7 @@
                             <form>
                                 <ul class="shop-widget-list">
 
-                        {% for w in wifi %}
+                        {% for w in waterproof %}
                             <li>
                                 <div class="shop-widget-content">
                                     <input type="checkbox" id="tag4" name="check" onclick="onlyOne(this)">
@@ -311,12 +327,7 @@
                             </form>
                         </div>
 
-                        <div class="shop-widget">
-                            <button class="shop-widget-btn">
-                                    <i class="fas fa-search"></i>
-                                    <span>Search by All Filters</span>
-                                </button>
-                        </div>
+                        
                     </div>
 
 
@@ -336,8 +347,8 @@
                                 <div class="product-card">
                                     <div class="product-media">
 
-                                        <a class="product-image" href="/static/images/product-images/{{product[7]}}">
-                                            <img src="/static/images/product-images/{{product[7]}}" alt="product">
+                                        <a class="product-image" href="/static/images/product-images/{{product[2]}}">
+                                            <img src="/static/images/product-images/{{product[2]}}" alt="product">
                                         </a>
                                         <div class="product-widget">
                                             <a title="Product View" href="#" class="fas fa-eye" data-bs-toggle="modal" data-bs-target="#product-view-{{product[0]}}"></a>
@@ -348,7 +359,7 @@
                                             <a href="product-video.html">{{product[1]}}</a>
                                         </h6>
                                         <h6 class="product-price">
-                                            <span>{{product[10]}}.00</span>
+                                            <span>{{product[6]}}.00</span>
                                         </h6>
                                         <button class="product-add" title="Add to Cart">
                                             <i class="fas fa-shopping-basket"></i>
@@ -359,14 +370,14 @@
                                             <input style="width: 50%" class="action-input" title="Quantity Number" type="number" id="quantity" name="quantity" value="1">
                                                <input type="hidden" id="p_id" name="p_id" value="{{product[0]}}">
                                                <input type="hidden" id="name" name="name" value="{{product[1]}}">
-                                                <input type="hidden" id="price" name="price" value="{{product[10]}}">
-                                                <input type="hidden" id="cost" name="cost" value="{{product[11]}}">
-                                                <input type="hidden" id="stock" name="stock" value="{{product[8]}}">
-                                                <input type="hidden" id="brand" name="brand" value="{{product[2]}}">
-                                                <input type="hidden" id="wifi" name="wifi" value="{{product[4]}}">
-                                                <input type="hidden" id="videores" name="videores" value="{{product[5]}}">
-                                                <input type="hidden" id="desc" name="desc" value="{{product[3]}}">
-                                                <input type="hidden" id="image" name="image" value="{{product[7]}}">
+                                                <input type="hidden" id="price" name="price" value="{{product[6]}}">
+                                                <input type="hidden" id="cost" name="cost" value="{{product[7]}}">
+                                                <input type="hidden" id="stock" name="stock" value="{{product[3]}}">
+                                                <input type="hidden" id="material" name="material" value="{{product[8]}}">
+                                                <input type="hidden" id="waterproof" name="waterproof" value="{{product[5]}}">
+                                                <input type="hidden" id="size" name="size" value="{{product[4]}}">
+                                                <input type="hidden" id="desc" name="desc" value="{{product[11]}}">
+                                                <input type="hidden" id="image" name="image" value="{{product[2]}}">
                                               <input style="width: 30%" type="submit" value="Add">
                                               </form>
                                         </div>
@@ -383,10 +394,10 @@
                             <div class="col-md-6 col-lg-6">
                                 <div class="view-gallery">
                                     <div class="view-label-group">
-                                        <label class="view-label new">{{product[8]}} in stock</label>
+                                        <label class="view-label new">{{product[3]}} in stock</label>
                                     </div>
                                     <ul class="preview-slider">
-                                        <li><img src="static/images/product-images/{{product[7]}}" alt="product"></li>
+                                        <li><img src="static/images/product-images/{{product[2]}}" alt="product"></li>
                                     </ul>
 
                                 </div>
@@ -397,15 +408,15 @@
                                         <a href="product-video.html">{{product[1]}}</a>
                                     </h3>
                                     <div class="view-meta">
-                                        <p>Brand:<span>{{product[2]}}</span></p><br>
-                                        <p>Wi-fi: {{product[4]}}</p><br>
-                                        <p>Video Res: {{product[5]}}</p>
+                                        <p>Material: <span>{{product[8]}}</span></p><br>
+                                        <p>Waterproof: {{product[5]}}</p><br>
+                                        <p>Size: {{product[4]}}</p>
                                     </div>
                                     <h3 class="view-price">
-                                        <del>{{product[11]}}.00</del>
-                                        <span>{{product[10]}}.00</span>
+                                        <del>{{product[6]}}.00</del>
+                                        <span>{{product[6]}}.00</span>
                                     </h3>
-                                    <p class="view-desc">Lorem ipsum dolor sit amet consectetur adipisicing elit non tempora magni repudiandae sint suscipit tempore quis maxime explicabo veniam eos reprehenderit fuga</p>
+                                    <p class="view-desc"> <span>{{product[11]}}</span> </p>
                                     <div class="view-add-group">
                                         <button class="product-add" title="Add to Cart">
                                             <span>Tap to add amount</span>
@@ -545,6 +556,7 @@
                 document.getElementById('submit').onclick = function(){
                     document.getElementById('quantity').value = document.getElementById('quantity1').value;
             };
+        }
         </script>
 
         <script>
