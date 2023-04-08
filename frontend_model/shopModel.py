@@ -5,6 +5,11 @@ import pymysql
 # The students must create their own productList when working on their eCommerce site
 # Product images are loaded into static/images/product-images/
 # Done in array instead of dictionaries to portray the differences
+#               Old order of ProductList.append
+# "id": res[0], "name": res[1], "brand": res[2], "desc": res[3]
+# "wifi": res[4], "video_res": res[5], "color": res[6], "img": res[7],
+# "stock": res[8], "cost": res[9], "price": res[10], "status": res[11]
+
 productList = [['1', "Tello Drone", 'DJI', 'desc here', 'Yes', '480p', 'White', 'dji_tello.jpg', '15', 'active', '89', '89'],
                ['2', 'Bebop 2', 'Parrot', 'desc', 'Yes', '1080p', 'Red', 'parrot_bebop_2.jpg', '3', 'active', '270', '290']]
 
