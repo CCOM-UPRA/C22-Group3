@@ -215,6 +215,8 @@
                                 <ul class="shop-widget-list">
 
                         {% for brand in brands %}
+                        <!--
+                            Original text
                             <li>
                                 <div class="shop-widget-content">
                                     <input type="checkbox" id="tag1">
@@ -222,6 +224,14 @@
                                 </div>
 
                             </li>
+                        -->    
+                        <li>
+                            <div class="shop-widget-content">
+                                <input type="checkbox" id="Material">
+                                <label for="Material">{{material}}</label>
+                            </div>
+                        
+                        </li>
                         {% endfor %}
 
                          </ul>
@@ -241,11 +251,21 @@
                         {% for color in colors %}
                             <li>
                                 <div class="shop-widget-content">
+                                    <input type="checkbox" id="colors">
+                                    <label for="colors">{{color}}</label>
+                                </div>
+
+                            </li>
+                            <!--
+                                Original text
+                            <li>
+                                <div class="shop-widget-content">
                                     <input type="checkbox" id="tag3">
                                     <label for="tag1">{{color}}</label>
                                 </div>
 
                             </li>
+                            -->
                         {% endfor %}
 
                          </ul>
@@ -265,11 +285,21 @@
                         {% for res in videores %}
                             <li>
                                 <div class="shop-widget-content">
+                                    <input type="checkbox" id="Size" name="videores" value="{{res}}">
+                                    <label for="Size">{{Size}}</label>
+                                </div>
+
+                            </li>
+                            <!--
+                                Original text
+                            <li>
+                                <div class="shop-widget-content">
                                     <input type="checkbox" id="{{res}}" name="videores" value="{{res}}">
                                     <label for="tag1">{{res}}</label>
                                 </div>
 
                             </li>
+                            -->
                         {% endfor %}
 
                          </ul>
@@ -289,11 +319,21 @@
                         {% for w in wifi %}
                             <li>
                                 <div class="shop-widget-content">
+                                    <input type="checkbox" id="WaterProof" name="check" onclick="onlyOne(this)">
+                                    <label for="WaterProof">{{w}}</label>
+                                </div>
+
+                            </li>
+                            <!--
+                                original text
+                            <li>
+                                <div class="shop-widget-content">
                                     <input type="checkbox" id="tag4" name="check" onclick="onlyOne(this)">
                                     <label for="tag1">{{w}}</label>
                                 </div>
 
                             </li>
+                            -->
                         {% endfor %}
 
                          </ul>
