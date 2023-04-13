@@ -219,7 +219,7 @@
                             <form>
                                 <ul class="shop-widget-list">
 
-                        {% for brand in brands %}
+                        {% for material in material %}
                         <!--
                             Original text
                             <li>
@@ -287,11 +287,11 @@
                             <form action="{{url_for('filter')}}" method="post">
                                 <ul class="shop-widget-list">
 
-                        {% for res in videores %}
+                        {% for size in size %}
                             <li>
                                 <div class="shop-widget-content">
-                                    <input type="checkbox" id="Size" name="videores" value="{{res}}">
-                                    <label for="Size">{{Size}}</label>
+                                    <input type="checkbox" id="Size" name="size" value="{{size}}">
+                                    <label for="Size">{{size}}</label>
                                 </div>
 
                             </li>
@@ -321,7 +321,7 @@
                             <form>
                                 <ul class="shop-widget-list">
 
-                        {% for w in wifi %}
+                        {% for w in waterproof %}
                             <li>
                                 <div class="shop-widget-content">
                                     <input type="checkbox" id="WaterProof" name="check" onclick="onlyOne(this)">

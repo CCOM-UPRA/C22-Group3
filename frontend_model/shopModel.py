@@ -39,10 +39,56 @@ def getColorsModel():
 
 
 def getVideoResModel():
-    videores = ["480p", "1080p", "4k"]
-    return videores
+   videores = ["480p", "1080p", "4k"]
+   return videores
 
 
 def getWifiModel():
     wifi = ['Yes', 'No']
     return wifi
+
+# new code for buttons
+
+def getMaterialModel():
+
+    conn = pymysql.connect(host='sql9.freemysqlhosting.net', db='sql9607918',
+                           user='sql9607918', password='GFQC75Bg2g', port=3306)
+    c = conn.cursor()
+    c.execute('SELECT DISTINCT material FROM stickers')
+    material = [row[0] for row in c.fetchall()]
+    c.close()
+    conn.close()
+    return material
+
+def getSizeModel():
+
+    conn = pymysql.connect(host='sql9.freemysqlhosting.net', db='sql9607918',
+                           user='sql9607918', password='GFQC75Bg2g', port=3306)
+    c = conn.cursor()
+    c.execute('SELECT DISTINCT size FROM stickers')
+    size = [row[0] for row in c.fetchall()]
+    c.close()
+    conn.close()
+    return size
+
+def getColorModel():
+
+    conn = pymysql.connect(host='sql9.freemysqlhosting.net', db='sql9607918',
+                           user='sql9607918', password='GFQC75Bg2g', port=3306)
+    c = conn.cursor()
+    c.execute('SELECT DISTINCT color FROM stickers')
+    colors = [row[0] for row in c.fetchall()]
+    c.close()
+    conn.close()
+    return colors
+
+def getWaterProofModel():
+
+    conn = pymysql.connect(host='sql9.freemysqlhosting.net', db='sql9607918',
+                           user='sql9607918', password='GFQC75Bg2g', port=3306)
+    c = conn.cursor()
+    c.execute('SELECT DISTINCT waterproof FROM stickers')
+    waterproof = [row[0] for row in c.fetchall()]
+    c.close()
+    conn.close()
+    return waterproof
