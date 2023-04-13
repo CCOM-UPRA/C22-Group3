@@ -16,15 +16,15 @@ productList = [['1', "Tello Drone", 'DJI', 'desc here', 'Yes', '480p', 'White', 
 
 def getProductsModel():
     productList = []
-    conn = pymysql.connect(host='sql9.freemysqlhosting.net', db='sql9602731',
-                           user='sql9602731', password='zChRVJs2Nf', port=3306)
+    conn = pymysql.connect(host='sql9.freemysqlhosting.net', db='sql9607918',
+                           user='sql9607918', password='GFQC75Bg2g', port=3306)
     cur = conn.cursor()
-    cur.execute("SELECT * from products WHERE p_status = 'active'")
+    cur.execute("SELECT * from stickers")
     results = cur.fetchall()
     for res in results:
-        productList.append({"id": res[0], "name": res[1], "brand": res[2], "desc": res[3],
-                    "wifi": res[4], "video_res": res[5], "color": res[6], "img": res[7],
-                    "stock": res[8], "cost": res[9], "price": res[10], "status": res[11]})
+        productList.append({"id": res[0], "name": res[1], "brand": res[11], "desc": res[2],
+                    "waterproof": res[8], "material": res[9], "color": res[10], "img": res[3],
+                    "stock": res[4], "cost": res[6], "price": res[5], "size": res[7]})
     return productList
 
 

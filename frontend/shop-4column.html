@@ -382,7 +382,7 @@
                                             <a href="product-video.html">{{product['name']}}</a>
                                         </h6>
                                         <h6 class="product-price">
-                                            <span>${{product['price']}}0</span>
+                                            <span>${{product['price']}}</span>
                                         </h6>
                                         <button class="product-add" title="Add to Cart">
                                             <i class="fas fa-shopping-basket"></i>
@@ -425,14 +425,14 @@
                                         <a href="product-video.html">{{product['name']}}</a>
                                     </h3>
                                     <div class="view-meta">
-                                        <p>Brand:<span>{{product['brand']}}</span></p><br>
-                                        <p>Wi-fi: {{product['wifi']}}</p><br>
-                                        <p>Video Res: {{product['video_res']}}</p>
+                                        <p>Size:<span>{{product['size']}}</span></p><br>
+                                        <p>WaterProof: {{product['waterproof']}}</p><br>
+                                        <p>Color: {{product['color']}}</p>
                                     </div>
                                     <h3 class="view-price">
-                                        <span>${{product['price']}}0</span>
+                                        <span>${{product['price']}}</span>
                                     </h3>
-                                    <p class="view-desc">Lorem ipsum dolor sit amet consectetur adipisicing elit non tempora magni repudiandae sint suscipit tempore quis maxime explicabo veniam eos reprehenderit fuga</p>
+                                    <p class="view-desc">{{product['desc']}}</p>
                                      <form action="{{url_for('addcart')}}" method="post">
                                          <input type="hidden" name="p_id" value="{{product['id']}}">
                                                <input type="hidden" name="name" value="{{product['name']}}">
