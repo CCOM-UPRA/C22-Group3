@@ -86,16 +86,21 @@ def registerinfo():
     email = request.form.get('email')
     pass1 = request.form.get('pass1')
     pass2 = request.form.get('pass2')
-
+    phone = request.form.get('phone')
+    street = request.form.get('street')
+    city = request.form.get('city')
+    state = request.form.get('state')
+    zipcode = request.form.gey('zipcode')
+    
+    
+    
     if pass1 == pass2:
         # Process register info here
-        # Since it will not be functioning right now, let's simulate we registered with our usual login info:
-        session['amount'] = 0
-        email = 'javier.quinones3@upr.edu'
-        passcode = 'pass1234'
-        logincontroller(email=email, password=passcode)
+        # For now we won't have the register log you in when you create an account but rather take you to the log in screen afterwards
+        registerinfo = [fname, lname, email, pass1, pass2, phone, street, city, state, zipcode]
+        resgistercontroller(registerinfo=registerinfo)
 
-        return redirect('/shop')
+        return redirect('/login')
     else:
         return redirect('/register/<message>')
 
