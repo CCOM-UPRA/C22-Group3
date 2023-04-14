@@ -72,22 +72,36 @@
                             <div style='padding: 0px 30%' class="user-form-group">
                                 <form class="user-form" action="{{url_for('registerinfo')}}" method="POST">
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="fname" placeholder="Enter your first name">
+                                        First Name:
+										<input type="text" class="form-control" name="fname" placeholder="Enter your first name">
                                     </div>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="lname" placeholder="Enter your last name">
+                                        Last Name:
+										<input type="text" class="form-control" name="lname" placeholder="Enter your last name">
                                     </div>
                                     <div class="form-group">
-                                        <input type="email" class="form-control" name="email" placeholder="Enter your email">
+                                        Email:
+										<input type="email" class="form-control" name="email" placeholder="Enter your email">
                                     </div>
                                     <div class="form-group">
-                                        <input type="password" class="form-control" name="pass1" placeholder="Enter your password">
+                                        Password: 
+										<input type="password" class="form-control" name="pass1" placeholder="Enter your password">
                                     </div>
                                     <div class="form-group">
-                                        <input type="password" class="form-control" name="pass2" placeholder="Enter your password again">
+										<input type="password" class="form-control" name="pass2" placeholder="Enter your password again">
                                     </div>
+									<div class="form-group">
+										Phone Number:
+										<input type="tel" class="form-control" name="phonenum" placeholder="Phone number as only digits">
+									</div>
+									<div class="form-group">
+										Address:
+										<input type="text" class="form-control" name="street" placeholder="Street">
+										<input type="text" class="form-control" name="city" placeholder="City">
+										<input type="text" class="form-control" name="state" placeholder="State">
+										<input type="text" class="form-control" name="zipcode" placeholder="Zipcode">
                                     <div class="form-button">
-                                        <button type="submit">register</button>
+										<button type="submit">register</button>
                                     </div>
                                 </form>
                             </div>
