@@ -6,6 +6,7 @@ from frontend_controller.loginController import *
 from frontend_controller.ordersController import *
 from frontend_controller.profileController import *
 from frontend_controller.shopController import *
+from frontend_controller.registerController import *
 
 app = Flask(__name__, template_folder='frontend/')
 app.secret_key = 'akeythatissecret'
@@ -75,7 +76,7 @@ def register(message):
     # sha256_crypt.encrypt(unhashed_password_here)
     # This is the example of hashing I utilize, but there are many forms of using hashing/encryption of passwords
     return render_template('register.html', message=message)
-
+    
 
 @app.route("/registerinfo", methods=['POST'])
 def registerinfo():
@@ -90,15 +91,13 @@ def registerinfo():
     street = request.form.get('street')
     city = request.form.get('city')
     state = request.form.get('state')
-    zipcode = request.form.gey('zipcode')
-    
-    
+    zipcode = request.form.get('zipcode')
     
     if pass1 == pass2:
         # Process register info here
         # For now we won't have the register log you in when you create an account but rather take you to the log in screen afterwards
-        registerinfo = [fname, lname, email, pass1, pass2, phone, street, city, state, zipcode]
-        resgistercontroller(registerinfo=registerinfo)
+        registerinfo = [fname, lname, email, pass1, phone, street, city, state, zipcode]
+        registercontroller(registerinfo=registerinfo)
 
         return redirect('/login')
     else:
