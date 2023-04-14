@@ -25,7 +25,7 @@ def enterpage(message):
 
     if message is None:
         return redirect("/shop")
-    elif message is 'enter':
+    elif message == 'enter':
         return render_template('login (2).html')
     else:
         return render_template('login (2).html', message=message)
@@ -101,13 +101,22 @@ def registerinfo():
 
 
 @app.route("/shop")
-def shop():
+@app.route("/shop/<size>/<waterproof>/<material>/<color>")
+def shop(size=None, waterproof=None, material=None, color=None):
     # This is the shop's Flask portion
     # First we receive the list of products by accessing getProducts() from shopController
-    products = getProducts()
+        # Retrieve products based on whether the page was accessed after filtering or not
+    if size is not None or waterproof is not None or material is not None or color is not None:
+    #    size = None
+    #    waterproof = "NO"
+    #    material = None
+    #    color = "Red"
+        products = getFilteredProducts(size, waterproof, material, color)
+    else:
+        products = getProducts()
 
     # Then we create the shopping cart by accessing getCart in shopController
-    getCart()
+        getCart()
 
     # Find the different filter options for the products by accessing the functions from shopController
     # FILTERS TO BE CONNECTED TO MYSQL BY STUDENTS
@@ -120,13 +129,13 @@ def shop():
     #return render_template("shop-4column.html", products=products, brands=brands,
     #                       colors=colors, videores=videores, wifi=wifi)
 
-    size = getSize()
-    waterproof = getWaterProof()
-    material = getMaterial()
-    colors = getColor()
-
-    return render_template("shop-4column.html", products=products, size=size, waterproof=waterproof,
-                           material=material, colors=colors )
+        size = getSize()
+        waterproof = getWaterProof()
+        material = getMaterial()
+        colors = getColor()
+            
+        return render_template("shop-4column.html", products=products, size=size, waterproof=waterproof,
+                            material=material, colors=colors )
 
 @app.route("/profile")
 def profile():
@@ -258,12 +267,27 @@ def invoice():
     return render_template("invoice.html", order=order, products=products, amount=amount)
 
 
+#@app.route("/filter")
+#def filter():
+    # TO BE CONNECTED TO MYSQL BY STUDENTS
+
+
+
+
+ #   return redirect("/shop")
+#
 @app.route("/filter")
 def filter():
-    # TO BE CONNECTED TO MYSQL BY STUDENTS
-    return redirect("/shop")
+        size = request.args.get('size')
+        waterproof = request.args.get('waterproof')
+        material = request.args.get('material')
+        color = request.args.get('color')
 
+  #  return redirect("/shop/" + size + "/" + waterproof + "/" + material + "/" + color)
+        return redirect("/shop/" + (size or "") + "/" + (waterproof or "") + "/" + (material or "") + "/" + (color or ""))
 
+  #  return redirect("/shop")
+#
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     app.run(debug=True)

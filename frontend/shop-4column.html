@@ -232,8 +232,8 @@
                         -->    
                         <li>
                             <div class="shop-widget-content">
-                                <input type="checkbox" id="Material">
-                                <label for="Material">{{material}}</label>
+                                <input type="radio" id="Mat" value="{{material}}">
+                                <label for="Mat">{{material}}</label>
                             </div>
                         
                         </li>
@@ -256,8 +256,8 @@
                         {% for color in colors %}
                             <li>
                                 <div class="shop-widget-content">
-                                    <input type="checkbox" id="colors">
-                                    <label for="colors">{{color}}</label>
+                                    <input type="radio" id="testing" value="{{color}}">
+                                    <label for="testing">{{color}}</label>
                                 </div>
 
                             </li>
@@ -290,7 +290,7 @@
                         {% for size in size %}
                             <li>
                                 <div class="shop-widget-content">
-                                    <input type="checkbox" id="Size" name="size" value="{{size}}">
+                                    <input type="radio" id="Size" name="size" value="{{size}}">
                                     <label for="Size">{{size}}</label>
                                 </div>
 
@@ -324,8 +324,8 @@
                         {% for w in waterproof %}
                             <li>
                                 <div class="shop-widget-content">
-                                    <input type="checkbox" id="WaterProof" name="check" onclick="onlyOne(this)">
-                                    <label for="WaterProof">{{w}}</label>
+                                    <input type="button" id="WaterProof" name="check">
+                                  <label for="WaterProof"><a href="{{ url_for('filter', waterproof=w) }}"> {{w}}</a></label>   
                                 </div>
 
                             </li>
@@ -582,14 +582,23 @@
         }
         </script>
 
-        <script>
+<script>
+    function onlyOne() {
+    var checkboxes = document.getElementsByName('check')
+    checkboxes.forEach((item) => {
+        if (item !== checkbox) item.checked = false
+    })
+    } 
+</script>
+
+     <!--   <script>
             function onlyOne(checkbox) {
             var checkboxes = document.getElementsByName('check')
             checkboxes.forEach((item) => {
                 if (item !== checkbox) item.checked = false
             })
-        }
-        </script>
+            } 
+        </script>-->
         <!--=====================================
                     JS LINK PART END
         =======================================-->
