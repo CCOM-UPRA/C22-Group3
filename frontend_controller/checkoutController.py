@@ -1,7 +1,7 @@
 from flask import url_for, redirect
-
 from frontend_model.checkoutModel import *
-
+import pymysql
+import datetime
 
 def validateUserCheckout():
     # Find the user in DB via checkoutModel function
@@ -21,5 +21,33 @@ def validateUserCheckout():
             #message = "payment"
             #return redirect(url_for('checkout', message=message))
         else:
+            
+            #add the checkout info into the database, 
+            conn = pymysql.connect(host='sql9.freemysqlhosting.net', db='sql9607918', user='sql9607918', password='GFQC75Bg2g', port=3306)
+            cur = conn.cursor()
+            
+            #create a random trakcing number for now it's just this string
+            traking_num = "123456789123456789"
+            orderinfo = [traking_num, session['total'], u['id']]
+            inf = tuple(orderinfo)
+            #First we create the order. 
+            cur.execute("INSERT INTO orders (tracking_number, price_total, o_status, customer_id) VALUES (%s, %s, 'placed', %s)", inf)
+            conn.commit()
+            #next we need the id of the latest order we just added to the database
+            cur.execute("SELECT MAX(order_id) FROM orders")
+            orderID = cur.fetchall()
+            #now we iterate through every itme in the shopping cart and add it to our contains table
+            for key, item in session['cart'].items():
+                #Need to fix date?
+                dt = datetime.datetime.now()
+                date = dt.strftime("%Y-%m-%d")
+                
+                iteminfo = [key, orderID, item['quantity'], item['price'], date]
+                iteminf = tuple(iteminfo)
+                cur.execute("INSERT INTO cont (sticker_id, order_id, quantity, price, day) VALUES (%s, %s, %s, %s, %s)", iteminf)
+                conn.commit()
+            
+            cur.close()
+            conn.close()
             return redirect("/invoice")
 

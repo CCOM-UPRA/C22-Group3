@@ -25,6 +25,7 @@ def loginmodel(email, password):
     for u in user:
         #print("Hashed password from user: ", u['password'])
         if email == u['email'] and password == u['password']:
+            print("Logging in")
             session['customer'] = u['id']
             # Create the session['customer'] saving the customer ID if user is found
             return "true"
