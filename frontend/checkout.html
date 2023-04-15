@@ -162,12 +162,12 @@
                                         {% if session['cart'] %}
                                          {% for key, item in session['cart'].items() %}
                                         <tr>
-                                            <td class="table-image"> <a href="static/images/product-images/{{item['image']}}">
-                                                <img src="static/images/product-images/{{item['image']}}" alt="product"></a> </td>
+                                            <td class="table-image"> <a href="static/images/product-images/{{item['img']}}">
+                                                <img src="static/images/product-images/{{item['img']}}" alt="product"></a> </td>
                                                 <td class="table-name"><h6>{{item['name']}}</h6></td>
-                                                <td class="table-price"><h6>${{item['price']}}0</h6></td>
+                                                <td class="table-price"><h6>${{item['price']}}</h6></td>
                                                 <td class="table-brand"><h6>{{item['quantity']}}</h6></td>
-                                                 <td class="table-brand"><h6>${{item['total_price']}}0</h6></td>
+                                                 <td class="table-brand"><h6>${{item['total_price']}}</h6></td>
                                                 <td class="table-action">
                                                     <a class="view" href="#" title="Edit Amount" data-bs-toggle="modal" data-bs-target="#product-view-{{key}}"><i class="fas fa-edit"></i></a>
                                                     <a class="trash" href="#" title="Remove Wishlist"><i class="icofont-trash"></i></a>
@@ -238,7 +238,7 @@
                                     <ul>
                                         <li>
                                             <span>Total</span>
-                                            <span>${{session['total']}}0</span>
+                                            <span>${{session['total']}}</span>
                                         </li>
                                     </ul>
                                 </div>
@@ -394,9 +394,10 @@
             </div>
         </div>
 
-
+                            <p>al;kdjflk;ajsd;lkfjal;ksjdfl;kaj</p>
                             <div class="checkout-proced">
                                 <a href="{{url_for('validate')}}" class="btn btn-inline">proceed to checkout</a>
+                                <p>POR QUE PUNETA NO SALE???</p>
                             </div>
                         </div>
                     </div>
