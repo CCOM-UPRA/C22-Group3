@@ -2,6 +2,7 @@ from flask import url_for, redirect
 from frontend_model.checkoutModel import *
 import pymysql
 import datetime
+import random
 
 def validateUserCheckout():
     # Find the user in DB via checkoutModel function
@@ -27,7 +28,7 @@ def validateUserCheckout():
             cur = conn.cursor()
             
             #create a random trakcing number for now it's just this string
-            traking_num = "123456789123456789"
+            traking_num = ''.join([str(random.randint(0, 9)) for _ in range(18)])
             orderinfo = [traking_num, session['total'], u['id']]
             inf = tuple(orderinfo)
             #First we create the order. 
