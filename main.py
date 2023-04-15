@@ -276,14 +276,21 @@ def invoice():
 
  #   return redirect("/shop")
 #
-@app.route("/filter")
+@app.route("/filter", methods=['GET', 'POST'])
 def filter():
-        size = request.args.get('size')
-        waterproof = request.args.get('waterproof')
-        material = request.args.get('material')
-        color = request.args.get('color')
-
-  #  return redirect("/shop/" + size + "/" + waterproof + "/" + material + "/" + color)
+        size = request.form['Size']
+        if size == None:
+            size = 1
+        waterproof = request.form['Waterproof']
+        if waterproof == None:
+            waterproof = 1
+        material = request.form['Mat']
+        if material == None:
+            material = 1
+        color = request.form['testing']
+        if color == None:
+            color = 1
+    #    return redirect("/shop?size={size}&waterproof={waterproof}&material={material}&color={color})
         return redirect("/shop/" + (size or "") + "/" + (waterproof or "") + "/" + (material or "") + "/" + (color or ""))
 
   #  return redirect("/shop")
