@@ -5,6 +5,9 @@ def getProducts():
     products = getProductsModel()
     return products
 
+def getFilteredProducts(size, waterproof, material, color):
+    products = getFilterModel(size, waterproof, material, color)
+    return products
 
 def getSize():
     return getSizeModel()
