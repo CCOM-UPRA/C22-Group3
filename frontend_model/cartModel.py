@@ -39,7 +39,15 @@ def addCartModel(dictitems):
     return
 
 
-def deleteCartItemModel():
+def deleteCartItemModel(id):
+    # get the cart dictionary from the session
+    cart = session.get('cart', {})
+    print(cart)
+    str_id = str(id)
+    del cart[str_id]
+    print(cart)
+    session['cart'] = cart
+    #del session['cart'][id]
     # FOR STUDENT TO ADD
     return
 

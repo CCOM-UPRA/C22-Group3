@@ -219,10 +219,10 @@ def addcart():
     return redirect(request.referrer)
 
 
-@app.route("/delete")
-def delete():
+@app.route('/delete/<int:id>', methods=['POST'])
+def delete(id):
     # TO BE ADDED BY STUDENTS (Editing the session variable cart)
-    deleteCartItem()
+    deleteCartItem(id)
     return redirect(request.referrer)
 
 
