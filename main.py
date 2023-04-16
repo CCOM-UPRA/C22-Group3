@@ -266,9 +266,13 @@ def invoice():
     # > invoiceController
     order = getOrder()
     products = getOrderProducts()
-    # Total amount of items in this simulated order:
-    amount = 3
-    return render_template("invoice.html", order=order, products=products, amount=amount)
+    amount = getamount()
+    totalitem = 0
+    for item in amount:
+        totalitem += item['quantity']
+    user = getUser()
+    date = getdate()
+    return render_template("invoice.html", order=order, products=products, amount=amount, totalitem=totalitem, user=user, date=date)
 
 
 #@app.route("/filter")

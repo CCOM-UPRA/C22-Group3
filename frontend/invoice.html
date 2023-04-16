@@ -121,6 +121,7 @@
         <!--=====================================
                     INVOICE PART START
         =======================================-->
+        {% for order1 in order %}
         <section class="inner-section invoice-part">
             <div class="container">
                 <div class="row">
@@ -136,9 +137,11 @@
                             </div>
                             <div class="account-content">
                                 <div class="invoice-recieved">
-                                    <h6>order tracking number <span>{{order['tracking_num']}}</span></h6>
-                                    <h6>order date <span>{{order['order_date']}}</span></h6>
-                                    <h6>total amount <span>${{order['total']}}</span></h6>
+                                    <h6>order tracking number <span>{{order1['tracking']}}</span></h6>
+                                    {% for dates in date %}
+                                    <h6>order date <span>{{dates['date']}}</span></h6>
+                                    {% endfor %}
+                                    <h6>total amount <span>${{order1['total']}}</span></h6>
                                     <h6>payment method <span>{{order['payment_method']}}</span></h6>
                                 </div>
                             </div>
@@ -153,19 +156,23 @@
                                 <ul class="invoice-details">
                                     <li>
                                         <h6>Order Date</h6>
-                                        <p>{{order['order_date']}}</p>
+                                        {% for dates in date %}
+                                        <p>{{dates['date']}}</p>
+                                        {% endfor %}
                                     </li>
                                     <li>
                                         <h6>Arrival Date</h6>
-                                        <p>{{order['arrival_date']}}</p>
+                                        <p>2023-04-29</p>
                                     </li>
+                                    {% for u in user %}
                                     <li>
                                         <h6>Delivery Address</h6>
-                                        <p>{{order['address_line_1']}}</p>
+                                        <p>{{u['street']}}</p>
                                     </li>
                                     <li>
                                         <h6></h6>
-                                        <p>{{order['address_line_2']}}</p>
+                                        <p>{{u['city']}}, {{u['state']}} &nbsp {{u['zipcode']}}</p>
+                                    {% endfor %}
                                     </li>
                                 </ul>
                             </div>
@@ -180,11 +187,11 @@
                                 <ul class="invoice-details">
                                     <li>
                                         <h6>Total Items</h6>
-                                        <p>{{amount}} items</p>
+                                        <p>{{totalitem}}</p>
                                     </li>
                                     <li>
                                         <h6>Total</h6>
-                                        <p>${{order['total']}}0</p>
+                                        <p>${{order1['total']}}</p>
                                     </li>
 
                                 </ul>
@@ -205,15 +212,14 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                {% for key, product in products.items() %}
+                                    {% for product in products %}
                                     <tr>
-                                       <td class="table-image"><img src="static/images/product-images/{{product['image']}}" alt="product"></td>
+                                       <td class="table-image"><img src="static/images/product-images/{{product['img']}}" alt="product"></td>
                                         <td class="table-name"><h6>{{product['brand']}}</h6></td>
                                         <td class="table-name"><h6>{{product['name']}}</h6></td>
                                         <td class="table-price"><h6>${{product['price']}}</h6></td>
                                         <td class="table-brand"><h6>{{product['quantity']}}</h6></td>
-                                         <td class="table-brand"><h6>${{product['total_price']}}0</h6></td>
-
+                                        <td class="table-brand"><h6>${{product['price'] * product['quantity']}}</h6></td>
                                     </tr>
                                 {% endfor %}
 
@@ -232,6 +238,7 @@
                 </div>
             </div>
         </section>
+        {% endfor %}
         <!--=====================================
                     INVOICE PART END
         =========================================-->
