@@ -116,6 +116,8 @@ def shop():
     else:
         products = getProducts()
 
+    
+    getCart()
     sizeo = getSize()
     waterproofo = getWaterProof()
     materialo = getMaterial()
