@@ -213,147 +213,66 @@
                             </form>
                         </div>
 
-                   <form action="{{url_for('filter')}}" method="POST"> 
+                        <form action="/shop" method="POST"> 
                             <div class="shop-widget">
-                                <h6 class="shop-widget-title">Filter by Material</h6>
-                          <!--       <form> -->
-                                    <ul class="shop-widget-list">
-
-                            {% for material in material %}
-                        <!--
-                            Original text
-                            <li>
-                                <div class="shop-widget-content">
-                                    <input type="checkbox" id="tag1">
-                                    <label for="tag1">{{brand}}</label>
-                                </div>
-
-                            </li>
-                        -->    
-                            <li>
-                                <div class="shop-widget-content">
-                                    <input type="radio" id="Mat" value="{{material}}">
-                                    <label for="Mat">{{material}}</label>
-                                </div>
-                        
-                            </li>
-                            {% endfor %}
-
-                            </ul>
-                                    <button class="shop-widget-btn">
-                                        <i class="fas fa-search"></i>
-                                        <span>Search by Material</span>
-                                    </button>
-                            <!--     </form> -->
+                              <h6 class="shop-widget-title">Filter by Material</h6>
+                              <ul class="shop-widget-list">
+                                {% for material in material %}
+                                <li>
+                                  <div class="shop-widget-content">
+                                    <input type="radio" id="{{material}}" name="Mat" value="{{material}}">
+                                    <label for="{{material}}">{{material}}</label>
+                                  </div>
+                                </li>
+                                {% endfor %}
+                              </ul>
                             </div>
-
-
+                          
                             <div class="shop-widget">
-                                <h6 class="shop-widget-title">Filter by Color</h6>
-                            <!--     <form> -->
-                                    <ul class="shop-widget-list">
-
+                              <h6 class="shop-widget-title">Filter by Color</h6>
+                              <ul class="shop-widget-list">
                                 {% for color in colors %}
                                 <li>
-                                    <div class="shop-widget-content">
-                                        <input type="radio" id="testing" value="{{color}}">
-                                        <label for="testing">{{color}}</label>
-                                    </div>
-
+                                  <div class="shop-widget-content">
+                                    <input type="radio" id="{{color}}" name="Co" value="{{color}}">
+                                    <label for="{{color}}">{{color}}</label>
+                                  </div>
                                 </li>
-                                <!--
-                                    Original text
-                                <li>
-                                    <div class="shop-widget-content">
-                                        <input type="checkbox" id="tag3">
-                                        <label for="tag1">{{color}}</label>
-                                    </div>
-
-                                </li>
-                                -->
                                 {% endfor %}
-
-                                </ul>
-                                    <button class="shop-widget-btn">
-                                        <i class="fas fa-search"></i>
-                                        <span>Search by colors</span>
-                                    </button>
-                                <!-- </form> -->
+                              </ul>
                             </div>
-
-
+                          
                             <div class="shop-widget">
-                                <h6 class="shop-widget-title">Filter by Size</h6>
-                                <!-- <form action="{{url_for('filter')}}" method="post"> -->
-                                    <ul class="shop-widget-list">
-
-                            {% for size in size %}
+                              <h6 class="shop-widget-title">Filter by Size</h6>
+                              <ul class="shop-widget-list">
+                                {% for size in size %}
                                 <li>
-                                    <div class="shop-widget-content">
-                                        <input type="radio" id="Size" name="size" value="{{size}}">
-                                        <label for="Size">{{size}}</label>
-                                    </div>
-
+                                  <div class="shop-widget-content">
+                                    <input type="radio" id="{{size}}" name="Si" value="{{size}}">
+                                    <label for="{{size}}">{{size}}</label>
+                                  </div>
                                 </li>
-                                <!--
-                                    Original text
-                                <li>
-                                    <div class="shop-widget-content">
-                                        <input type="checkbox" id="{{res}}" name="videores" value="{{res}}">
-                                        <label for="tag1">{{res}}</label>
-                                    </div>
-
-                                </li>
-                                -->
-                            {% endfor %}
-
-                            </ul>
-                                    <button class="shop-widget-btn">
-                                        <i class="fas fa-search"></i>
-                                        <span>Search by Size</span>
-                                    </button>
-                                  <!--  <input type="submit" value="Submit">  -->
-                                <!-- </form> -->
+                                {% endfor %}
+                              </ul>
                             </div>
-
-
+                          
                             <div class="shop-widget">
-                                <h6 class="shop-widget-title">Filter if WaterProof</h6>
-                                <!--  <form> -->
-                                    <ul class="shop-widget-list">
-
-                                    {% for w in waterproof %}
-                                    <li>
-                                        <div class="shop-widget-content">
-                                            <input type="radio" id="WaterProof" name="check">
-                                        <label for="WaterProof">{{w}}</label>   
-                                        </div>
-
-                                    </li>
-                                    <!--
-                                        original text
-                                    <li>
-                                        <div class="shop-widget-content">
-                                            <input type="checkbox" id="tag4" name="check" onclick="onlyOne(this)">
-                                            <label for="tag1">{{w}}</label>
-                                        </div>
-
-                                    </li>
-                                    -->
-                                        {% endfor %}
-
-                                    </ul>
-                               <!--  </form> -->
+                              <h6 class="shop-widget-title">Filter if WaterProof</h6>
+                              <ul class="shop-widget-list">
+                                {% for w in waterproof %}
+                                <li>
+                                  <div class="shop-widget-content">
+                                    <input type="radio" id="{{w}}" name="Wat" value="{{w}}">
+                                    <label for="{{w}}">{{w}}</label>   
+                                  </div>
+                                </li>
+                                {% endfor %}
+                              </ul>
                             </div>
-               <!--     </form> -->
-                   <!--    <div class="shop-widget">
-                            <button class="shop-widget-btn">
-                                    <i class="fas fa-search"></i>
-                                    <span>Search by All Filters</span>
-                                </button>
-                        </div>--> 
-                        <input type="submit" value="Submit">
-                    </form>    
+                          
+                            <input type="submit" value="Submit">
+                          </form>
+                          
                     </div>
 
 

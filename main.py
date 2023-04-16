@@ -104,43 +104,24 @@ def registerinfo():
         return redirect('/register/<message>')
 
 
-@app.route("/shop")
-@app.route("/shop/<size>/<waterproof>/<material>/<color>")
-def shop(size=None, waterproof=None, material=None, color=None):
-    # This is the shop's Flask portion
-    # First we receive the list of products by accessing getProducts() from shopController
-        # Retrieve products based on whether the page was accessed after filtering or not
-    if size is not None or waterproof is not None or material is not None or color is not None:
-    #    size = None
-    #    waterproof = "NO"
-    #    material = None
-    #    color = "Red"
+@app.route("/shop", methods=["GET", "POST"])
+def shop():
+    if request.method == "POST" and request.form:
+        size = request.form.get("Si")
+        waterproof = request.form.get("Wat")
+        material = request.form.get("Mat")
+        color = request.form.get("Co")
         products = getFilteredProducts(size, waterproof, material, color)
     else:
         products = getProducts()
 
-    # Then we create the shopping cart by accessing getCart in shopController
-        getCart()
+    sizeo = getSize()
+    waterproofo = getWaterProof()
+    materialo = getMaterial()
+    colorso = getColor()
 
-    # Find the different filter options for the products by accessing the functions from shopController
-    # FILTERS TO BE CONNECTED TO MYSQL BY STUDENTS
-    #brands = getBrands()
-    #colors = getColors()
-    #videores = getVideoRes()
-    #wifi = getWifi()
-
-    # Redirect to shop page with the variables used
-    #return render_template("shop-4column.html", products=products, brands=brands,
-    #                       colors=colors, videores=videores, wifi=wifi)
-
-        size = getSize()
-        waterproof = getWaterProof()
-        material = getMaterial()
-        colors = getColor()
-            
-        return render_template("shop-4column.html", products=products, size=size, waterproof=waterproof,
-                            material=material, colors=colors )
-
+    return render_template("shop-4column.html", products=products, size=sizeo, waterproof=waterproofo,
+                           material=materialo, colors=colorso)
 @app.route("/profile")
 def profile():
     # To open the user's profile page
