@@ -181,15 +181,13 @@ def password():
 
 @app.route("/orders")
 def orders():
-    # TO BE CONNECTED TO MYSQL BY STUDENTS
     # Redirects us to the orders list page of the user
     # Fetches each order and its products from ordersController
     orders = getOrder()
-    products = getProduct()
-    print(products)
     user = getUser()
-
-    return render_template("orderlist.html", orders=orders, products=products, user=user)
+    for order in orders:
+        print(order['products'])
+    return render_template("orderlist.html", orders=orders, user=user)
 
 
 @app.route("/addcart", methods=["POST"])

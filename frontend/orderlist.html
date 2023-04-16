@@ -301,7 +301,7 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                {% for product in products %}
+                                                {% for product in order['products'] %}
                                                     <tr>
                                                         <td class="table-serial"><h6>{{product['s_name']}}</h6></td>
                                                         <td class="table-image"><img src="static/images/product-images/{{product['img']}}" alt="product"></td>
