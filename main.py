@@ -184,12 +184,12 @@ def orders():
     # TO BE CONNECTED TO MYSQL BY STUDENTS
     # Redirects us to the orders list page of the user
     # Fetches each order and its products from ordersController
-    order1 = getorder1()
-    products1 = getorder1products()
-    order2 = getorder2()
-    products2 = getorder2products()
+    orders = getOrder()
+    products = getProduct()
+    print(products)
+    user = getUser()
 
-    return render_template("orderlist.html", order1=order1, products1=products1, order2=order2, products2=products2)
+    return render_template("orderlist.html", orders=orders, products=products, user=user)
 
 
 @app.route("/addcart", methods=["POST"])

@@ -1,3 +1,6 @@
+import pymysql
+from flask import session
+
 # Dictionary uniter
 def MagerDicts(dict1, dict2):
     if isinstance(dict1, list) and isinstance(dict2, list):
@@ -6,87 +9,30 @@ def MagerDicts(dict1, dict2):
         return dict(list(dict1.items()) + list(dict2.items()))
     return False
 
+def getOrderModel():
+    orderlist = []
+    conn = pymysql.connect(host='sql9.freemysqlhosting.net', db='sql9607918',
+                           user='sql9607918', password='GFQC75Bg2g', port=3306)
+    cur = conn.cursor()
+    cur.execute("SELECT DISTINCT tracking_number, price_total, day, order_id FROM orders NATURAL JOIN cont WHERE customer_id = %s;", session['customer'])
+    results = cur.fetchall()
+    for res in results:
+        orderlist.append({"tracking": res[0], "total": res[1], "date": res[2], "o_id": res[3]})
+    cur.close()
+    conn.close()
 
-# Simulated database of orders and their products
-# order1 contains productsOrder1...
-order1 = {"tracking_num": "71287249",
-    "order_date": "01/17/23",
-    "arrival_date": "01/20/23",
-    "address_line_1": "Vista Azulin Calle 11 L13",
-    "address_line_2": "Arecibor Puerto Ricor, 00614",
-    "total": 1197.00,
-    "amount": 3,
-    "payment_method": "Mastercard",
-    "status": 'shipped'}
+    return orderlist
 
-order2 = {"tracking_num": "92391290",
-    "order_date": "01/20/23",
-    "arrival_date": "01/23/23",
-    "address_line_1": "Vista Azulin Calle 11 L13",
-    "address_line_2": "Arecibor Puerto Ricor, 00614",
-    "total": 629.00,
-    "amount": 3,
-    "payment_method": "Mastercard",
-    "status": 'delivered'}
+def getProductModel():
+    productlist = []
+    conn = pymysql.connect(host='sql9.freemysqlhosting.net', db='sql9607918',
+                           user='sql9607918', password='GFQC75Bg2g', port=3306)
+    cur = conn.cursor()
+    cur.execute("SELECT s_name, image_link, s_brand, price, quantity FROM orders NATURAL JOIN cont NATURAL JOIN stickers WHERE customer_id = %s GROUP BY s_name", session['customer'])
+    results = cur.fetchall()
+    for res in results:
+        productlist.append({"s_name": res[0], "img": res[1], "brand": res[2], "price": res[3], "quantity": res[4],})
+    cur.close()
+    conn.close()
 
-productDict1 = {"1": {
-    "image": 'ruko_f11_pro.jpg',
-    "name": 'F11 Pro',
-    "brand": 'Ruko',
-    "price": 399.00,
-    "quantity": 1,
-    "total_price": 399.00
-}}
-
-productDict2 = {"2": {
-    "image": 'dji_tello.jpg',
-    "name": 'Tello Drone',
-    "brand": 'DJI',
-    "price": 89.00,
-    "quantity": 2,
-    "total_price": 178.00
-}}
-
-productsOrder1 = productDict1
-productsOrder1 = MagerDicts(productsOrder1, productDict2)
-
-productDict3 = {"3": {
-    "image": 'parrot_bebop_2.jpg',
-    "name": 'Bebop 2',
-    "brand": 'Parrot',
-    "price": 270.00,
-    "quantity": 2,
-    "total_price": 540.00
-}}
-
-productDict4 = {"4": {
-    "image": 'dji_tello.jpg',
-    "name": 'Tello Drone',
-    "brand": 'DJI',
-    "price": 89.00,
-    "quantity": 1,
-    "total_price": 89.00
-}}
-
-productsOrder2 = productDict3
-productsOrder2 = MagerDicts(productsOrder2, productDict4)
-
-
-def getorder1M():
-    return order1
-
-
-def getorder2M():
-    return order2
-
-
-def getorder1prodM():
-    return productsOrder1
-
-
-def getorder2prodM():
-    return productsOrder2
-
-
-
-
+    return productlist
