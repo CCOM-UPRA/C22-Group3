@@ -98,7 +98,7 @@ def getWaterProofModel():
 
 
 
-def getFilterModel(size, waterproof, material, color):
+def getFilterModel(size, waterproof, material, color, order):
     connection = pymysql.connect(host='sql9.freemysqlhosting.net', db='sql9607918',
                                  user='sql9607918', password='GFQC75Bg2g', port=3306)
     cursor = connection.cursor()
@@ -121,6 +121,11 @@ def getFilterModel(size, waterproof, material, color):
     if color is not None:
         query += " AND color = %s"
         values.append(color)
+
+    if order == "DESC":
+        query += " ORDER BY price DESC"
+    elif order == "ASC":
+        query += " ORDER BY price ASC"
 
     cursor.execute(query, values)
 

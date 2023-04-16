@@ -201,80 +201,87 @@
 
                         <div class="shop-widget">
                             <h6 class="shop-widget-title">Filter by Price</h6>
-                            <form>
-                                <div class="shop-widget-group">
-                                    <input type="text" placeholder="Min - 00">
-                                    <input type="text" placeholder="Max - 5k">
+                            <form action="/shop" method="POST"> 
+                                <div class="shop-widget-list">
+                                    <input type="radio" id="ASC" name="Order" value="ASC">
+                                    <label for="ASC">Ascending</label>
+                                    <input type="radio" id="DESC" name="Order" value="DESC">
+                                    <label for="DESC">Descending</label>
                                 </div>
-                                <button class="shop-widget-btn">
-                                    <i class="fas fa-search"></i>
-                                    <span>search</span>
-                                </button>
-                            </form>
-                        </div>
-
-                        <form action="/shop" method="POST"> 
-                            <div class="shop-widget">
-                              <h6 class="shop-widget-title">Filter by Material</h6>
-                              <ul class="shop-widget-list">
-                                {% for material in material %}
-                                <li>
-                                  <div class="shop-widget-content">
-                                    <input type="radio" id="{{material}}" name="Mat" value="{{material}}">
-                                    <label for="{{material}}">{{material}}</label>
-                                  </div>
-                                </li>
-                                {% endfor %}
-                              </ul>
-                            </div>
-                          
-                            <div class="shop-widget">
-                              <h6 class="shop-widget-title">Filter by Color</h6>
-                              <ul class="shop-widget-list">
-                                {% for color in colors %}
-                                <li>
-                                  <div class="shop-widget-content">
-                                    <input type="radio" id="{{color}}" name="Co" value="{{color}}">
-                                    <label for="{{color}}">{{color}}</label>
-                                  </div>
-                                </li>
-                                {% endfor %}
-                              </ul>
-                            </div>
-                          
-                            <div class="shop-widget">
-                              <h6 class="shop-widget-title">Filter by Size</h6>
-                              <ul class="shop-widget-list">
-                                {% for size in size %}
-                                <li>
-                                  <div class="shop-widget-content">
-                                    <input type="radio" id="{{size}}" name="Si" value="{{size}}">
-                                    <label for="{{size}}">{{size}}</label>
-                                  </div>
-                                </li>
-                                {% endfor %}
-                              </ul>
-                            </div>
-                          
-                            <div class="shop-widget">
-                              <h6 class="shop-widget-title">Filter if WaterProof</h6>
-                              <ul class="shop-widget-list">
-                                {% for w in waterproof %}
-                                <li>
-                                  <div class="shop-widget-content">
-                                    <input type="radio" id="{{w}}" name="Wat" value="{{w}}">
-                                    <label for="{{w}}">{{w}}</label>   
-                                  </div>
-                                </li>
-                                {% endfor %}
-                              </ul>
-                            </div>
-                          
-                            <input type="submit" value="Submit">
-                          </form>
-                          
+                                <input type="submit" value="Search">
+                            
+                                <div class="shop-widget">
+                                <h6 class="shop-widget-title">Filter by Material</h6>
+                                <ul class="shop-widget-list">
+                                    {% for material in material %}
+                                    <li>
+                                    <div class="shop-widget-content">
+                                        <input type="radio" id="{{material}}" name="Mat" value="{{material}}">
+                                        <label for="{{material}}">{{material}}</label>
+                                    </div>
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                                    <div>
+                                        <input type="submit" value="Search">
+                                    </div>
+                                </div>
+                            
+                                <div class="shop-widget">
+                                <h6 class="shop-widget-title">Filter by Color</h6>
+                                <ul class="shop-widget-list">
+                                    {% for color in colors %}
+                                    <li>
+                                    <div class="shop-widget-content">
+                                        <input type="radio" id="{{color}}" name="Co" value="{{color}}">
+                                        <label for="{{color}}">{{color}}</label>
+                                    </div>
+                                    </li>
+                                    {% endfor %}
+                                    <div>
+                                        <input type="submit" value="Search">
+                                    </div>
+                                </ul>
+                                </div>
+                            
+                                <div class="shop-widget">
+                                <h6 class="shop-widget-title">Filter by Size</h6>
+                                <ul class="shop-widget-list">
+                                    {% for size in size %}
+                                    <li>
+                                    <div class="shop-widget-content">
+                                        <input type="radio" id="{{size}}" name="Si" value="{{size}}">
+                                        <label for="{{size}}">{{size}}</label>
+                                    </div>
+                                    </li>
+                                    {% endfor %}
+                                    <div>
+                                        <input type="submit" value="Search">
+                                    </div>
+                                </ul>
+                                </div>
+                            
+                                <div class="shop-widget">
+                                <h6 class="shop-widget-title">Filter if WaterProof</h6>
+                                <ul class="shop-widget-list">
+                                    {% for w in waterproof %}
+                                    <li>
+                                    <div class="shop-widget-content">
+                                        <input type="radio" id="{{w}}" name="Wat" value="{{w}}">
+                                        <label for="{{w}}">{{w}}</label>   
+                                    </div>
+                                    </li>
+                                    {% endfor %}
+                                    <div>
+                                        <input type="submit" value="Search">
+                                    </div>
+                                </ul>
+                                </div>
+                            
+                                <input type="submit" value="Search All Filters">
+                            </form>                          
+                         </div>
                     </div>
-
 
                     <div class="col-lg-9">
                         <div class="row">
