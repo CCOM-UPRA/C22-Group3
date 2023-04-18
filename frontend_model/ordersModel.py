@@ -19,6 +19,7 @@ def getOrderModel():
     
     for res in results:
         products = []
+        amountproducts = 0
         info = [session['customer'], res[3]]
         inf = tuple(info)
         cur.execute("SELECT s_name, image_link, s_brand, price, quantity FROM orders NATURAL JOIN cont NATURAL JOIN stickers WHERE customer_id = %s AND order_id = %s GROUP BY s_name", inf)
@@ -26,7 +27,8 @@ def getOrderModel():
         
         for res2 in results2:
             products.append({"s_name": res2[0], "img": res2[1], "brand": res2[2], "price": res2[3], "quantity": res2[4],})
-        orderlist.append({"tracking": res[0], "total": res[1], "date": res[2], "o_id": res[3], "products": products})
+            amountproducts = amountproducts + res2[4]
+        orderlist.append({"tracking": res[0], "total": res[1], "date": res[2], "o_id": res[3], "products": products, "amount": amountproducts})
     
     cur.close()
     conn.close()

@@ -193,9 +193,11 @@ def orders():
     # Fetches each order and its products from ordersController
     orders = getOrdero()
     user = getUser()
+    amount = 0
     for order in orders:
         print(order['products'])
-    return render_template("orderlist.html", orders=orders, user=user)
+        amount = amount + 1
+    return render_template("orderlist.html", orders=orders, user=user, amount = amount)
 
 
 @app.route("/addcart", methods=["POST"])
