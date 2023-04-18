@@ -1,45 +1,140 @@
+import pymysql
+
 # This is our simulation of the database
 # We have two products here.
 # The students must create their own productList when working on their eCommerce site
 # Product images are loaded into static/images/product-images/
-# Done in array instead of dictionaries to portray the differences    
-#====================================New Code testing===================================================================================================================================================================================                        
-                        #New order
-                              # Make sure ImageLink is ID+Name.png (DeleteSpaces,lowercase)
-# ID 0, Name 1, ImageLink 2, Stock 3, 
-# Size 4
-# WaterProof 5, Price 6, Cost 7,
-# Material 8, 
-# Color 9, Brand 10, Description 11
+# Done in array instead of dictionaries to portray the differences
+#               Old order of ProductList.append
+# "id": res[0], "name": res[1], "brand": res[2], "desc": res[3]
+# "wifi": res[4], "video_res": res[5], "color": res[6], "img": res[7],
+# "stock": res[8], "cost": res[9], "price": res[10], "status": res[11]
 
-newproductList = [['1','Bad Bunny Icon','1badbunnyicon.png','13','Custom','Yes','15','6.5','Solid','Red','Bad Bunny','The iconic heart from Bad Bunnys album art.'],
-                  ['2','Bugatti Logo','2bugattilogo.png','7','Oval','Yes','9','5','Solid','Red','Bad Bunny','The iconic heart from Bad Bunnys album art.']]
+productList = [['1', "Tello Drone", 'DJI', 'desc here', 'Yes', '480p', 'White', 'dji_tello.jpg', '15', 'active', '89', '89'],
+               ['2', 'Bebop 2', 'Parrot', 'desc', 'Yes', '1080p', 'Red', 'parrot_bebop_2.jpg', '3', 'active', '270', '290']]
 
-#=========================================================================================================================================================================================================================================
-                                #new Model     
-def getNewProductsModel():
-    return newproductList
 
-def sort_newproductlistAscending(awa):
-    awa = sorted(newproductList, key=lambda product: int(product[6]))
-    return awa
+def getProductsModel():
+    productList = []
+    conn = pymysql.connect(host='sql9.freemysqlhosting.net', db='sql9607918',
+                           user='sql9607918', password='GFQC75Bg2g', port=3306)
+    cur = conn.cursor()
+    cur.execute("SELECT * from stickers")
+    results = cur.fetchall()
+    for res in results:
+        productList.append({"id": res[0], "name": res[1], "brand": res[11], "desc": res[2],
+                    "waterproof": res[8], "material": res[9], "color": res[10], "img": res[3],
+                    "stock": res[4], "cost": res[6], "price": res[5], "size": res[7]})
+    cur.close()
+    conn.close()
+    return productList
 
-def sort_newproductlistDescending(ewe):
-   ewe = sorted(newproductList, key=lambda product: int(product[6]),reverse = True)        
-   return ewe
 
-def getSizeModel():
-    size = ["Square 5x5", "Square 3x3","Circle","Bumper","Oval","Custom"]
-    return size
 
-def getWaterProofModel():
-    waterproof = ['Yes', 'No']
-    return waterproof
+def getBrandsModel():
+    # Simulating grabbing these filters via SQL from the database
+    brands = ["DJI", "Ruko", "Parrot"]
+    return brands
+
+def getColorsModel():
+    colors = ["White", "Gray", "Red"]
+    return colors
+
+
+def getVideoResModel():
+   videores = ["480p", "1080p", "4k"]
+   return videores
+
+
+def getWifiModel():
+    wifi = ['Yes', 'No']
+    return wifi
+
+# new code for buttons
 
 def getMaterialModel():
-    material = ["Solid","Glossy","Metallic"]
+
+    conn = pymysql.connect(host='sql9.freemysqlhosting.net', db='sql9607918',
+                           user='sql9607918', password='GFQC75Bg2g', port=3306)
+    c = conn.cursor()
+    c.execute('SELECT DISTINCT material FROM stickers')
+    material = [row[0] for row in c.fetchall()]
+    c.close()
+    conn.close()
     return material
 
-def getPrimaryColorModel():
-    primarycolor = ["Rainbow","Monocrome","Red","Blue","Yellow","Orange","Green","Purple","Pink","Brown"]
-    return primarycolor
+def getSizeModel():
+
+    conn = pymysql.connect(host='sql9.freemysqlhosting.net', db='sql9607918',
+                           user='sql9607918', password='GFQC75Bg2g', port=3306)
+    c = conn.cursor()
+    c.execute('SELECT DISTINCT size FROM stickers')
+    size = [row[0] for row in c.fetchall()]
+    c.close()
+    conn.close()
+    return size
+
+def getColorModel():
+
+    conn = pymysql.connect(host='sql9.freemysqlhosting.net', db='sql9607918',
+                           user='sql9607918', password='GFQC75Bg2g', port=3306)
+    c = conn.cursor()
+    c.execute('SELECT DISTINCT color FROM stickers')
+    colors = [row[0] for row in c.fetchall()]
+    c.close()
+    conn.close()
+    return colors
+
+def getWaterProofModel():
+
+    conn = pymysql.connect(host='sql9.freemysqlhosting.net', db='sql9607918',
+                           user='sql9607918', password='GFQC75Bg2g', port=3306)
+    c = conn.cursor()
+    c.execute('SELECT DISTINCT waterproof FROM stickers')
+    waterproof = [row[0] for row in c.fetchall()]
+    c.close()
+    conn.close()
+    return waterproof
+
+
+
+def getFilterModel(size, waterproof, material, color, order):
+    connection = pymysql.connect(host='sql9.freemysqlhosting.net', db='sql9607918',
+                                 user='sql9607918', password='GFQC75Bg2g', port=3306)
+    cursor = connection.cursor()
+
+    query = "SELECT * FROM stickers WHERE 1=1"
+    values = []
+
+    if size is not None:
+        query += " AND size = %s"
+        values.append(size)
+
+    if waterproof is not None:
+        query += " AND waterproof = %s"
+        values.append(waterproof)
+
+    if material is not None:
+        query += " AND material = %s"
+        values.append(material)
+
+    if color is not None:
+        query += " AND color = %s"
+        values.append(color)
+
+    if order == "DESC":
+        query += " ORDER BY price DESC"
+    elif order == "ASC":
+        query += " ORDER BY price ASC"
+
+    cursor.execute(query, values)
+
+    productList = []
+    results = cursor.fetchall()
+    for res in results:
+        productList.append({"id": res[0], "name": res[1], "brand": res[11], "desc": res[2],
+                            "waterproof": res[8], "material": res[9], "color": res[10], "img": res[3],
+                            "stock": res[4], "cost": res[6], "price": res[5], "size": res[7]})
+    cursor.close()
+    connection.close()
+    return productList

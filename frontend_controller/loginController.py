@@ -13,6 +13,7 @@ def logincontroller(email, password):
 
     if result is "true":
         # If user exists, enter shop
+        print("going to shop")
         return redirect("/shop")
     else:
         # If user doesn't exist, return to login and trigger error message

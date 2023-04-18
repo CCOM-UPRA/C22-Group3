@@ -1,12 +1,19 @@
-
-# Simulated tuple from customer database
-# By order: customer ID, first name, last name, address line 1, address line 2, city, state, zip code, email
-# password, phone number, payment card name, payment card type, payment card number, payment card expiration date, customer status
-
-user = [1, "Javier", "Quiñones", "Vista Rojas", "Calle 10 L14", "Arecibo", "Puerto Rico", "00612", "javier.quinones3@upr.edu",
-        "pass1234", 7871231234, "Javier Quiñones", "Mastercard", 1234123412341234, '2023-01-20', "active"]
+import pymysql
+from flask import session
 
 
-def getUserModel():
+def validateUserModel():
+    user = []
+    # Find user in DB according to customer ID saved in session
+    conn = pymysql.connect(host='sql9.freemysqlhosting.net', db='sql9607918',
+                           user='sql9607918', password='GFQC75Bg2g', port=3306)
+    cur = conn.cursor()
+    cur.execute("SELECT * from customers WHERE customer_id = %s", session['customer'])
+
+    userFound = cur.fetchall()
+    for users in userFound:
+        user.append({"id": users[0], "name": users[1], "last_name": users[2], "city": users[7],
+                     "state": users[8], "zipcode": users[9], "email": users[3], "password": users[4],
+                     "phone_number": users[5], "status": users[10], "street": users[6]})
+
     return user
-

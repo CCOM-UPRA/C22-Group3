@@ -1,3 +1,5 @@
+import pymysql
+from flask import session
 
 def MagerDicts(dict1, dict2):
     if isinstance(dict1, list) and isinstance(dict2, list):
@@ -6,41 +8,62 @@ def MagerDicts(dict1, dict2):
         return dict(list(dict1.items()) + list(dict2.items()))
     return False
 
-orderDict = {
-    "tracking_num": "71287249",
-    "order_date": "01/17/23",
-    "arrival_date": "01/20/23",
-    "address_line_1": "Vista Azulin Calle 11 L13",
-    "address_line_2": "Arecibor Puerto Ricor, 00614",
-    "total": 1197.00,
-    "payment_method": "Mastercard"
-}
-
-productDict1 = {"1":{
-    "image": 'ruko_f11_pro.jpg',
-    "name": 'F11 Pro',
-    "brand": 'Ruko',
-    "price": 399.00,
-    "quantity": 1,
-    "total_price": 399.00
-}}
-
-productDict2 = {"2":{
-    "image": 'dji_tello.jpg',
-    "name": 'Tello Drone',
-    "brand": 'DJI',
-    "price": 89.00,
-    "quantity": 2,
-    "total_price": 178.00
-}}
-
-products = productDict1
-products = MagerDicts(products, productDict2)
-
-
 def getOrderModel():
-    return orderDict
+    orderlist = []
+    conn = pymysql.connect(host='sql9.freemysqlhosting.net', db='sql9607918',
+                           user='sql9607918', password='GFQC75Bg2g', port=3306)
+    cur = conn.cursor()
+    #cur.execute("SELECT MAX(order_id) from orders WHERE customer_id = %s", session['customer'])
+    cur.execute("SELECT tracking_number, price_total FROM orders WHERE order_id = (SELECT MAX(order_id) FROM orders)AND customer_id = %s", session['customer'])
+    results = cur.fetchall()
+    for res in results:
+        orderlist.append({"tracking": res[0], "total": res[1]})
+    cur.close()
+    conn.close()
+
+    return orderlist
 
 
 def getProductsModel():
-    return products
+    productlist = []
+    conn = pymysql.connect(host='sql9.freemysqlhosting.net', db='sql9607918',
+                           user='sql9607918', password='GFQC75Bg2g', port=3306)
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM stickers NATURAL JOIN (SELECT sticker_id, quantity FROM cont WHERE order_id = (SELECT MAX(order_id) from orders WHERE customer_id = %s)) AS alias", session['customer'])
+    results = cur.fetchall()
+    for res in results:
+        productlist.append({"id": res[0], "name": res[1], "brand": res[11], "desc": res[2],
+                    "waterproof": res[8], "material": res[9], "color": res[10], "img": res[3],
+                    "stock": res[4], "cost": res[6], "price": res[5], "size": res[7], "quantity": res[12]})
+    cur.close()
+    conn.close()
+
+    return productlist
+
+def getamountModel():
+    amount = []
+    conn = pymysql.connect(host='sql9.freemysqlhosting.net', db='sql9607918',
+                           user='sql9607918', password='GFQC75Bg2g', port=3306)
+    cur = conn.cursor()
+    cur.execute("SELECT sticker_id, quantity FROM cont NATURAL JOIN orders WHERE order_id = (SELECT MAX(order_id) from orders WHERE customer_id = %s)", session['customer'])
+    results = cur.fetchall()
+    for res in results:
+        amount.append({"sticker_id": res[0], "quantity": res[1]})
+    cur.close()
+    conn.close()
+
+    return amount
+
+def getdateModel():
+    date = []
+    conn = pymysql.connect(host='sql9.freemysqlhosting.net', db='sql9607918',
+                           user='sql9607918', password='GFQC75Bg2g', port=3306)
+    cur = conn.cursor()
+    cur.execute("SELECT DISTINCT day FROM cont WHERE order_id = (SELECT MAX(order_id) FROM orders WHERE customer_id = %s)", session['customer'])
+    results = cur.fetchall()
+    for res in results:
+        date.append({"date": res[0]})
+    cur.close()
+    conn.close()
+
+    return date

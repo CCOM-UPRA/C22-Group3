@@ -1,18 +1,13 @@
 from frontend_model.shopModel import *
-#=========================================================================================================================================================================================================================================
-#new controller
 
-def getNewProducts():
-    newproducts = getNewProductsModel()
-    return newproducts
 
-def getNewProductAscending():
-    newproducts = sort_newproductlistAscending(getNewProductsModel())
-    return newproducts
+def getProducts():
+    products = getProductsModel()
+    return products
 
-def getNewProductDescending():
-    newproducts = sort_newproductlistDescending(getNewProductsModel())
-    return newproducts
+def getFilteredProducts(size, waterproof, material, color, order):
+    products = getFilterModel(size, waterproof, material, color, order)
+    return products
 
 def getSize():
     return getSizeModel()
@@ -23,5 +18,17 @@ def getWaterProof():
 def getMaterial():
     return getMaterialModel()
 
-def getPrimaryColor():
-    return getPrimaryColorModel()
+def getColor():
+    return getColorModel()
+
+def getBrands():
+    return getBrandsModel()
+
+def getVideoRes():
+    return getVideoResModel()
+#old
+def getColors():
+    return getColorsModel()
+
+def getWifi():
+    return getWifiModel()

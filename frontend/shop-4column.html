@@ -22,18 +22,18 @@
         =======================================-->
 
         <!-- WEBPAGE TITLE -->
-        <title>Sticker Shop</title>
+        <title>Shop 4 Column - Greeny</title>
 
         <!--=====================================
                     CSS LINK PART START
         =======================================-->
-
+        <!-- Google fonts links -->  
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Tilt+Prism&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Tilt+Prism&display=swap" rel="stylesheet">    
 
         <!-- FAVICON -->
-        <link rel="icon" href="{{url_for('static', filename='images/favicon.ico')}}">
+        <link rel="icon" href="{{url_for('static', filename='images/favicon.png')}}">
 
         <!-- FONTS -->
          <link rel="stylesheet" href="{{url_for('static', filename='fonts/flaticon/flaticon.css')}}">
@@ -58,6 +58,8 @@
     <body ng-app="">
         <div class="backdrop"></div>
         <a class="backtop fas fa-arrow-up" href="#"></a>
+
+
     
         <!--=====================================
                     HEADER PART START
@@ -68,12 +70,12 @@
                 <div class="header-content">
                     <div class="header-media-group">
                         <button class="header-user"><img src="static/images/user.png" alt="user"></button>
-                        <a href="index.html"><img src="static/images/logo.png" alt="logo"></a>
+                        <a href="index.html"><img src="static/images/brand/logo_morro_pr.png" alt="logo"></a>
                         <button class="header-src"><i class="fas fa-search"></i></button>
                     </div>
 
                     <a href="index.html" class="header-logo">
-                        <img src="/static/images/brand/logo_morro_pr.png" alt="logo">
+                        <img src="static/images/brand/logo_morro_pr.png" alt="logo" width="10">
                     </a>
 
                     {% if 'customer' in session %}
@@ -87,7 +89,7 @@
                     </ul>
                     {% else %}
                     <ul class="dropdown">
-                    <a class="navbar-link " href="{{url_for('enterpage')}}">Login</a>
+                    <a class="navbar-link " href="{{url_for('enterpage', message='enter')}}">Login</a>
                     </ul>
                     {% endif %}
 
@@ -101,9 +103,9 @@
                         <button class="header-widget header-cart" title="Cartlist">
                             <i class="fas fa-shopping-basket"></i>
                             <sup>
-                            {{amount}}</sup>
+                            {{session['amount']}}</sup>
 
-                            <span>total price<small>${{total}}0</small></span>
+                            <span>total price<small>${{session['total']}}</small></span>
                         </button>
                     </div>
                 </div>
@@ -121,7 +123,7 @@
             <div class="cart-header">
                 <div class="cart-total">
                     <i class="fas fa-shopping-basket"></i>
-                    <span>total item (3)</span>
+                    <span>total item ({{session['amount']}})</span>
                 </div>
                 <button class="cart-close"><i class="icofont-close"></i></button>
             </div>
@@ -131,15 +133,16 @@
                     {% for key, item in session['cart'].items() %}
                 <li class="cart-item">
                     <div class="cart-media">
-                        <a href="#"><img src="/static/images/product-images/naruto_sticker.png" alt="product"></a>
-                        <form action="{{url_for('delete', ID = key)}}">
+                        <a href="static/images/product-images/{{item['image']}}">
+                            <img src="static/images/product-images/{{item['image']}}" alt="product"></a>
+                        <form action="{{url_for('delete', id=key)}}" method="POST">
                         <button class="cart-delete"><i class="far fa-trash-alt"></i></button>
                         </form>
                     </div>
                     <div class="cart-info-group">
                         <div class="cart-info">
                             <h6><a href="product-single.html">{{item['name']}}</a></h6>
-                            <p>Unit Price - {{item['price']}}</p>
+                            <p>Unit Price - ${{item['price']}}</p>
                         </div>
                         <div class="cart-action-group">
                             <div class="product-action">
@@ -157,12 +160,14 @@
                     {% endfor %}
                 {% endif %}
             </ul>
+            {% if 'cart' in session %}
             <div class="cart-footer">
                 <a class="cart-checkout-btn" href="{{url_for('checkout')}}">
                     <span class="checkout-label">Proceed to Checkout</span>
-                    <span class="checkout-price">${{total}}</span>
+                    <span class="checkout-price">${{session['total']}}</span>
                 </a>
             </div>
+            {% endif %}
         </aside>
 
         <!--=====================================
@@ -173,12 +178,12 @@
         <!--=====================================
                     BANNER PART START
         =======================================-->
-        <section class="inner-section single-banner" style="background: url(/static/images/brand/background_de_stickers.jpg) no-repeat center;">
+        <section class="inner-section single-banner" style="background: url(static/images/sticker_background.jpg) no-repeat center;">
             <div class="container">
-                <h2 style="color: white; font-family: 'Tilt Prism', cursive; font-size: 10em; ">Stickers!</h2>
-                <!--<ol class="breadcrumb">
+                <h2 style="color: white; font-family: 'Tilt Prism', cursive; font-size: 11em; ">Stickers!</h2> <br> <br>
+                <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="#">Shop/</a></li>
-                </ol>-->
+                </ol>
             </div>
         </section>
         <!--=====================================
@@ -195,141 +200,88 @@
                     <div class="col-lg-3">
 
                         <div class="shop-widget">
-                            <h6 class="shop-widget-title"></h6>
-                            <div class="shop-widget">
-                                <button class="shop-widget-btn">
-                                        <i class="fas fa-search"></i>
-                                        <span>Search by All Filters</span>
-                                    </button>
-                                    <br>
-                                    <button class="shop-widget-btn">                                       
-                                        <span><a href="shop"> Clear all Filters</a></span>
-                                    </button>
-                            </div>
-                        
+                            <h6 class="shop-widget-title">Filter by Price</h6>
+                            <form action="/shop" method="POST"> 
+                                <div class="shop-widget-list">
+                                    <input type="radio" id="ASC" name="Order" value="ASC">
+                                    <label for="ASC">Ascending</label>
+                                    <input type="radio" id="DESC" name="Order" value="DESC">
+                                    <label for="DESC">Descending</label>
+                                </div>
+                                <input type="submit" value="Search">
+                            
+                                <div class="shop-widget">
+                                <h6 class="shop-widget-title">Filter by Material</h6>
+                                <ul class="shop-widget-list">
+                                    {% for material in material %}
+                                    <li>
+                                    <div class="shop-widget-content">
+                                        <input type="radio" id="{{material}}" name="Mat" value="{{material}}">
+                                        <label for="{{material}}">{{material}}</label>
+                                    </div>
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                                    <div>
+                                        <input type="submit" value="Search">
+                                    </div>
+                                </div>
+                            
+                                <div class="shop-widget">
+                                <h6 class="shop-widget-title">Filter by Color</h6>
+                                <ul class="shop-widget-list">
+                                    {% for color in colors %}
+                                    <li>
+                                    <div class="shop-widget-content">
+                                        <input type="radio" id="{{color}}" name="Co" value="{{color}}">
+                                        <label for="{{color}}">{{color}}</label>
+                                    </div>
+                                    </li>
+                                    {% endfor %}
+                                    <div>
+                                        <input type="submit" value="Search">
+                                    </div>
+                                </ul>
+                                </div>
+                            
+                                <div class="shop-widget">
+                                <h6 class="shop-widget-title">Filter by Size</h6>
+                                <ul class="shop-widget-list">
+                                    {% for size in size %}
+                                    <li>
+                                    <div class="shop-widget-content">
+                                        <input type="radio" id="{{size}}" name="Si" value="{{size}}">
+                                        <label for="{{size}}">{{size}}</label>
+                                    </div>
+                                    </li>
+                                    {% endfor %}
+                                    <div>
+                                        <input type="submit" value="Search">
+                                    </div>
+                                </ul>
+                                </div>
+                            
+                                <div class="shop-widget">
+                                <h6 class="shop-widget-title">Filter if WaterProof</h6>
+                                <ul class="shop-widget-list">
+                                    {% for w in waterproof %}
+                                    <li>
+                                    <div class="shop-widget-content">
+                                        <input type="radio" id="{{w}}" name="Wat" value="{{w}}">
+                                        <label for="{{w}}">{{w}}</label>   
+                                    </div>
+                                    </li>
+                                    {% endfor %}
+                                    <div>
+                                        <input type="submit" value="Search">
+                                    </div>
+                                </ul>
+                                </div>
+                            
+                                <input type="submit" value="Search All Filters">
+                            </form>                          
+                         </div>
                     </div>
-                            <div class="shop-widget">
-                            <h6 class="shop-widget-title">Sort by Price</h6>
-                            <form>
-                                <div class="shop-widget-group">
-                                    <button class="shop-widget-btn">
-                                        
-                                        <span><a href="Ascending"> Acsending</a></span>
-                        <!--        <input type="button" id="tag4" name="check" onclick="getProductAscending()">
-                                    <input type="button" onclick="getProductAscending()"> -->
-                                    </button>
-                                    <button class="shop-widget-btn">
-                                        <span><a href="Descending">Descending</a></span>
-                                    </button>
-                    <!--                <input type="text" placeholder="Min - 00">
-                                    <input type="text" placeholder="Max - 5k">  -->
-                                </div>
-                   <!--          <button class="shop-widget-btn">
-                                    <i class="fas fa-search"></i>
-                                    <span>search</span>
-                                </button>   -->
-                            </form>
-                        </div>
-
-
-                        <div class="shop-widget">
-                            <h6 class="shop-widget-title">Filter by Material</h6>
-                            <form>
-                                <ul class="shop-widget-list">
-
-                        {% for material in material %}
-                            <li>
-                                <div class="shop-widget-content">
-                                    <input type="checkbox" id="tag1">
-                                    <label for="tag1">{{material}}</label>
-                                </div>
-
-                            </li>
-                        {% endfor %}
-
-                         </ul>
-                                <button class="shop-widget-btn">
-                                    <i class="fas fa-search"></i>
-                                    <span>Search by Material </span>
-                                </button>
-                            </form>
-                        </div>
-
-
-                        <div class="shop-widget">
-                            <h6 class="shop-widget-title">Filter by Primary Color</h6>
-                            <form>
-                                <ul class="shop-widget-list">
-
-                        {% for pcolor in pcolor %}
-                            <li>
-                                <div class="shop-widget-content">
-                                    <input type="checkbox" id="tag3">
-                                    <label for="tag1">{{pcolor}}</label>
-                                </div>
-
-                            </li>
-                        {% endfor %}
-
-                         </ul>
-                                <button class="shop-widget-btn">
-                                    <i class="fas fa-search"></i>
-                                    <span>Search by colors</span>
-                                </button>
-                            </form>
-                        </div>
-
-
-                        <div class="shop-widget">
-                            <h6 class="shop-widget-title">Filter by Size</h6>
-                            <form action="{{url_for('filter')}}" method="post">
-                                <ul class="shop-widget-list">
-
-                        {% for size in size %}
-                            <li>
-                                <div class="shop-widget-content">
-                                    <input type="checkbox" id="{{size}}" name="size" value="{{size}}">
-                                    <label for="tag1">{{size}}</label>
-                                </div>
-
-                            </li>
-                        {% endfor %}
-
-                         </ul>
-                                <button class="shop-widget-btn">
-                                    <i class="fas fa-search"></i>
-                                    <span>Search by Size</span>
-                                </button>
-                            </form>
-                        </div>
-
-
-                        <div class="shop-widget">
-                            <h6 class="shop-widget-title">Waterproof</h6>
-                            <form>
-                                <ul class="shop-widget-list">
-
-                        {% for w in waterproof %}
-                            <li>
-                                <div class="shop-widget-content">
-                                    <input type="checkbox" id="tag4" name="check" onclick="onlyOne(this)">
-                                    <label for="tag1">{{w}}</label>
-                                </div>
-
-                            </li>
-                        {% endfor %}
-
-                         </ul>
-                                <button class="shop-widget-btn">
-                                    <i class="fas fa-search"></i>
-                                    <span>Is it Waterproof</span>
-                                </button>
-                            </form>
-                        </div>
-
-                        
-                    </div>
-
 
                     <div class="col-lg-9">
                         <div class="row">
@@ -347,37 +299,31 @@
                                 <div class="product-card">
                                     <div class="product-media">
 
-                                        <a class="product-image" href="/static/images/product-images/{{product[2]}}">
-                                            <img src="/static/images/product-images/{{product[2]}}" alt="product">
+                                        <a class="product-image" href="static/images/product-images/{{product['img']}}">
+                                            <img src="static/images/product-images/{{product['img']}}" alt="product">
                                         </a>
                                         <div class="product-widget">
-                                            <a title="Product View" href="#" class="fas fa-eye" data-bs-toggle="modal" data-bs-target="#product-view-{{product[0]}}"></a>
+                                            <a title="Product View" href="#" class="fas fa-eye" data-bs-toggle="modal" data-bs-target="#product-view-{{product['id']}}"></a>
                                         </div>
                                     </div>
                                     <div class="product-content">
                                         <h6 class="product-name">
-                                            <a href="product-video.html">{{product[1]}}</a>
+                                            <a href="product-video.html">{{product['name']}}</a>
                                         </h6>
                                         <h6 class="product-price">
-                                            <span>{{product[6]}}.00</span>
+                                            <span>${{product['price']}}</span>
                                         </h6>
                                         <button class="product-add" title="Add to Cart">
                                             <i class="fas fa-shopping-basket"></i>
                                             <span>add</span>
                                         </button>
                                         <div class="product-action">
-                                            <form action="{{url_for('addcart', ID=product[0])}}" method="post">
+                                            <form action="{{url_for('addcart')}}" method="post">
                                             <input style="width: 50%" class="action-input" title="Quantity Number" type="number" id="quantity" name="quantity" value="1">
-                                               <input type="hidden" id="p_id" name="p_id" value="{{product[0]}}">
-                                               <input type="hidden" id="name" name="name" value="{{product[1]}}">
-                                                <input type="hidden" id="price" name="price" value="{{product[6]}}">
-                                                <input type="hidden" id="cost" name="cost" value="{{product[7]}}">
-                                                <input type="hidden" id="stock" name="stock" value="{{product[3]}}">
-                                                <input type="hidden" id="material" name="material" value="{{product[8]}}">
-                                                <input type="hidden" id="waterproof" name="waterproof" value="{{product[5]}}">
-                                                <input type="hidden" id="size" name="size" value="{{product[4]}}">
-                                                <input type="hidden" id="desc" name="desc" value="{{product[11]}}">
-                                                <input type="hidden" id="image" name="image" value="{{product[2]}}">
+                                               <input type="hidden" id="p_id" name="p_id" value="{{product['id']}}">
+                                               <input type="hidden" id="name" name="name" value="{{product['name']}}">
+                                                <input type="hidden" id="image" name="image" value="{{product['img']}}">
+                                                <input type="hidden" id="price" name="price" value="{{product['price']}}">
                                               <input style="width: 30%" type="submit" value="Add">
                                               </form>
                                         </div>
@@ -385,7 +331,7 @@
                                 </div>
                             </div>
 
-                            <div class="modal fade" id="product-view-{{product[0]}}">
+                            <div class="modal fade" id="product-view-{{product['id']}}">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <button class="modal-close icofont-close" data-bs-dismiss="modal"></button>
@@ -394,10 +340,10 @@
                             <div class="col-md-6 col-lg-6">
                                 <div class="view-gallery">
                                     <div class="view-label-group">
-                                        <label class="view-label new">{{product[3]}} in stock</label>
+                                        <label class="view-label new">{{product['stock']}} in stock</label>
                                     </div>
                                     <ul class="preview-slider">
-                                        <li><img src="static/images/product-images/{{product[2]}}" alt="product"></li>
+                                        <li><img src="static/images/product-images/{{product['img']}}" alt="product"></li>
                                     </ul>
 
                                 </div>
@@ -405,22 +351,27 @@
                             <div class="col-md-6 col-lg-6">
                                 <div class="view-details">
                                     <h3 class="view-name">
-                                        <a href="product-video.html">{{product[1]}}</a>
+                                        <a href="product-video.html">{{product['name']}}</a>
                                     </h3>
                                     <div class="view-meta">
-                                        <p>Material: <span>{{product[8]}}</span></p><br>
-                                        <p>Waterproof: {{product[5]}}</p><br>
-                                        <p>Size: {{product[4]}}</p>
+                                        <p>Size:<span>{{product['size']}}</span></p><br>
+                                        <p>WaterProof: {{product['waterproof']}}</p><br>
+                                        <p>Color: {{product['color']}}</p>
                                     </div>
                                     <h3 class="view-price">
-                                        <del>{{product[6]}}.00</del>
-                                        <span>{{product[6]}}.00</span>
+                                        <span>${{product['price']}}</span>
                                     </h3>
-                                    <p class="view-desc"> <span>{{product[11]}}</span> </p>
-                                    <div class="view-add-group">
+                                    <p class="view-desc">{{product['desc']}}</p>
+                                     <form action="{{url_for('addcart')}}" method="post">
+                                         <input type="hidden" name="p_id" value="{{product['id']}}">
+                                               <input type="hidden" name="name" value="{{product['name']}}">
+                                                <input type="hidden" name="image" value="{{product['img']}}">
+                                                <input type="hidden" name="price" value="{{product['price']}}">
+                                         <div class="view-add-group">
                                         <button class="product-add" title="Add to Cart">
                                             <span>Tap to add amount</span>
                                         </button>
+
                                         <div class="product-action">
                                             <button class="action-minus" title="Quantity Minus"><i class="icofont-minus"></i></button>
                                             <input class="action-input" title="Quantity Number" type="text" name="quantity" value="1">
@@ -430,9 +381,10 @@
                                     <div class="view-action-group">
                                         <a class="view-wish wish" href="/shop" title="Add to Cart">
                                            <i class="fas fa-shopping-cart"></i>
-                                            <span>add to cart</span>
+                                            <input type="submit" value="Add to cart">
                                         </a>
                                     </div>
+                                     </form>
                                 </div>
                             </div>
                         </div>
@@ -458,15 +410,15 @@
          <!--=====================================
                      FOOTER PART START
         =======================================-->
-        <footer style="background-color: gray" class="footer-part">
+        <footer style="background-color: #DDDDDD" class="footer-part">
             <div class="container">
                 <div class="row">
                     <div class="col-sm-6 col-xl-3">
                         <div class="footer-widget">
                             <a class="footer-logo" href="#">
-                                <img src="/static/images/brand/logo_morro_pr.png" alt="logo">
+                                <img src="static/images/brand/logo_morro_pr.png" alt="logo">
                             </a>
-                            <p class="footer-desc">This e-commerce template has been created for the sole purpose of aiding the students for the Databases course</p>
+                            <p class="footer-desc"></p>
 
                         </div>
                     </div>
@@ -477,15 +429,15 @@
                                 <li>
                                     <i class="icofont-ui-email"></i>
                                     <p>
-                                        <span> <a href="mailto:emanuel.martinez8@upr.edu"> emanuel.martinez8@upr.edu </a></span>
-                                        <span> <a href="mailto:eliana.valenzuela@upr.edu"> eliana.valenzuela@upr.edu </a></span>
+                                        <span>emanuel.martinez8@upr.edu</span>
+                                        <span>sebastian</span>
                                     </p>
                                 </li>
                                 <li>
                                     <i class="icofont-ui-touch-phone"></i>
                                     <p>
-                                        <span><a href="tel:9392415738"> 939-241-5739 </a></span>
-                                        <span>N/A</span>
+                                        <span>+1 939-241-5738</span>
+                                        <span>+1 (800)-343-9384</span>
                                     </p>
                                 </li>
 
@@ -512,7 +464,7 @@
                     <div class="col-sm-6 col-xl-3">
                         <div class="footer-widget">
                             <h3 class="footer-title">Students of CCOM4115</h3>
-                            <p class="footer-desc">Do not hesitate to reach out to the professor or TA with any questions.</p>
+                            <p class="footer-desc" style="text-align: center;">Emanuel <br> Sebastian <br> Andres <br> Jared</p>
 
                         </div>
                     </div>
@@ -559,14 +511,23 @@
         }
         </script>
 
-        <script>
+<script>
+    function onlyOne() {
+    var checkboxes = document.getElementsByName('check')
+    checkboxes.forEach((item) => {
+        if (item !== checkbox) item.checked = false
+    })
+    } 
+</script>
+
+     <!--   <script>
             function onlyOne(checkbox) {
             var checkboxes = document.getElementsByName('check')
             checkboxes.forEach((item) => {
                 if (item !== checkbox) item.checked = false
             })
-        }
-        </script>
+            } 
+        </script>-->
         <!--=====================================
                     JS LINK PART END
         =======================================-->

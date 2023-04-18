@@ -27,10 +27,10 @@
         <!--=====================================
                     CSS LINK PART START
         =======================================-->
-
+        <!-- Google fonts links -->  
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Tilt+Prism&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Tilt+Prism&display=swap" rel="stylesheet">    
 
         <!-- FAVICON -->
         <link rel="icon" href="{{url_for('static', filename='images/favicon.png')}}">
@@ -70,12 +70,12 @@
                 <div class="header-content">
                     <div class="header-media-group">
                         <button class="header-user"><img src="images/user.png" alt="user"></button>
-                        <a href="index.html"><img src="images/logo.png" alt="logo"></a>
+                        <a href="index.html"><img src="static/images/brand/logo_morro_pr.png" alt="logo"></a>
                         <button class="header-src"><i class="fas fa-search"></i></button>
                     </div>
 
                     <a href="index.html" class="header-logo">
-                        <img src="/static/images/brand/logo_morro_pr.png" alt="logo">
+                        <img src="static/images/brand/logo_morro_pr.png">
                     </a>
                     <ul class="dropdown">
                     <a class="navbar-link dropdown-arrow" href="#">My Account</a>
@@ -121,7 +121,7 @@
             <div class="cart-header">
                 <div class="cart-total">
                     <i class="fas fa-shopping-basket"></i>
-                    <span>total item (3)</span>
+                    <span>total item ({{session['amount']}})</span>
                 </div>
                 <button class="cart-close"><i class="icofont-close"></i></button>
             </div>
@@ -131,7 +131,8 @@
                     {% for key, item in session['cart'].items() %}
                 <li class="cart-item">
                     <div class="cart-media">
-                        <a href="#"><img src="images/product/05.jpg" alt="product"></a>
+                        <a href="static/images/product-images/{{item['image']}}">
+                            <img src="static/images/product-images/{{item['image']}}" alt="product"></a>
                         <form action="{{url_for('delete', id=key)}}">
                         <button class="cart-delete"><i class="far fa-trash-alt"></i></button>
                         </form>
@@ -139,7 +140,7 @@
                     <div class="cart-info-group">
                         <div class="cart-info">
                             <h6><a href="product-single.html">{{item['name']}}</a></h6>
-                            <p>Unit Price - {{item['price']}}</p>
+                            <p>Unit Price - ${{item['price']}}</p>
                         </div>
                         <div class="cart-action-group">
                             <div class="product-action">
@@ -160,7 +161,7 @@
             <div class="cart-footer">
                 <a class="cart-checkout-btn" href="{{url_for('checkout')}}">
                     <span class="checkout-label">Proceed to Checkout</span>
-                    <span class="checkout-price">${{session['total']}}0</span>
+                    <span class="checkout-price">${{session['total']}}</span>
                 </a>
             </div>
         </aside>
@@ -179,9 +180,9 @@
         <!--=====================================
                     BANNER PART START
         =======================================-->
-        <section class="inner-section single-banner" style="background: url(/static/images/brand/background_de_stickers.jpg) no-repeat center;">
+        <section class="inner-section single-banner" style="background: url(static/images/sticker_background.jpg) no-repeat center;">
             <div class="container">
-                <h2 style="color: white; font-family: 'Tilt Prism', cursive; font-size: 7em; ">Order History</h2>
+                <h2 style="color: white; font-family: 'Tilt Prism', cursive; font-size: 11em; ">Orders</h2> <br> <br>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{url_for('shop')}}">Shop</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Orders</li>
@@ -215,6 +216,7 @@
                         </div>
                     </div>
                 </div>
+                {% for order in orders %}
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="orderlist">
@@ -250,15 +252,15 @@
                                         <ul class="orderlist-details">
                                             <li>
                                                 <h6>order tracking number</h6>
-                                                <p>{{order1['tracking_num']}}</p>
+                                                <p>{{order['tracking']}}</p>
                                             </li>
                                             <li>
-                                                <h6>Order Time</h6>
-                                                <p>{{order1['order_date']}}</p>
+                                                <h6>Order Date</h6>
+                                                <p>{{order['date']}}</p>
                                             </li>
                                             <li>
                                                 <h6>Delivery Time</h6>
-                                                <p>{{order1['arrival_date']}}</p>
+                                                <p>2023-04-29</p>
                                             </li>
                                         </ul>
                                     </div>
@@ -266,22 +268,25 @@
                                         <ul class="orderlist-details">
                                             <li>
                                                 <h6>Total</h6>
-                                                <p>${{order1['total']}}0</p>
+                                                <p>${{order['total']}}</p>
                                             </li>
                                             <li>
                                                 <h6>Amount of items</h6>
-                                                <p>{{order1['amount']}}</p>
+                                                <p>amount</p>
                                             </li>
 
                                         </ul>
                                     </div>
+                                    {% for u in user %}
                                     <div class="col-lg-3">
                                         <div class="orderlist-deliver">
                                             <h6>Delivery location</h6>
-                                            <p>{{order1['address_line_1']}}</p> <br>
-                                            <p>{{order1['address_line_2']}}</p>
+                                            <p>{{u['street']}}</p> <br>
+                                            <p>{{u['city']}}, {{u['state']}} &nbsp {{u['zipcode']}}</p>
+                                            <p></p>
                                         </div>
                                     </div>
+                                    {% endfor %}
                                     <div class="col-lg-12">
                                         <div class="table-scroll">
                                             <table class="table-list">
@@ -296,14 +301,14 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                {% for key, product in products1.items() %}
+                                                {% for product in order['products'] %}
                                                     <tr>
-                                                        <td class="table-serial"><h6>{{product['name']}}</h6></td>
-                                                        <td class="table-image"><img src="static/images/product-images/{{product['image']}}" alt="product"></td>
+                                                        <td class="table-serial"><h6>{{product['s_name']}}</h6></td>
+                                                        <td class="table-image"><img src="static/images/product-images/{{product['img']}}" alt="product"></td>
                                                         <td class="table-name"><h6>{{product['brand']}}</h6></td>
-                                                        <td class="table-price"><h6>${{product['price']}}0</h6></td>
+                                                        <td class="table-price"><h6>${{product['price']}}</h6></td>
                                                         <td class="table-brand"><h6>{{product['quantity']}}</h6></td>
-                                                        <td class="table-quantity"><h6>${{product['total_price']}}0</h6></td>
+                                                        <td class="table-quantity"><h6>${{product['price'] * product['quantity']}}</h6></td>
                                                     </tr>
                                                 {% endfor %}
                                                 </tbody>
@@ -313,112 +318,11 @@
                                 </div>
                             </div>
                         </div>
-
-
-                        <div class="orderlist">
-                            <div class="orderlist-head">
-                                <h5>order#02</h5>
-                                <h5>order delivered</h5>
-                            </div>
-                            <div class="orderlist-body">
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <div class="order-track">
-                                            <ul class="order-track-list">
-                                                <li class="order-track-item active">
-                                                    <i class="icofont-check"></i>
-                                                    <span>order received</span>
-                                                </li>
-                                                <li class="order-track-item active">
-                                                    <i class="icofont-check"></i>
-                                                    <span>order processed</span>
-                                                </li>
-                                                <li class="order-track-item active">
-                                                    <i class="icofont-check"></i>
-                                                    <span>order shipped</span>
-                                                </li>
-                                                <li class="order-track-item active">
-                                                    <i class="icofont-check"></i>
-                                                    <span>order delivered</span>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-5">
-                                        <ul class="orderlist-details">
-                                            <li>
-                                                <h6>order tracking number</h6>
-                                                <p>{{order2['tracking_num']}}</p>
-                                            </li>
-                                            <li>
-                                                <h6>Order Time</h6>
-                                                <p>{{order2['order_date']}}</p>
-                                            </li>
-                                            <li>
-                                                <h6>Delivery Time</h6>
-                                                <p>{{order2['arrival_date']}}</p>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <ul class="orderlist-details">
-                                            <li>
-                                                <h6>Total</h6>
-                                                <p>${{order2['total']}}0</p>
-                                            </li>
-                                            <li>
-                                                <h6>Amount of items</h6>
-                                                <p>{{order2['amount']}}</p>
-                                            </li>
-
-                                        </ul>
-                                    </div>
-                                    <div class="col-lg-3">
-                                        <div class="orderlist-deliver">
-                                            <h6>Delivery location</h6>
-                                            <p>{{order2['address_line_1']}}</p> <br>
-                                            <p>{{order2['address_line_2']}}</p>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <div class="table-scroll">
-                                            <table class="table-list">
-                                                <thead>
-                                                    <tr>
-                                                        <th scope="col">Name</th>
-                                                        <th scope="col">Image</th>
-                                                        <th scope="col">Brand</th>
-                                                        <th scope="col">Price</th>
-                                                        <th scope="col">Quantity</th>
-                                                        <th scope="col">Total Price</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                {% for key, product in products2.items() %}
-                                                    <tr>
-                                                        <td class="table-serial"><h6>{{product['name']}}</h6></td>
-                                                        <td class="table-image"><img src="static/images/product-images/{{product['image']}}" alt="product"></td>
-                                                        <td class="table-name"><h6>{{product['brand']}}</h6></td>
-                                                        <td class="table-price"><h6>${{product['price']}}0</h6></td>
-                                                        <td class="table-brand"><h6>{{product['quantity']}}</h6></td>
-                                                        <td class="table-quantity"><h6>${{product['total_price']}}0</h6></td>
-                                                    </tr>
-                                                {% endfor %}
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-
-
                     </div>
                 </div>
-
             </div>
         </section>
+        {% endfor %}
         <!--=====================================
                     ORDERLIST PART END
         =======================================-->
@@ -429,15 +333,15 @@
          <!--=====================================
                      FOOTER PART START
         =======================================-->
-        <footer style="background-color: gray" class="footer-part">
+        <footer style="background-color: #DDDDDD" class="footer-part">
             <div class="container">
                 <div class="row">
                     <div class="col-sm-6 col-xl-3">
                         <div class="footer-widget">
                             <a class="footer-logo" href="#">
-                                <img src="/static/images/brand/logo_morro_pr.png" alt="logo">
+                                <img src="static/images/brand/logo_morro_pr.png" alt="logo">
                             </a>
-                            <p class="footer-desc">This e-commerce template has been created for the sole purpose of aiding the students for the Databases course</p>
+                            <p class="footer-desc"></p>
 
                         </div>
                     </div>
@@ -448,15 +352,15 @@
                                 <li>
                                     <i class="icofont-ui-email"></i>
                                     <p>
-                                        <span> <a href="mailto:emanuel.martinez8@upr.edu"> emanuel.martinez8@upr.edu </a></span>
-                                        <span> <a href="mailto:eliana.valenzuela@upr.edu"> eliana.valenzuela@upr.edu </a></span>
+                                        <span>emanuel.martinez8@upr.edu</span>
+                                        <span>sebastian</span>
                                     </p>
                                 </li>
                                 <li>
                                     <i class="icofont-ui-touch-phone"></i>
                                     <p>
-                                        <span><a href="tel:9392415738"> 939-241-5739 </a></span>
-                                        <span>N/A</span>
+                                        <span>+1 939-241-5738</span>
+                                        <span>+1 (800)-343-9384</span>
                                     </p>
                                 </li>
 
@@ -483,7 +387,7 @@
                     <div class="col-sm-6 col-xl-3">
                         <div class="footer-widget">
                             <h3 class="footer-title">Students of CCOM4115</h3>
-                            <p class="footer-desc">Do not hesitate to reach out to the professor or TA with any questions.</p>
+                            <p class="footer-desc" style="text-align: center;">Emanuel <br> Sebastian <br> Andres <br> Jared</p>
 
                         </div>
                     </div>

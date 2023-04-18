@@ -6,3 +6,9 @@ def getOrder():
 
 def getOrderProducts():
     return getProductsModel()
+
+def getamount():
+    return getamountModel()
+
+def getdate():
+    return getdateModel()

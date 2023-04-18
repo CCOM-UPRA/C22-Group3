@@ -22,15 +22,15 @@
         =======================================-->
 
         <!-- WEBPAGE TITLE -->
-        <title>Stickers - Profile</title>
+        <title>Greeny - Profile</title>
 
         <!--=====================================
                     CSS LINK PART START
         =======================================-->
-
+        <!-- Google fonts links -->  
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Tilt+Prism&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Tilt+Prism&display=swap" rel="stylesheet">    
 
          <!-- FAVICON -->
         <link rel="icon" href="{{url_for('static', filename='images/favicon.png')}}">
@@ -71,12 +71,12 @@
                 <div class="header-content">
                     <div class="header-media-group">
                         <button class="header-user"><img src="static/images/user.png" alt="user"></button>
-                        <a href="index.html"><img src="static/images/logo.png" alt="logo"></a>
+                        <a href="index.html"><img src="static/images/brand/logo_morro_pr.png" alt="logo"></a>
                         <button class="header-src"><i class="fas fa-search"></i></button>
                     </div>
 
                     <a href="index.html" class="header-logo">
-                        <img src="/static/images/brand/logo_morro_pr.png" alt="logo">
+                        <img src="static/images/brand/logo_morro_pr.png" alt="logo">
                     </a>
                     <ul class="dropdown">
                     <a class="navbar-link dropdown-arrow" href="#">My Account</a>
@@ -97,7 +97,7 @@
                         <button class="header-widget header-cart" title="Cartlist">
                             <i class="fas fa-shopping-basket"></i>
                             <sup>{{session['amount']}}</sup>
-                            <span>total price<small>${{session['total']}}0</small></span>
+                            <span>total price<small>${{session['total']}}</small></span>
                         </button>
                     </div>
                 </div>
@@ -115,7 +115,7 @@
             <div class="cart-header">
                 <div class="cart-total">
                     <i class="fas fa-shopping-basket"></i>
-                    <span>total item (3)</span>
+                    <span>total item ({{session['amount']}})</span>
                 </div>
                 <button class="cart-close"><i class="icofont-close"></i></button>
             </div>
@@ -125,7 +125,8 @@
                     {% for key, item in session['cart'].items() %}
                 <li class="cart-item">
                     <div class="cart-media">
-                        <a href="#"><img src="images/product/05.jpg" alt="product"></a>
+                        <a href="static/images/product-images/{{item['image']}}">
+                            <img src="static/images/product-images/{{item['image']}}" alt="product"></a>
                         <form action="{{url_for('delete', id=key)}}">
                         <button class="cart-delete"><i class="far fa-trash-alt"></i></button>
                         </form>
@@ -133,7 +134,7 @@
                     <div class="cart-info-group">
                         <div class="cart-info">
                             <h6><a href="product-single.html">{{item['name']}}</a></h6>
-                            <p>Unit Price - {{item['price']}}</p>
+                            <p>Unit Price - ${{item['price']}}</p>
                         </div>
                         <div class="cart-action-group">
                             <div class="product-action">
@@ -154,7 +155,7 @@
             <div class="cart-footer">
                 <a class="cart-checkout-btn" href="{{url_for('checkout')}}">
                     <span class="checkout-label">Proceed to Checkout</span>
-                    <span class="checkout-price">${{total}}</span>
+                    <span class="checkout-price">${{session['total']}}</span>
                 </a>
             </div>
         </aside>
@@ -170,9 +171,9 @@
         <!--=====================================
                     BANNER PART START
         =======================================-->
-        <section class="inner-section single-banner" style="background: url(/static/images/brand/background_de_stickers.jpg) no-repeat center;">
+        <section class="inner-section single-banner" style="background: url(static/images/sticker_background.jpg) no-repeat center;">
             <div class="container">
-                <h2 style="color: white; font-family: 'Tilt Prism', cursive; font-size: 7em; ">My Profile</h2>
+                <h2 style="color: white; font-family: 'Tilt Prism', cursive; font-size: 11em; ">Profile</h2> <br> <br>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{url_for('shop')}}">Shop</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Profile</li>
@@ -187,6 +188,7 @@
         <!--=====================================
                     PROFILE PART START
         =======================================-->
+        {% for user1 in user %}
         <section class="inner-section profile-part">
             <div class="container">
                 <div class="row">
@@ -201,19 +203,19 @@
                                     <div class="col-md-6 col-lg-4">
                                         <div class="form-group">
                                             <label class="form-label">name</label>
-                                            <input class="form-control" type="text" placeholder="{{user1['c_first_name']}}">
+                                            <input class="form-control" type="text" placeholder="{{user1['name']}}">
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-lg-4">
                                         <div class="form-group">
                                             <label class="form-label">last name</label>
-                                            <input class="form-control" type="text" placeholder="{{user1['c_last_name']}}">
+                                            <input class="form-control" type="text" placeholder="{{user1['last_name']}}">
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-lg-4">
                                         <div class="form-group">
                                             <label class="form-label">Email</label>
-                                            <input class="form-control" type="email" placeholder="{{user1['c_email']}}">
+                                            <input class="form-control" type="email" placeholder="{{user1['email']}}">
                                         </div>
                                     </div>
                                     <div class="col-lg-2">
@@ -236,7 +238,7 @@
                                     <div class="col-md-6 col-lg-4 alert fade show">
                                         <div class="profile-card contact active">
                                             <h6>primary</h6>
-                                            <p>{{user1['c_phone_number']}}</p>
+                                            <p>{{user1['phone_number']}}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -247,15 +249,13 @@
                         <div class="account-card">
                             <div class="account-title">
                                 <h4>delivery address</h4>
-                                <button data-bs-toggle="modal" data-bs-target="#address-add">edit address</button>
                             </div>
                             <div class="account-content">
                                 <div class="row">
                                     <div class="col-md-6 col-lg-4 alert fade show">
                                         <div class="profile-card address active">
-                                            <p>{{user1['c_address_line-1']}}</p><br>
-                                            <p>{{user1['c_address_line_2']}}</p><br>
-                                            <p>{{user1['c_city']}}, {{user1['c_state']}} &nbsp {{user1['c_zipcode']}}</p>
+                                            <p>{{user1['street']}}</p><br>
+                                            <p>{{user1['city']}}, {{user1['state']}} &nbsp {{user1['zipcode']}}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -272,10 +272,10 @@
                                 <div class="row">
                                     <div class="col-md-6 col-lg-4 alert fade show">
                                         <div class="payment-card payment active">
-                                            <h2>{{user1['c_card_name']}}</h2>
-                                            <p>{{user1['c_card_num']}} </p>
-                                            <h5>{{user1['c_card_type']}}</h5>
-                                            <h6>{{user1['c_exp_date']}}</h6>
+                                            <h2>{{user1['card_name']}}</h2>
+                                            <p>{{user1['card_number']}} </p>
+                                            <h5>{{user1['card_type']}}</h5>
+                                            <h6>{{user1['exp_date']}}</h6>
                                         </div>
                                     </div>
                                 </div>
@@ -299,12 +299,13 @@
                 <div class="modal-content">
                     <button class="modal-close" data-bs-dismiss="modal"><i class="icofont-close"></i></button>
                     <form class="modal-form" action="{{url_for('editinfo')}}" method="post">
+                        <input type="hidden" name="profile" value="profile">
                         <div class="form-title">
                             <h3>Edit contact number</h3>
                         </div>
                         <div class="form-group">
                             <label class="form-label">number</label>
-                            <input class="form-control" name="number" type="number" value="{{user1['c_phone_number']}}">
+                            <input class="form-control" name="number" type="number" value="{{user1['phone_number']}}">
                         </div>
                         <button class="form-btn" type="submit">save contact number</button>
                         <input type="hidden" name="page" value="/profile">
@@ -319,29 +320,26 @@
                 <div class="modal-content">
                     <button class="modal-close" data-bs-dismiss="modal"><i class="icofont-close"></i></button>
                     <form class="modal-form" action="{{url_for('editinfo')}}" method="post">
+                        <input type="hidden" name="profile" value="profile">
                         <div class="form-title">
                             <h3>edit address info</h3>
                         </div>
 
                         <div class="form-group">
-                            <label class="form-label">Address Line 1</label>
-                            <input type="text" name="aline1" class="form-control" value="{{user1['c_address_line_1']}}"></input>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Address Line 2</label>
-                            <input type="text" name="aline2" class="form-control" value="{{user1['c_address_line_2']}}"></input>
+                            <label class="form-label">Street</label>
+                            <input type="text" name="aline1" class="form-control" value="{{user1['street']}}"></input>
                         </div>
                         <div class="form-group">
                             <label class="form-label">City</label>
-                            <input type="text" name="city" class="form-control" value="{{user1['c_city']}}"></input>
+                            <input type="text" name="city" class="form-control" value="{{user1['city']}}"></input>
                         </div>
                         <div class="form-group">
                             <label class="form-label">State</label>
-                            <input type="text" name="state" class="form-control" value="{{user1['c_state']}}"></input>
+                            <input type="text" name="state" class="form-control" value="{{user1['state']}}"></input>
                         </div>
                         <div class="form-group">
                             <label class="form-label">Zipcode</label>
-                            <input type="text" name="zipcode" class="form-control" value="{{user1['c_zipcode']}}"></input>
+                            <input type="text" name="zipcode" class="form-control" value="{{user1['zipcode']}}"></input>
                         </div>
                         <button class="form-btn" type="submit">save address info</button>
                         <input type="hidden" name="page" value="/profile">
@@ -356,24 +354,25 @@
                 <div class="modal-content">
                     <button class="modal-close" data-bs-dismiss="modal"><i class="icofont-close"></i></button>
                     <form class="modal-form" action="{{url_for('editinfo')}}" method="post">
+                        <input type="hidden" name="profile" value="profile">
                         <div class="form-title">
                             <h3>edit payment info</h3>
                         </div>
                         <div class="form-group">
                             <label class="form-label">card name</label>
-                            <input class="form-control" name="card_name" type="text" value="{{user1['c_card_name']}}">
+                            <input class="form-control" name="card_name" type="text" value="{{user1['card_name']}}">
                         </div>
                         <div class="form-group">
                             <label class="form-label">card number</label>
-                            <input class="form-control" name="card_num" type="number" value="{{user1['c_card_num']}}">
+                            <input class="form-control" name="card_num" type="number" value="{{user1['card_number']}}">
                         </div>
                         <div class="form-group">
                             <label class="form-label">card type</label>
-                            <input class="form-control" name="card_type" type="text" value="{{user1['c_card_type']}}">
+                            <input class="form-control" name="card_type" type="text" value="{{user1['card_type']}}">
                         </div>
                         <div class="form-group">
                             <label class="form-label">expiration date (MM/DD/YYYY)</label>
-                            <input class="form-control" name="date" type="date" value="{{user1['c_exp_date']}}">
+                            <input class="form-control" name="date" type="date" value="{{user1['exp_date']}}">
                         </div>
                         <button class="form-btn" type="submit">save payment info</button>
                         <input type="hidden" name="page" value="/profile">
@@ -388,20 +387,21 @@
                 <div class="modal-content">
                     <button class="modal-close" data-bs-dismiss="modal"><i class="icofont-close"></i></button>
                     <form class="modal-form" action="{{url_for('editinfo')}}" method="post">
+                        <input type="hidden" name="profile" value="profile">
                         <div class="form-title">
                             <h3>edit profile info</h3>
                         </div>
                         <div class="form-group">
                             <label class="form-label">First Name</label>
-                            <input class="form-control" name="fname" type="text" value="{{user1['c_first_name']}}">
+                            <input class="form-control" name="fname" type="text" value="{{user1['name']}}">
                         </div>
                         <div class="form-group">
                             <label class="form-label">Last Name</label>
-                            <input class="form-control" name="lname" type="text" value="{{user1['c_last_name']}}">
+                            <input class="form-control" name="lname" type="text" value="{{user1['last_name']}}">
                         </div>
                         <div class="form-group">
                             <label class="form-label">email</label>
-                            <input class="form-control" name="email" type="text" value="{{user1['c_email']}}">
+                            <input class="form-control" name="email" type="text" value="{{user1['email']}}">
                         </div>
                         <input type="hidden" name="page" id="page" value="/profile">
                         <button class="form-btn" type="submit">save profile info</button>
@@ -409,6 +409,7 @@
                 </div>
             </div>
         </div>
+        {% endfor %}
         <!--=====================================
                     MODAL ADD FORM END
         =======================================-->
@@ -417,15 +418,15 @@
          <!--=====================================
                      FOOTER PART START
         =======================================-->
-        <footer style="background-color: gray" class="footer-part">
+        <footer style="background-color: #DDDDDD" class="footer-part">
             <div class="container">
                 <div class="row">
                     <div class="col-sm-6 col-xl-3">
                         <div class="footer-widget">
                             <a class="footer-logo" href="#">
-                                <img src="/static/images/brand/logo_morro_pr.png" alt="logo">
+                                <img src="static/images/brand/logo_morro_pr.png" alt="logo">
                             </a>
-                            <p class="footer-desc">This e-commerce template has been created for the sole purpose of aiding the students for the Databases course</p>
+                            <p class="footer-desc"></p>
 
                         </div>
                     </div>
@@ -436,15 +437,15 @@
                                 <li>
                                     <i class="icofont-ui-email"></i>
                                     <p>
-                                        <span> <a href="mailto:emanuel.martinez8@upr.edu"> emanuel.martinez8@upr.edu </a></span>
-                                        <span> <a href="mailto:eliana.valenzuela@upr.edu"> eliana.valenzuela@upr.edu </a></span>
+                                        <span>emanuel.martinez8@upr.edu</span>
+                                        <span>sebastian</span>
                                     </p>
                                 </li>
                                 <li>
                                     <i class="icofont-ui-touch-phone"></i>
                                     <p>
-                                        <span><a href="tel:9392415738"> 939-241-5739 </a></span>
-                                        <span>N/A</span>
+                                        <span>+1 939-241-5738</span>
+                                        <span>+1 (800)-343-9384</span>
                                     </p>
                                 </li>
 
@@ -471,7 +472,7 @@
                     <div class="col-sm-6 col-xl-3">
                         <div class="footer-widget">
                             <h3 class="footer-title">Students of CCOM4115</h3>
-                            <p class="footer-desc">Do not hesitate to reach out to the professor or TA with any questions.</p>
+                            <p class="footer-desc" style="text-align: center;">Emanuel <br> Sebastian <br> Andres <br> Jared</p>
 
                         </div>
                     </div>

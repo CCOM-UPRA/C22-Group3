@@ -9,43 +9,46 @@ def MagerDicts(dict1, dict2):
     return False
 
 
-# Cart items simulated
-dictitems1 = {'1': {'name': "Naruto Shippuden", 'price': 3.99, 'quantity': 2, 'total_price': 7.98,
-                  'stock': 15, 'brand': "DJI", 'wifi': "Yes", 'videores': "480p", 'desc': "Naruto Sticker Descripcion",
-                  'image': "dji_tello.jpg", 'cost': 89.00}}
-dictitems2 = {'2': {'name': "Album Bad Bunny", 'price': 5.99, 'quantity': 1, 'total_price': 5.99,
-                  'stock': 10, 'brand': "Ruko", 'wifi': "Yes", 'videores': "4k", 'desc': "Un Verano sin ti Descripcion",
-                  'image': "ruko_f11_pro.jpg", 'cost': 350.00}}
 
 def getCartModel():
-    # Checking if cart is in session or not and adding the dictionaries to it
-    # Create an array with the products able to add
-    #session['cartitems'] = MagerDicts(dictitems1, dictitems2)
+    # Initialize the amount and totaL for the cart
+    session['amount'] = 0
+    session['total'] = 0
+    if 'cart' in session:
+        for key, item in session['cart'].items():
+            session['amount'] += int(item['quantity'])
+            session['total'] += float(item['total_price'])
+        return session['cart']
+    else:
+        print("CART NOT FOUND")
+        return
 
+
+def addCartModel(dictitems):
+    # Add new product to cart using MagerDicts if cart already has items in
+    if 'cart' in session:
+        session['cart'] = MagerDicts(session['cart'], dictitems)
+    else:
+        session['cart'] = dictitems
+
+    # Update the session variables with the new additions
+    # Pointer: POST variables can sometimes end up returning strings, so we must type_cast our variables for the operations
+    for key, item in dictitems.items():
+        session['amount'] += int(item['quantity'])
+        session['total'] += float(item['total_price'])
     return
 
 
-def addCartModel(ID):
-    # make changes to cart here
-    # not in use at the moment
-    
-    #Add ID element from array to session['cart']    
-    session['cart'] = dictitems1
-    
-#    if 'cart' in session:
-#        session['cart'] = MagerDicts(session['cart'], session['cartitems'][ID])
-#    else:
-#        session['cart'] = session['cartitems'][ID]
-    
-    return
-
-
-def deleteCartItemModel(ID):
-    # delete item from cart
-    # not in use at the moment
-    del session['cart']
-    
-    
+def deleteCartItemModel(id):
+    # get the cart dictionary from the session
+    cart = session.get('cart', {})
+    print(cart)
+    str_id = str(id)
+    del cart[str_id]
+    print(cart)
+    session['cart'] = cart
+    #del session['cart'][id]
+    # FOR STUDENT TO ADD
     return
 
 
