@@ -173,8 +173,11 @@ def editinfo():
         return redirect("/checkout")
 
 
-@app.route("/password")
+@app.route("/password" methods=["GET", "POST"])
 def password():
+    if request.method == "POST" and request.form:
+        npass= request.form.get("pass_n")
+        changePass(npass)
     # TO BE CONNECTED TO MYSQL BY STUDENTS
     return render_template("change-password.html")
 
