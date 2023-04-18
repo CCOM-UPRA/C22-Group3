@@ -191,7 +191,7 @@ def password():
 def orders():
     # Redirects us to the orders list page of the user
     # Fetches each order and its products from ordersController
-    orders = getOrder()
+    orders = getOrdero()
     user = getUser()
     for order in orders:
         print(order['products'])
