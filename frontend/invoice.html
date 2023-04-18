@@ -142,7 +142,9 @@
                                     <h6>order date <span>{{dates['date']}}</span></h6>
                                     {% endfor %}
                                     <h6>total amount <span>${{order1['total']}}</span></h6>
-                                    <h6>payment method <span>{{order['payment_method']}}</span></h6>
+                                    {% for u in user %}
+                                    <h6>payment method <span>{{u['card_type']}}</span></h6>
+                                    {% endfor %}
                                 </div>
                             </div>
                         </div>

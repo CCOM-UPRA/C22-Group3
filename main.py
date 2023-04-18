@@ -195,7 +195,6 @@ def orders():
     user = getUser()
     amount = 0
     for order in orders:
-        print(order['products'])
         amount = amount + 1
     return render_template("orderlist.html", orders=orders, user=user, amount = amount)
 
