@@ -87,8 +87,8 @@ def editprofilemodel(fname, lname, email):
                            user='sql9607918', password='GFQC75Bg2g', port=3306)
     cur = conn.cursor()
     try:
-        cur.execute("UPDATE customer SET c_firstname = %s, c_lastname = %s, "
-                    "email = %s WHERE customer_id = %s",
+        cur.execute("UPDATE customers SET c_firstname = %s, c_lastname = %s, "
+                    "c_email = %s WHERE customer_id = %s",
                     (fname, lname, email, session['customer']))
         conn.commit()
         return 0
