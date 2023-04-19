@@ -20,7 +20,6 @@ def getCartModel():
             session['total'] += float(item['total_price'])
         return session['cart']
     else:
-        print("CART NOT FOUND")
         return
 
 

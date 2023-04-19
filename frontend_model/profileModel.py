@@ -9,19 +9,42 @@ def getUserModel():
                            user='sql9607918', password='GFQC75Bg2g', port=3306)
     cur = conn.cursor()
     # Find user via the customer ID saved in session
-    cur.execute("SELECT * from customers WHERE customer_id = %s", session['customer'])
+    query = """
+    SELECT customer_id, c_firstname, c_lastname, c_email, c_password, phonenum, street, city, state, zipcode, c_status
+    FROM customers
+    WHERE customer_id = %s"""
+    cur.execute(query, (session['customer'],))
     userFound = cur.fetchall()
-
     # Save tuple information in a list
     for users in userFound:
         user.append({"id": users[0], "name": users[1], "last_name": users[2], "city": users[7],
                      "state": users[8], "zipcode": users[9], "email": users[3], "password": users[4],
-                     "phone_number": users[5], "status": users[10], "street": users[6]})
+                     "phone_number": users[5], "status": users[10], "street": users[6],})
 
     # To access user info:
 
         # for u in user:
         # u['id'], u['name'], u['email'], etc...
+    return user
+
+def getPaymentModel():
+    user = []
+    # Connect to DB using given credentials
+    conn = pymysql.connect(host='sql9.freemysqlhosting.net', db='sql9607918',
+                           user='sql9607918', password='GFQC75Bg2g', port=3306)
+    cur = conn.cursor()
+    # Find user via the customer ID saved in session
+    query = """
+    SELECT card_num, p_brand, card_date_month, card_date_year
+    FROM customers 
+    NATURAL JOIN payment_info 
+    WHERE customer_id = %s"""
+    cur.execute(query, (session['customer'],))
+    userFound = cur.fetchall()
+    # Save tuple information in a list
+    for users in userFound:
+        user.append({"card_number": users[0], "card_type": users[1], "cardmon": users[2], "cardyear": users[3],})
+
     return user
 
 
@@ -62,14 +85,14 @@ def editaddressmodel(aline1, aline2, state, zipcode, city):
         return 1
 
 
-def editpaymentmodel(name, c_type, number, exp_date):
+def editpaymentmodel(c_type, number, exp_mon, exp_year):
     conn = pymysql.connect(host='sql9.freemysqlhosting.net', db='sql9607918',
                            user='sql9607918', password='GFQC75Bg2g', port=3306)
     cur = conn.cursor()
     try:
-        cur.execute("UPDATE customer SET c_card_name = %s, c_card_number = %s, "
-                    "c_card_type = %s, c_exp_date = %s WHERE c_id = %s",
-                    (name, number, c_type, exp_date, session['customer']))
+        cur.execute("UPDATE payment_info SET p_brand = %s, card_num = %s, "
+                    "card_date_month = %s, card_date_year = %s WHERE customer_id = %s",
+                    (c_type, number, exp_mon, exp_year, session['customer']))
         conn.commit()
         return 0
 

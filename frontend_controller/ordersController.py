@@ -1,5 +1,5 @@
 from frontend_model.ordersModel import *
 
 
-def getOrder():
+def getOrdero():
     return getOrderModel()

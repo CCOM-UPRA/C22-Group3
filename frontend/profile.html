@@ -262,6 +262,7 @@
                             </div>
                         </div>
                     </div>
+                    {% for payments in payment %}
                     <div class="col-lg-12">
                         <div class="account-card mb-0">
                             <div class="account-title">
@@ -272,16 +273,17 @@
                                 <div class="row">
                                     <div class="col-md-6 col-lg-4 alert fade show">
                                         <div class="payment-card payment active">
-                                            <h2>{{user1['card_name']}}</h2>
-                                            <p>{{user1['card_number']}} </p>
-                                            <h5>{{user1['card_type']}}</h5>
-                                            <h6>{{user1['exp_date']}}</h6>
+                                            <h2>{{payments['card_type']}}</h2>
+                                            <p>•••• •••• •••• {{payments['card_number']}} </p>
+                                            <h6 style="display: inline-block;">{{payments['cardmon']}} / </h6>
+                                            <h6 style="display: inline-block;">{{payments['cardyear']}}</h6>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    {% endfor %}
                 </div>
             </div>
         </section>
@@ -313,7 +315,7 @@
                 </div> 
             </div> 
         </div>
-
+        
         <!-- address edit form -->
         <div class="modal fade" id="address-add">
             <div class="modal-dialog modal-dialog-centered"> 
@@ -347,7 +349,7 @@
                 </div> 
             </div> 
         </div>
-
+        {% for payments in payment %}
         <!-- payment edit form -->
         <div class="modal fade" id="payment-add">
             <div class="modal-dialog modal-dialog-centered"> 
@@ -359,20 +361,23 @@
                             <h3>edit payment info</h3>
                         </div>
                         <div class="form-group">
-                            <label class="form-label">card name</label>
-                            <input class="form-control" name="card_name" type="text" value="{{user1['card_name']}}">
-                        </div>
-                        <div class="form-group">
                             <label class="form-label">card number</label>
-                            <input class="form-control" name="card_num" type="number" value="{{user1['card_number']}}">
+                            <input class="form-control" name="card_num" type="number" value="{{payments['card_number']}}">
                         </div>
                         <div class="form-group">
-                            <label class="form-label">card type</label>
-                            <input class="form-control" name="card_type" type="text" value="{{user1['card_type']}}">
+                            <label class="form-label">Card Brand</label>
+                            <select name="card_type">
+                                <option value="Visa">Visa</option>
+                                <option value="Mastercard">Mastercard</option>
+                            </select>
                         </div>
                         <div class="form-group">
-                            <label class="form-label">expiration date (MM/DD/YYYY)</label>
-                            <input class="form-control" name="date" type="date" value="{{user1['exp_date']}}">
+                            <label class="form-label">expiration month</label>
+                            <input class="form-control" name="card_month" type="text" value="{{payments['cardmon']}}">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">expiration year</label>
+                            <input class="form-control" name="card_year" type="text" value="{{payments['cardyear']}}">
                         </div>
                         <button class="form-btn" type="submit">save payment info</button>
                         <input type="hidden" name="page" value="/profile">
@@ -380,7 +385,7 @@
                 </div> 
             </div> 
         </div>
-
+        {% endfor %}
          <!-- profile edit form -->
         <div class="modal fade" id="profile-edit">
             <div class="modal-dialog modal-dialog-centered">

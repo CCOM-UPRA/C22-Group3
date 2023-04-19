@@ -130,9 +130,10 @@ def profile():
     # To open the user's profile page
     # Get user info from getUser() in profileController
     user = getUser()
+    payment = getPayment()
 
     # Since I specified the variable as user1, that is how it will be called on the html page
-    return render_template("profile.html", user=user)
+    return render_template("profile.html", user=user, payment=payment)
 
 
 @app.route("/editinfo", methods=["POST"])
@@ -142,22 +143,27 @@ def editinfo():
         number = request.form.get('number')
         editnumbercontroller(number)
 
+    #PARA PROPOSITOS DE LA IMPLEMENTACION DE ESTA TIENDA LA DIRECCION NO SE PUEDE CAMBIAR.
     # If editing address info, edit address -> profileController
-    elif 'aline1' in request.form:
-        aline1 = request.form.get('aline1')
-        aline2 = request.form.get('aline2')
-        state = request.form.get('state')
-        zipcode = request.form.get('zipcode')
-        city = request.form.get('city')
-        editaddresscontroller(aline1, aline2, state, zipcode, city)
+    #elif 'aline1' in request.form:
+    #    aline1 = request.form.get('aline1')
+    #    aline2 = request.form.get('aline2')
+    #    state = request.form.get('state')
+    #    zipcode = request.form.get('zipcode')
+    #    city = request.form.get('city')
+    #    editaddresscontroller(aline1, aline2, state, zipcode, city)
 
     # If editing payment info -> profileController
-    elif 'card_name' in request.form:
-        name = request.form.get('card_name')
+    elif 'card_num' in request.form:
         c_type = request.form.get('card_type')
-        exp_date = request.form.get('date')
         number = request.form.get('card_num')
-        editpaymentcontroller(name, c_type, number, exp_date)
+        exp_mon = request.form.get('card_month')
+        exp_year = request.form.get('card_year')
+        print(c_type)
+        print(number)
+        print(exp_mon)
+        print(exp_year)
+        editpaymentcontroller(c_type, number, exp_mon, exp_year)
 
     # If editing main info -> profileController
     elif 'fname' in request.form:
@@ -191,11 +197,12 @@ def password():
 def orders():
     # Redirects us to the orders list page of the user
     # Fetches each order and its products from ordersController
-    orders = getOrder()
+    orders = getOrdero()
     user = getUser()
+    amount = 0
     for order in orders:
-        print(order['products'])
-    return render_template("orderlist.html", orders=orders, user=user)
+        amount = amount + 1
+    return render_template("orderlist.html", orders=orders, user=user, amount = amount)
 
 
 @app.route("/addcart", methods=["POST"])
@@ -233,8 +240,9 @@ def checkout(message):
     if 'customer' in session:
         # > profileController
         user = getUser()
+        payment = getPayment()
 
-        return render_template("checkout.html", user=user, message=message)
+        return render_template("checkout.html", user=user, message=message, payment=payment)
 
     else:
         # If customer isn't logged in, create session variable to tell us we're headed to checkout
