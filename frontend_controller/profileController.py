@@ -15,8 +15,8 @@ def editaddresscontroller(aline1, aline2, state, zipcode, city):
     return editaddressmodel(aline1, aline2, state, zipcode, city)
 
 
-def editpaymentcontroller(name, c_type, number, exp_date):
-    return editpaymentmodel(name, c_type, number, exp_date)
+def editpaymentcontroller(c_type, number, exp_mon, exp_year):
+    return editpaymentmodel(c_type, number, exp_mon, exp_year)
 
 
 def editprofilecontroller(fname, lname, email):

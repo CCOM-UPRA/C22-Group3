@@ -67,14 +67,14 @@ def editaddressmodel(aline1, aline2, state, zipcode, city):
         return 1
 
 
-def editpaymentmodel(name, c_type, number, exp_date):
+def editpaymentmodel(c_type, number, exp_mon, exp_year):
     conn = pymysql.connect(host='sql9.freemysqlhosting.net', db='sql9607918',
                            user='sql9607918', password='GFQC75Bg2g', port=3306)
     cur = conn.cursor()
     try:
-        cur.execute("UPDATE customer SET c_card_name = %s, c_card_number = %s, "
-                    "c_card_type = %s, c_exp_date = %s WHERE c_id = %s",
-                    (name, number, c_type, exp_date, session['customer']))
+        cur.execute("UPDATE payment_info SET p_brand = %s, card_num = %s, "
+                    "card_date_month = %s, card_date_year = %s WHERE customer_id = %s",
+                    (c_type, number, exp_mon, exp_year, session['customer']))
         conn.commit()
         return 0
 

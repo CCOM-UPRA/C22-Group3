@@ -142,22 +142,27 @@ def editinfo():
         number = request.form.get('number')
         editnumbercontroller(number)
 
+    #PARA PROPOSITOS DE LA IMPLEMENTACION DE ESTA TIENDA LA DIRECCION NO SE PUEDE CAMBIAR.
     # If editing address info, edit address -> profileController
-    elif 'aline1' in request.form:
-        aline1 = request.form.get('aline1')
-        aline2 = request.form.get('aline2')
-        state = request.form.get('state')
-        zipcode = request.form.get('zipcode')
-        city = request.form.get('city')
-        editaddresscontroller(aline1, aline2, state, zipcode, city)
+    #elif 'aline1' in request.form:
+    #    aline1 = request.form.get('aline1')
+    #    aline2 = request.form.get('aline2')
+    #    state = request.form.get('state')
+    #    zipcode = request.form.get('zipcode')
+    #    city = request.form.get('city')
+    #    editaddresscontroller(aline1, aline2, state, zipcode, city)
 
     # If editing payment info -> profileController
-    elif 'card_name' in request.form:
-        name = request.form.get('card_name')
+    elif 'card_num' in request.form:
         c_type = request.form.get('card_type')
-        exp_date = request.form.get('date')
         number = request.form.get('card_num')
-        editpaymentcontroller(name, c_type, number, exp_date)
+        exp_mon = request.form.get('card_month')
+        exp_year = request.form.get('card_year')
+        print(c_type)
+        print(number)
+        print(exp_mon)
+        print(exp_year)
+        editpaymentcontroller(c_type, number, exp_mon, exp_year)
 
     # If editing main info -> profileController
     elif 'fname' in request.form:

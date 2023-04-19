@@ -367,20 +367,23 @@
                             <h3>edit payment info</h3>
                         </div>
                         <div class="form-group">
-                            <label class="form-label">card name</label>
-                            <input class="form-control" name="card_name" type="text" value="{{user1['card_name']}}">
-                        </div>
-                        <div class="form-group">
                             <label class="form-label">card number</label>
                             <input class="form-control" name="card_num" type="number" value="{{user1['card_number']}}">
                         </div>
                         <div class="form-group">
-                            <label class="form-label">card type</label>
-                            <input class="form-control" name="card_type" type="text" value="{{user1['card_type']}}">
+                            <label class="form-label">Card Brand</label>
+                            <select name="card_type">
+                                <option value="Visa">Visa</option>
+                                <option value="Mastercard">Mastercard</option>
+                            </select>
                         </div>
                         <div class="form-group">
-                            <label class="form-label">expiration date (MM/DD/YYYY)</label>
-                            <input class="form-control" name="date" type="date" value="{{user1['exp_date']}}">
+                            <label class="form-label">expiration month</label>
+                            <input class="form-control" name="card_month" type="text" value="{{user1['cardmon']}}">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">expiration year</label>
+                            <input class="form-control" name="card_year" type="text" value="{{user1['cardyear']}}">
                         </div>
                         <button class="form-btn" type="submit">save payment info</button>
                     </form>
