@@ -48,6 +48,7 @@ def validateUserCheckout():
                 cur.execute("INSERT INTO cont (sticker_id, order_id, quantity, price, day) VALUES (%s, %s, %s, %s, %s)", iteminf)
                 conn.commit()
             
+            session['cart'] = [] 
             cur.close()
             conn.close()
             return redirect("/invoice")
