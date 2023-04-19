@@ -18,9 +18,9 @@ def validateUserCheckout():
         elif u['phone_number'] == 0:
             message = "number"
             return redirect(url_for('checkout', message=message))
-        elif u['card_name'] == "" or u['card_type'] == "" or u['exp_date'] is None or u['card_number'] == 0:
-            message = "payment"
-            return redirect(url_for('checkout', message=message))
+        #elif u['card_name'] == "" or u['card_type'] == "" or u['exp_date'] is None or u['card_number'] == 0:
+            #message = "payment"
+            #return redirect(url_for('checkout', message=message))
         else:
             
             #add the checkout info into the database, 
@@ -47,8 +47,8 @@ def validateUserCheckout():
                 iteminf = tuple(iteminfo)
                 cur.execute("INSERT INTO cont (sticker_id, order_id, quantity, price, day) VALUES (%s, %s, %s, %s, %s)", iteminf)
                 conn.commit()
-            
-            session['cart'] = [] 
+
+            session['cart'] = {}
             cur.close()
             conn.close()
             return redirect("/invoice")
