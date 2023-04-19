@@ -65,7 +65,7 @@
                                 <p>Use your credentials to access</p>
                                 {% if message == 'wrong' %}
                                     <h2 style="color: red">Login to check out properly.</h2>
-                                {% elif message != None and message != 'enter' %}
+                                {% elif message != None and message == 'enter'%}
                                     <h2 style="color: red">Login credentials are incorrect. Please try again.</h2>
                                 {% endif %}
                             </div>
