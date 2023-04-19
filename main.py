@@ -130,9 +130,10 @@ def profile():
     # To open the user's profile page
     # Get user info from getUser() in profileController
     user = getUser()
+    payment = getPayment()
 
     # Since I specified the variable as user1, that is how it will be called on the html page
-    return render_template("profile.html", user=user)
+    return render_template("profile.html", user=user, payment=payment)
 
 
 @app.route("/editinfo", methods=["POST"])
@@ -239,8 +240,9 @@ def checkout(message):
     if 'customer' in session:
         # > profileController
         user = getUser()
+        payment = getPayment()
 
-        return render_template("checkout.html", user=user, message=message)
+        return render_template("checkout.html", user=user, message=message, payment=payment)
 
     else:
         # If customer isn't logged in, create session variable to tell us we're headed to checkout

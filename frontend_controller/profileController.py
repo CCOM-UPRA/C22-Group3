@@ -6,6 +6,8 @@ from frontend_model.profileModel import *
 def getUser():
     return getUserModel()
 
+def getPayment():
+    return getPaymentModel()
 
 def editnumbercontroller(number):
     return editnumbermodel(number)
