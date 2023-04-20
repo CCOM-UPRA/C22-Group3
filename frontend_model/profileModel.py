@@ -34,16 +34,19 @@ def getPaymentModel():
                            user='sql9607918', password='GFQC75Bg2g', port=3306)
     cur = conn.cursor()
     # Find user via the customer ID saved in session
-    query = """
-    SELECT card_num, p_brand, card_date_month, card_date_year
-    FROM customers 
-    NATURAL JOIN payment_info 
-    WHERE customer_id = %s"""
+    query = """SELECT payment_info.card_num, payment_info.p_brand, payment_info.card_date_month, payment_info.card_date_year, payment_info.zipcode
+            FROM customers
+            JOIN payment_info ON customers.customer_id = payment_info.customer_id
+            WHERE customers.customer_id = %s;
+            """
     cur.execute(query, (session['customer'],))
     userFound = cur.fetchall()
     # Save tuple information in a list
     for users in userFound:
-        user.append({"card_number": users[0], "card_type": users[1], "cardmon": users[2], "cardyear": users[3],})
+        user.append({"card_number": users[0], "card_type": users[1], "cardmon": users[2], "cardyear": users[3], "p_zipcode": users[4]})
+
+    if len(user) == 0:
+        user = ["", "", "", "", ""]  
 
     return user
 
@@ -85,24 +88,41 @@ def editaddressmodel(aline1, aline2, state, zipcode, city):
         return 1
 
 
-def editpaymentmodel(c_type, number, exp_mon, exp_year):
+def editpaymentmodel(c_type, number, exp_mon, exp_year, p_zipcode):
     conn = pymysql.connect(host='sql9.freemysqlhosting.net', db='sql9607918',
                            user='sql9607918', password='GFQC75Bg2g', port=3306)
     cur = conn.cursor()
-    try:
-        cur.execute("UPDATE payment_info SET p_brand = %s, card_num = %s, "
-                    "card_date_month = %s, card_date_year = %s WHERE customer_id = %s",
-                    (c_type, number, exp_mon, exp_year, session['customer']))
-        conn.commit()
-        return 0
+    user = getPaymentModel()
+    if (user == ["", "", "", "", ""] ):
+        try:
+            status = "active"
+            cur.execute("INSERT INTO payment_info SET card_num = %s, card_date_month = %s, card_date_year = %s,"
+                        "zipcode = %s, p_status = %s, p_brand = %s, customer_id = %s", (number, exp_mon, exp_year, p_zipcode, status, c_type, session['customer']))
+            conn.commit()
+            return 0
 
-    except pymysql.Error as error:
-        print(error)
-        return 0
+        except pymysql.Error as error:
+            print(error)
+            return 0
 
+        else:
+            cur.close()
+            return 1
     else:
-        cur.close()
-        return 1
+        try:
+            status = "active"
+            cur.execute("UPDATE payment_info SET card_num = %s, card_date_month = %s, card_date_year = %s,"
+                        "zipcode = %s, p_status = %s, p_brand = %s WHERE customer_id = %s", (number, exp_mon, exp_year, p_zipcode, status, c_type, session['customer']))
+            conn.commit()
+            return 0
+
+        except pymysql.Error as error:
+            print(error)
+            return 0
+
+        else:
+            cur.close()
+            return 1
 
 
 def editprofilemodel(fname, lname, email):

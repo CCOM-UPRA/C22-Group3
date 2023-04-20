@@ -130,10 +130,10 @@ def profile():
     # To open the user's profile page
     # Get user info from getUser() in profileController
     user = getUser()
-    payment = getPayment()
+    payments = getPayment()
 
     # Since I specified the variable as user1, that is how it will be called on the html page
-    return render_template("profile.html", user=user, payment=payment)
+    return render_template("profile.html", user=user, payments=payments)
 
 
 @app.route("/editinfo", methods=["POST"])
@@ -159,11 +159,8 @@ def editinfo():
         number = request.form.get('card_num')
         exp_mon = request.form.get('card_month')
         exp_year = request.form.get('card_year')
-        print(c_type)
-        print(number)
-        print(exp_mon)
-        print(exp_year)
-        editpaymentcontroller(c_type, number, exp_mon, exp_year)
+        p_zipcode = request.form.get('p_zipcode')
+        editpaymentcontroller(c_type, number, exp_mon, exp_year, p_zipcode)
 
     # If editing main info -> profileController
     elif 'fname' in request.form:
@@ -270,7 +267,8 @@ def invoice():
         totalitem += item['quantity']
     user = getUser()
     date = getdate()
-    return render_template("invoice.html", order=order, products=products, amount=amount, totalitem=totalitem, user=user, date=date)
+    payment = getPayment()
+    return render_template("invoice.html", order=order, products=products, amount=amount, totalitem=totalitem, user=user, date=date, payment=payment)
 
 
 #@app.route("/filter")

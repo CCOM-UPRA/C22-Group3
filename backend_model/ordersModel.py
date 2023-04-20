@@ -153,7 +153,6 @@ def getorderproductsmodel(ID):
             else:
                 num += 1
                 returnList = MagerDicts(returnList, {str(num): product})
-    print(returnList)
     return returnList
 
 

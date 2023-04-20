@@ -9,18 +9,19 @@ def validateUserCheckout():
     user = validateUserModel()
 
     for u in user:
+
         # Check if a specific part is empty/null/0/etc and save the appropriate message to send back to checkout
         # Checkout will display an error message according to the variable 'message' if some info is missing
         # Otherwise, it will proceed to invoice
-        if u['city'] == "" or u['state'] == "" or u['zipcode'] == "" or u['street'] == "":
-            message = "address"
+        if u['p_brand'] == "" or u['cardyear'] == "" or u['cardmon'] == "" or u['card_number'] == "":
+            message = "payment"
             return redirect(url_for('checkout', message=message))
         elif u['phone_number'] == 0:
             message = "number"
             return redirect(url_for('checkout', message=message))
-        #elif u['card_name'] == "" or u['card_type'] == "" or u['exp_date'] is None or u['card_number'] == 0:
-            #message = "payment"
-            #return redirect(url_for('checkout', message=message))
+        elif u['city'] == "" or u['state'] == "" or u['zipcode'] == "" or u['street'] == "":
+            message = "address"
+            return redirect(url_for('checkout', message=message))
         else:
             
             #add the checkout info into the database, 

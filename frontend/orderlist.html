@@ -133,7 +133,7 @@
                     <div class="cart-media">
                         <a href="static/images/product-images/{{item['image']}}">
                             <img src="static/images/product-images/{{item['image']}}" alt="product"></a>
-                        <form action="{{url_for('delete', id=key)}}">
+                            <form action="{{url_for('delete', id=key)}}" method="POST">
                         <button class="cart-delete"><i class="far fa-trash-alt"></i></button>
                         </form>
                     </div>
@@ -221,7 +221,7 @@
                     <div class="col-lg-12">
                         <div class="orderlist">
                             <div class="orderlist-head">
-                                <h5>order#01</h5>
+                                <h5>order#{{loop.index}}</h5>
                                 <h5>order received</h5>
                             </div>
                             <div class="orderlist-body">

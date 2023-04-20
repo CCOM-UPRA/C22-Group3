@@ -127,7 +127,7 @@
                     <div class="cart-media">
                         <a href="static/images/product-images/{{item['image']}}">
                             <img src="static/images/product-images/{{item['image']}}" alt="product"></a>
-                        <form action="{{url_for('delete', id=key)}}">
+                            <form action="{{url_for('delete', id=key)}}" method="POST">
                         <button class="cart-delete"><i class="far fa-trash-alt"></i></button>
                         </form>
                     </div>
@@ -262,7 +262,6 @@
                             </div>
                         </div>
                     </div>
-                    {% for payments in payment %}
                     <div class="col-lg-12">
                         <div class="account-card mb-0">
                             <div class="account-title">
@@ -273,17 +272,16 @@
                                 <div class="row">
                                     <div class="col-md-6 col-lg-4 alert fade show">
                                         <div class="payment-card payment active">
-                                            <h2>{{payments['card_type']}}</h2>
-                                            <p>•••• •••• •••• {{payments['card_number']}} </p>
-                                            <h6 style="display: inline-block;">{{payments['cardmon']}} / </h6>
-                                            <h6 style="display: inline-block;">{{payments['cardyear']}}</h6>
+                                            <h2>{{ payments[0].card_type }}</h2>
+                                            <p>•••• •••• •••• {{ payments[0].card_number }} </p>
+                                            <h6 style="display: inline-block;">{{ payments[0].cardmon }} / </h6>
+                                            <h6 style="display: inline-block;">{{ payments[0].cardyear }}</h6>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    {% endfor %}
                 </div>
             </div>
         </section>
@@ -349,7 +347,6 @@
                 </div> 
             </div> 
         </div>
-        {% for payments in payment %}
         <!-- payment edit form -->
         <div class="modal fade" id="payment-add">
             <div class="modal-dialog modal-dialog-centered"> 
@@ -361,8 +358,8 @@
                             <h3>edit payment info</h3>
                         </div>
                         <div class="form-group">
-                            <label class="form-label">card number</label>
-                            <input class="form-control" name="card_num" type="number" value="{{payments['card_number']}}">
+                            <label class="form-label">Card Number</label>
+                            <input class="form-control" name="card_num" type="number" value="{{ payments[0].card_number }}">
                         </div>
                         <div class="form-group">
                             <label class="form-label">Card Brand</label>
@@ -372,12 +369,16 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label class="form-label">expiration month</label>
-                            <input class="form-control" name="card_month" type="text" value="{{payments['cardmon']}}">
+                            <label class="form-label">Expiration Month</label>
+                            <input class="form-control" name="card_month" type="text" value="{{ payments[0].cardmon }}">
                         </div>
                         <div class="form-group">
-                            <label class="form-label">expiration year</label>
-                            <input class="form-control" name="card_year" type="text" value="{{payments['cardyear']}}">
+                            <label class="form-label">expiration Year</label>
+                            <input class="form-control" name="card_year" type="text" value="{{ payments[0].cardyear }}">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Zip Code</label>
+                            <input class="form-control" name="p_zipcode" type="text" value="{{ payments[0].p_zipcode }}">
                         </div>
                         <button class="form-btn" type="submit">save payment info</button>
                         <input type="hidden" name="page" value="/profile">
@@ -385,7 +386,6 @@
                 </div> 
             </div> 
         </div>
-        {% endfor %}
          <!-- profile edit form -->
         <div class="modal fade" id="profile-edit">
             <div class="modal-dialog modal-dialog-centered">
