@@ -146,6 +146,7 @@
                         </div>
                         <div class="cart-action-group">
                             <div class="product-action">
+                                <input style="width: 50%" class="action-input" title="Quantity Number" type="number" id="quantity" name="quantity" value="{{item['quantity']}}"  max="{{item['stock']}}">
                                 <button class="action-minus" title="Quantity Minus"><i class="icofont-minus"></i></button>
                                 <input class="action-input" title="Quantity Number" type="text" name="quantity" value="{{item['quantity']}}">
                                 <button class="action-plus" title="Quantity Plus"><i class="icofont-plus"></i></button>
@@ -319,12 +320,13 @@
                                         </button>
                                         <div class="product-action">
                                             <form action="{{url_for('addcart')}}" method="post">
-                                            <input style="width: 50%" class="action-input" title="Quantity Number" type="number" id="quantity" name="quantity" value="1">
-                                               <input type="hidden" id="p_id" name="p_id" value="{{product['id']}}">
-                                               <input type="hidden" id="name" name="name" value="{{product['name']}}">
+                                            <input style="width: 50%" class="action-input" title="Quantity Number" type="number" id="quantity" name="quantity" value="1"  max="{{product['stock']}}">
+                                                <input type="hidden" id="p_id" name="p_id" value="{{product['id']}}">
+                                                <input type="hidden" id="name" name="name" value="{{product['name']}}">
                                                 <input type="hidden" id="image" name="image" value="{{product['img']}}">
                                                 <input type="hidden" id="price" name="price" value="{{product['price']}}">
-                                              <input style="width: 30%" type="submit" value="Add">
+                                                <input type="hidden" id="stock" name="stock" value="{{product['stock']}}">
+                                                <input style="width: 30%" type="submit" value="Add">
                                               </form>
                                         </div>
                                     </div>
@@ -368,16 +370,15 @@
                                                <input type="hidden" name="name" value="{{product['name']}}">
                                                 <input type="hidden" name="image" value="{{product['img']}}">
                                                 <input type="hidden" name="price" value="{{product['price']}}">
+                                                <input type="hidden" name="stock" value="{{product['stock']}}">
                                          <div class="view-add-group">
                                         <button class="product-add" title="Add to Cart">
                                             <span>Tap to add amount</span>
                                         </button>
 
                                         <div class="product-action">
-                                            <button class="action-minus" title="Quantity Minus"><i class="icofont-minus"></i></button>
-                                            <input class="action-input" title="Quantity Number" type="text" name="quantity" value="1">
-                                            <button class="action-plus" title="Quantity Plus"><i class="icofont-plus"></i></button>
-                                        </div>
+                                            <input style="width: 50%" class="action-input" title="Quantity Number" type="number" id="quantity" name="quantity" value="1"  max="{{product['stock']}}">
+                                        </div>  
                                     </div>
                                     <div class="view-action-group">
                                         <a class="view-wish wish" href="/shop" title="Add to Cart">
