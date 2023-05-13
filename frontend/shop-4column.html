@@ -147,9 +147,6 @@
                         <div class="cart-action-group">
                             <div class="product-action">
                                 <input style="width: 50%" class="action-input" title="Quantity Number" type="number" id="quantity" name="quantity" value="{{item['quantity']}}"  max="{{item['stock']}}">
-                                <button class="action-minus" title="Quantity Minus"><i class="icofont-minus"></i></button>
-                                <input class="action-input" title="Quantity Number" type="text" name="quantity" value="{{item['quantity']}}">
-                                <button class="action-plus" title="Quantity Plus"><i class="icofont-plus"></i></button>
                             </div>
                              <form action="{{url_for('editcart')}}" method="post">
                                     <button class="action">Edit</button>
