@@ -143,15 +143,13 @@ def editinfo():
         number = request.form.get('number')
         editnumbercontroller(number)
 
-    #PARA PROPOSITOS DE LA IMPLEMENTACION DE ESTA TIENDA LA DIRECCION NO SE PUEDE CAMBIAR.
     # If editing address info, edit address -> profileController
-    #elif 'aline1' in request.form:
-    #    aline1 = request.form.get('aline1')
-    #    aline2 = request.form.get('aline2')
-    #    state = request.form.get('state')
-    #    zipcode = request.form.get('zipcode')
-    #    city = request.form.get('city')
-    #    editaddresscontroller(aline1, aline2, state, zipcode, city)
+    elif 'street' in request.form:
+        street = request.form.get('street')
+        state = request.form.get('state')
+        zipcode = request.form.get('zipcode')
+        city = request.form.get('city')
+        editaddresscontroller(street, state, zipcode, city)
 
     # If editing payment info -> profileController
     elif 'card_num' in request.form:
