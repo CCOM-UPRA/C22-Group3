@@ -146,7 +146,7 @@
                         </div>
                         <div class="cart-action-group">
                             <div class="product-action">
-                                <input style="width: 50%" class="action-input" title="Quantity Number" type="number" id="quantity" name="quantity" value="{{item['quantity']}}"  max="{{item['stock']}}">
+                                <input style="width: 50%" class="action-input" title="Quantity Number" type="number" id="quantity" name="quantity" value="{{item['quantity']}}" min="1"  max="{{item['stock']}}">
                             </div>
                              <form action="{{url_for('editcart')}}" method="post">
                                     <button class="action">Edit</button>
@@ -317,7 +317,7 @@
                                         </button>
                                         <div class="product-action">
                                             <form action="{{url_for('addcart')}}" method="post">
-                                            <input style="width: 50%" class="action-input" title="Quantity Number" type="number" id="quantity" name="quantity" value="1"  max="{{product['stock']}}">
+                                            <input style="width: 50%" class="action-input" title="Quantity Number" type="number" id="quantity" name="quantity" value="1" min="1" max="{{product['stock']}}">
                                                 <input type="hidden" id="p_id" name="p_id" value="{{product['id']}}">
                                                 <input type="hidden" id="name" name="name" value="{{product['name']}}">
                                                 <input type="hidden" id="image" name="image" value="{{product['img']}}">
@@ -374,7 +374,7 @@
                                         </button>
 
                                         <div class="product-action">
-                                            <input style="width: 50%" class="action-input" title="Quantity Number" type="number" id="quantity" name="quantity" value="1"  max="{{product['stock']}}">
+                                            <input style="width: 50%" class="action-input" title="Quantity Number" type="number" id="quantity" name="quantity" value="1" min="1" max="{{product['stock']}}">
                                         </div>  
                                     </div>
                                     <div class="view-action-group">
