@@ -112,7 +112,8 @@ def shop():
         material = request.form.get("Mat")
         color = request.form.get("Co")
         order = request.form.get("Order")
-        products = getFilteredProducts(size, waterproof, material, color, order)
+        name = request.form.get("StickerName")
+        products = getFilteredProducts(size, waterproof, material, color, order, name)
     else:
         products = getProducts()
 

@@ -198,8 +198,14 @@
                     <div class="col-lg-3">
 
                         <div class="shop-widget">
-                            <h6 class="shop-widget-title">Filter by Price</h6>
                             <form action="/shop" method="POST"> 
+                                <div class="shop-widget">
+                                    <h6 class="shop-widget-title">Search by Name</h6>
+                                    <div class="shop-widget-content">
+                                        <input type="text" id="stickerName" name="StickerName" placeholder="Enter sticker name">
+                                    </div>
+                                </div>
+                            <h6 class="shop-widget-title">Filter by Price</h6>
                                 <div class="shop-widget-list">
                                     <input type="radio" id="ASC" name="Order" value="ASC">
                                     <label for="ASC">Ascending</label>
