@@ -7,6 +7,8 @@ from frontend_controller.ordersController import *
 from frontend_controller.profileController import *
 from frontend_controller.shopController import *
 from frontend_controller.registerController import *
+from passlib.hash import sha256_crypt
+
 
 app = Flask(__name__, template_folder='frontend/')
 app.secret_key = 'akeythatissecret'
@@ -55,6 +57,7 @@ def login():
     email = request.form.get('email')
     passcode = request.form.get('password')
     # Receive your login information and send to the loginController's logincontroller()
+
     return logincontroller(email=email, password=passcode)
 
 
@@ -96,6 +99,8 @@ def registerinfo():
     if pass1 == pass2:
         # Process register info here
         # For now we won't have the register log you in when you create an account but rather take you to the log in screen afterwards
+        passcode = sha256_crypt.encrypt(pass1)
+        pass1 = passcode
         registerinfo = [fname, lname, email, pass1, phone, street, city, state, zipcode]
         registercontroller(registerinfo=registerinfo)
 
