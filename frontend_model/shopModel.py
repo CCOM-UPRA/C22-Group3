@@ -19,12 +19,12 @@ def getProductsModel():
     conn = pymysql.connect(host='sql9.freemysqlhosting.net', db='sql9607918',
                            user='sql9607918', password='GFQC75Bg2g', port=3306)
     cur = conn.cursor()
-    cur.execute("SELECT * from stickers")
+    cur.execute("SELECT * FROM stickers WHERE s_status = 'active'")
     results = cur.fetchall()
     for res in results:
         productList.append({"id": res[0], "name": res[1], "brand": res[11], "desc": res[2],
                     "waterproof": res[8], "material": res[9], "color": res[10], "img": res[3],
-                    "stock": res[4], "cost": res[6], "price": res[5], "size": res[7]})
+                    "stock": res[4], "cost": res[6], "price": res[5], "size": res[7], "status": res[12]})
     cur.close()
     conn.close()
     return productList
@@ -97,13 +97,12 @@ def getWaterProofModel():
     return waterproof
 
 
-
 def getFilterModel(size, waterproof, material, color, order, name):
     connection = pymysql.connect(host='sql9.freemysqlhosting.net', db='sql9607918',
                                  user='sql9607918', password='GFQC75Bg2g', port=3306)
     cursor = connection.cursor()
 
-    query = "SELECT * FROM stickers WHERE 1=1"
+    query = "SELECT * FROM stickers WHERE s_status = 'active'"
     values = []
 
     if size is not None:
@@ -138,7 +137,7 @@ def getFilterModel(size, waterproof, material, color, order, name):
     for res in results:
         productList.append({"id": res[0], "name": res[1], "brand": res[11], "desc": res[2],
                             "waterproof": res[8], "material": res[9], "color": res[10], "img": res[3],
-                            "stock": res[4], "cost": res[6], "price": res[5], "size": res[7]})
+                            "stock": res[4], "cost": res[6], "price": res[5], "size": res[7], "status": res[12]})
     cursor.close()
     connection.close()
     return productList
