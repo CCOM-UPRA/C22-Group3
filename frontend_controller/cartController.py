@@ -17,6 +17,3 @@ def addCartController(p_id, name, image, price, quantity, stock, total):
 def deleteCartItem(id):
     # FOR STUDENT TO ADD
     return deleteCartItemModel(id)
-
-
-
