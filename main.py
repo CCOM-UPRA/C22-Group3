@@ -240,6 +240,17 @@ def delete(id):
 @app.route("/editcart", methods=["POST"])
 def editcart():
     # TO BE ADDED BY STUDENTS (Editing the session variable cart)
+    p_id = request.form.get('pid')
+    name = request.form.get('name')
+    image = request.form.get('image')
+    price = request.form.get('price')
+    quantity = request.form.get('quantity')
+    stock = request.form.get('stock')
+    total = float(price) * int(quantity)
+
+    deleteCartItem(p_id)
+    addCartController(p_id, name, image, price, quantity, stock, total)
+
     return redirect(request.referrer)
 
 

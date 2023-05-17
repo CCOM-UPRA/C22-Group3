@@ -49,6 +49,3 @@ def deleteCartItemModel(id):
     #del session['cart'][id]
     # FOR STUDENT TO ADD
     return
-
-
-

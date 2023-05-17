@@ -146,11 +146,17 @@
                         </div>
                         <div class="cart-action-group">
                             <div class="product-action">
-                                <input style="width: 50%" class="action-input" title="Quantity Number" type="number" id="quantity" name="quantity" value="{{item['quantity']}}" min="1"  max="{{item['stock']}}">
-                            </div>
-                             <form action="{{url_for('editcart')}}" method="post">
+                                <form action="{{url_for('editcart')}}" method="post">
+                                    <input style="width: 50%" class="action-input" title="Quantity Number" type="number" id="quantity" name="quantity" value="{{item['quantity']}}" min="1"  max="{{item['stock']}}">
+                                    <input type="hidden" id="name" name="name" value="{{item['name']}}">
+                                    <input type="hidden" id="image" name="image" value="{{item['image']}}">
+                                    <input type="hidden" id="price" name="price" value="{{item['price']}}">
+                                    <input type="hidden" id="stock" name="stock" value="{{item['stock']}}">
+                                    <input type="hidden" id="pid" name="pid" value="{{key}}">
+                                    
                                     <button class="action">Edit</button>
-                             </form>
+                                </form>
+                            </div>
                             <h6>${{item['total_price']}}</h6>
                         </div>
                     </div>

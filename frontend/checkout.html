@@ -166,8 +166,19 @@
                                                 <img src="/static/images/product-images/{{item['img']}}" alt="product"></a> </td>
                                                 <td class="table-name"><h6>{{item['name']}}</h6></td>
                                                 <td class="table-price"><h6>${{item['price']}}</h6></td>
-                                                <td class="table-brand"><h6>{{item['quantity']}}</h6></td>
-                                                 <td class="table-brand"><h6>${{item['total_price']}}</h6></td>
+                                                <td class="table-brand">
+                                                    <form action="{{url_for('editcart')}}" method="post">
+                                                        <input class="action-input" title="Quantity Number" type="number" id="quantity" name="quantity" value="{{item['quantity']}}" min="1"  max="{{item['stock']}}">
+                                                        <input type="hidden" id="name" name="name" value="{{item['name']}}">
+                                                        <input type="hidden" id="image" name="image" value="{{item['image']}}">
+                                                        <input type="hidden" id="price" name="price" value="{{item['price']}}">
+                                                        <input type="hidden" id="stock" name="stock" value="{{item['stock']}}">
+                                                        <input type="hidden" id="pid" name="pid" value="{{key}}">
+                                                        <button class="action">Edit</button>
+                                                    </form>
+                                                </td>
+                                                
+                                                <td class="table-brand"><h6>${{item['total_price']}}</h6></td>
                                                 <!--<td class="table-action">
                                                     <a class="view" href="#" title="Edit Amount" data-bs-toggle="modal" data-bs-target="#product-view-{{key}}"><i class="fas fa-edit"></i></a>
                                                     <a class="trash" href="#" title="Remove Wishlist"><i class="icofont-trash"></i></a>
