@@ -95,18 +95,26 @@ def registerinfo():
     city = request.form.get('city')
     state = request.form.get('state')
     zipcode = request.form.get('zipcode')
+
+    if email_already_in_use(email):
+        return redirect('/register/Email already in use')
+    
+    if not fname or not lname or not email or  not phone or not street or not city or not state or not zipcode:
+        return redirect('/register/Please fill in all fields')
     
     if pass1 == pass2:
-        # Process register info here
-        # For now we won't have the register log you in when you create an account but rather take you to the log in screen afterwards
-        passcode = sha256_crypt.encrypt(pass1)
-        pass1 = passcode
-        registerinfo = [fname, lname, email, pass1, phone, street, city, state, zipcode]
-        registercontroller(registerinfo=registerinfo)
-
-        return redirect('/login')
+        if len(pass1) >= 8 and len(pass1) <= 16:
+            # Process register info here
+            # For now, we won't have the register log you in when you create an account but rather take you to the log in screen afterwards
+            passcode = sha256_crypt.encrypt(pass1)
+            pass1 = passcode
+            registerinfo = [fname, lname, email, pass1, phone, street, city, state, zipcode]
+            registercontroller(registerinfo=registerinfo)
+            return redirect('/login')
+        else:
+            return redirect('/register/Invalid password length')
     else:
-        return redirect('/register/<message>')
+        return redirect('/register/Passwords do not match')
 
 
 @app.route("/shop", methods=["GET", "POST"])

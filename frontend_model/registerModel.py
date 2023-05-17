@@ -14,4 +14,23 @@ def registermodel(registerinfo):
     print(cur.rowcount, "record inserted.")
     cur.close()
     conn.close()
+
+def email_already_in_usemodel(email):
+    conn = pymysql.connect(host='sql9.freemysqlhosting.net', db='sql9607918',
+                           user='sql9607918', password='GFQC75Bg2g', port=3306)
+    cur = conn.cursor()
+
+    cur.execute("SELECT c_email FROM customers WHERE c_email = %s", (email,))
+    result = cur.fetchone()
+
+    cur.close()
+    conn.close()
+
+    if result:
+        # Email is already in use
+        return True
+    else:
+        # Email is not in use
+        return False
+
     
