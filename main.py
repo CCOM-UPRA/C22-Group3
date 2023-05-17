@@ -84,7 +84,7 @@ def register(message):
 @app.route("/registerinfo", methods=['POST'])
 def registerinfo():
     # TO BE CONNECTED TO MYSQL BY STUDENTS
-    # Processs the register info
+    # Process the register info
     fname = request.form.get('fname')
     lname = request.form.get('lname')
     email = request.form.get('email')
@@ -98,10 +98,28 @@ def registerinfo():
 
     if email_already_in_use(email):
         return redirect('/register/Email already in use')
-    
-    if not fname or not lname or not email or  not phone or not street or not city or not state or not zipcode:
+
+    if not fname or not lname or not email or not phone or not street or not city or not state or not zipcode:
         return redirect('/register/Please fill in all fields')
     
+    if not phone.isdigit():
+        return redirect('/register/Phone number should contain only digits')
+    
+    if len(phone) != 10:
+        return redirect('/register/Phone number should be 10 digits')
+    
+    if not state.isalpha():
+        return redirect('/register/State should contain only letters')
+
+    if len(state) != 2:
+        return redirect('/register/State should be 2 characters')
+
+    if len(zipcode) != 5:
+        return redirect('/register/Zip code should be 5 digits')
+
+    if '@' not in email:
+        return redirect('/register/Invalid email format')
+
     if pass1 == pass2:
         if len(pass1) >= 8 and len(pass1) <= 16:
             # Process register info here
