@@ -106,11 +106,11 @@
         <!--=====================================
                     BANNER PART START
         =======================================-->
-        <section class="inner-section single-banner" style="background: url(static/images/sticker_background.jpg) no-repeat center;">
+        <section class="inner-section single-banner" style="background: url(/static/images/sticker_background.jpg) no-repeat center;">
             <div class="container">
                 <h2 style="color: white; font-family: 'Tilt Prism', cursive; font-size: 11em; ">Checkout</h2> <br> <br>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="/{{url_for('shop')}}">shop</a></li>
+                    <li class="breadcrumb-item"><a href="{{url_for('shop')}}">shop</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Checkout</li>
                 </ol>
             </div>
@@ -198,7 +198,7 @@
                                         <label class="view-label new">{{item['stock']}} in stock</label>
                                     </div>
                                     <ul class="preview-slider">
-                                        <li><img src="static/images/product-images/{{item['image']}}" alt="product"></li>
+                                        <li><img src="/static/images/product-images/{{item['image']}}" alt="product"></li>
                                     </ul>
 
                                 </div>
@@ -378,7 +378,7 @@
                         </div>
                         <div class="form-group">
                             <label class="form-label">Card Number</label>
-                            <input class="form-control" name="card_num" type="number" value="{{ payment[0].card_number }}">
+                            <input class="form-control" name="card_num" type="number" placeholder="•••• •••• •••• {{ payment[0].card_number }} ">
                         </div>
                         <div class="form-group">
                             <label class="form-label">Card Brand</label>
@@ -428,7 +428,7 @@
                     <div class="col-sm-6 col-xl-3">
                         <div class="footer-widget">
                             <a class="footer-logo" href="#">
-                                <img src="static/images/brand/logo_morro_pr.png" alt="logo">
+                                <img src="/static/images/brand/logo_morro_pr.png" alt="logo">
                             </a>
                             <p class="footer-desc"></p>
 
