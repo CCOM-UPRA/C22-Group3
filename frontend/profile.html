@@ -351,7 +351,47 @@
                 </div> 
             </div> 
         </div>
+
         <!-- payment edit form -->
+        <div class="modal fade" id="payment-add">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <button class="modal-close" data-bs-dismiss="modal"><i class="icofont-close"></i></button>
+                    <form class="modal-form" action="{{url_for('editinfo')}}" method="post">
+                        <input type="hidden" name="profile" value="profile">
+                        <div class="form-title">
+                            <h3>edit payment info</h3>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Card Number</label>
+                            <input class="form-control" name="card_num" type="number" placeholder="•••• •••• •••• {{ payments[0].card_number }} ">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Card Brand</label>
+                            <select name="card_type">
+                                <option value="Visa">Visa</option>
+                                <option value="Mastercard">Mastercard</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Expiration Month</label>
+                            <input class="form-control" name="card_month" type="text" value="{{ payments[0].cardmon }}">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">expiration Year</label>
+                            <input class="form-control" name="card_year" type="text" value="{{ payments[0].cardyear }}">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Zip Code</label>
+                            <input class="form-control" name="p_zipcode" type="text" value="{{ payments[0].p_zipcode }}">
+                        </div>
+                        <button class="form-btn" type="submit">save payment info</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- payment add form -->
         <div class="modal fade" id="payment-adds">
             <div class="modal-dialog modal-dialog-centered"> 
                 <div class="modal-content">
