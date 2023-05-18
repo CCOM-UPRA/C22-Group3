@@ -87,7 +87,7 @@ def editaddressmodel(street, state, zipcode, city):
         return 1
 
 
-def editpaymentmodel(c_type, number, exp_mon, exp_year, p_zipcode):
+def editpaymentmodel(old_num, c_type, number, exp_mon, exp_year, p_zipcode):
     conn = pymysql.connect(host='sql9.freemysqlhosting.net', db='sql9607918',
                            user='sql9607918', password='GFQC75Bg2g', port=3306)
     cur = conn.cursor()
@@ -111,8 +111,9 @@ def editpaymentmodel(c_type, number, exp_mon, exp_year, p_zipcode):
         try:
             status = "active"
             lastfour = number[-4:]
+            print(old_num)
             cur.execute("UPDATE payment_info SET card_num = %s, card_date_month = %s, card_date_year = %s,"
-                        "zipcode = %s, p_status = %s, p_brand = %s WHERE customer_id = %s", (lastfour, exp_mon, exp_year, p_zipcode, status, c_type, session['customer']))
+                        "zipcode = %s, p_status = %s, p_brand = %s WHERE customer_id = %s AND card_num = %s", (lastfour, exp_mon, exp_year, p_zipcode, status, c_type, session['customer'], old_num))
             conn.commit()
             return 0
 
@@ -143,3 +144,18 @@ def editprofilemodel(fname, lname, email):
     else:
         cur.close()
         return 1
+
+def addcardmodel(c_type, number, exp_mon, exp_year, p_zipcode):
+
+    conn = pymysql.connect(host='sql9.freemysqlhosting.net', db='sql9607918',
+                           user='sql9607918', password='GFQC75Bg2g', port=3306)
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM payment_info WHERE card_num = %s", (number))
+    cards = cur.fetchall()
+    if(len(cards) == 0):
+        status = "active"
+        cur.execute("INSERT INTO payment_info SET card_num = %s, card_date_month = %s, card_date_year = %s,"
+                    "zipcode = %s, p_status = %s, p_brand = %s, customer_id = %s", (number, exp_mon, exp_year, p_zipcode, status, c_type, session['customer']))
+        conn.commit()
+    cur.close()
+    return 0

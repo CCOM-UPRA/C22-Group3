@@ -17,8 +17,11 @@ def editaddresscontroller(street, state, zipcode, city):
     return editaddressmodel(street, state, zipcode, city)
 
 
-def editpaymentcontroller(c_type, number, exp_mon, exp_year, p_zipcode):
-    return editpaymentmodel(c_type, number, exp_mon, exp_year, p_zipcode)
+def editpaymentcontroller(old_num, c_type, number, exp_mon, exp_year, p_zipcode):
+    return editpaymentmodel(old_num, c_type, number, exp_mon, exp_year, p_zipcode)
+
+def addcardcontroller(c_type, number, exp_mon, exp_year, p_zipcode):
+    return addcardmodel(c_type, number, exp_mon, exp_year, p_zipcode)
 
 
 def editprofilecontroller(fname, lname, email):
