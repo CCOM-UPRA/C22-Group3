@@ -204,6 +204,21 @@ def editinfo():
         return redirect("/profile")
     elif 'checkout' in request.form:
         return redirect("/checkout")
+    
+@app.route("/add_card", methods=["POST"])
+def add_card():
+
+    c_type = request.form.get('card_type')
+    number = request.form.get('card_num')
+    exp_mon = request.form.get('card_month')
+    exp_year = request.form.get('card_year')
+    p_zipcode = request.form.get('p_zipcode')
+    addcardcontroller(c_type, number, exp_mon, exp_year, p_zipcode)
+    
+    if 'profile' in request.form:
+        return redirect("/profile")
+    elif 'checkout' in request.form:
+        return redirect("/checkout")
 
 
 @app.route("/password", methods=["GET", "POST"])

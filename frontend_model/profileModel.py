@@ -143,3 +143,18 @@ def editprofilemodel(fname, lname, email):
     else:
         cur.close()
         return 1
+
+def addcardmodel(c_type, number, exp_mon, exp_year, p_zipcode):
+
+    conn = pymysql.connect(host='sql9.freemysqlhosting.net', db='sql9607918',
+                           user='sql9607918', password='GFQC75Bg2g', port=3306)
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM payment_info WHERE card_num = %s", (number))
+    cards = cur.fetchall()
+    if(len(cards) == 0):
+        status = "active"
+        cur.execute("INSERT INTO payment_info SET card_num = %s, card_date_month = %s, card_date_year = %s,"
+                    "zipcode = %s, p_status = %s, p_brand = %s, customer_id = %s", (number, exp_mon, exp_year, p_zipcode, status, c_type, session['customer']))
+        conn.commit()
+    cur.close()
+    return 0

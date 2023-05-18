@@ -267,6 +267,7 @@
                         <div class="account-card mb-0">
                             <div class="account-title">
                                 <h4>payment option</h4>
+                                <button data-bs-toggle="modal" data-bs-target="#payment-adds">add payment info</button>
                                 <button data-bs-toggle="modal" data-bs-target="#payment-add">edit payment info</button>
                             </div>
                             <div class="account-content">
@@ -349,18 +350,18 @@
             </div> 
         </div>
         <!-- payment edit form -->
-        <div class="modal fade" id="payment-add">
+        <div class="modal fade" id="payment-adds">
             <div class="modal-dialog modal-dialog-centered"> 
                 <div class="modal-content">
                     <button class="modal-close" data-bs-dismiss="modal"><i class="icofont-close"></i></button>
-                    <form class="modal-form" action="{{url_for('editinfo')}}" method="post">
+                    <form class="modal-form" action="{{url_for('add_card')}}" method="post">
                         <input type="hidden" name="profile" value="profile">
                         <div class="form-title">
                             <h3>edit payment info</h3>
                         </div>
                         <div class="form-group">
                             <label class="form-label">Full Card Number</label>
-                            <input class="form-control" name="card_num" type="number" placeholder="•••• •••• •••• {{ payments[0].card_number }} ">
+                            <input class="form-control" name="card_num" type="number">
                         </div>
                         <div class="form-group">
                             <label class="form-label">Card Brand</label>
@@ -371,15 +372,15 @@
                         </div>
                         <div class="form-group">
                             <label class="form-label">Expiration Month</label>
-                            <input class="form-control" name="card_month" type="text" value="{{ payments[0].cardmon }}">
+                            <input class="form-control" name="card_month" type="text">
                         </div>
                         <div class="form-group">
                             <label class="form-label">expiration Year</label>
-                            <input class="form-control" name="card_year" type="text" value="{{ payments[0].cardyear }}">
+                            <input class="form-control" name="card_year" type="text">
                         </div>
                         <div class="form-group">
                             <label class="form-label">Zip Code</label>
-                            <input class="form-control" name="p_zipcode" type="text" value="{{ payments[0].p_zipcode }}">
+                            <input class="form-control" name="p_zipcode" type="text">
                         </div>
                         <button class="form-btn" type="submit">save payment info</button>
                         <input type="hidden" name="page" value="/profile">

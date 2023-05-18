@@ -20,6 +20,9 @@ def editaddresscontroller(street, state, zipcode, city):
 def editpaymentcontroller(c_type, number, exp_mon, exp_year, p_zipcode):
     return editpaymentmodel(c_type, number, exp_mon, exp_year, p_zipcode)
 
+def addcardcontroller(c_type, number, exp_mon, exp_year, p_zipcode):
+    return addcardmodel(c_type, number, exp_mon, exp_year, p_zipcode)
+
 
 def editprofilecontroller(fname, lname, email):
     return editprofilemodel(fname, lname, email)
