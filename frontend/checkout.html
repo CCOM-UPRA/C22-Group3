@@ -283,6 +283,7 @@
                         <div class="account-card">
                             <div class="account-title">
                                 <h4>delivery address</h4>
+                                <button data-bs-toggle="modal" data-bs-target="#address-add">edit address</button>
                             </div>
                             <div class="account-content">
                                 <div class="row">
@@ -341,18 +342,18 @@
 
         <!-- address add form -->
         <div class="modal fade" id="address-add">
-            <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-dialog modal-dialog-centered"> 
                 <div class="modal-content">
                     <button class="modal-close" data-bs-dismiss="modal"><i class="icofont-close"></i></button>
-                   <form class="modal-form" action="{{url_for('editinfo')}}" method="post">
-                        <input type="hidden" name="checkout" value="checkout">
+                    <form class="modal-form" action="{{url_for('editinfo')}}" method="post">
+                        <input type="hidden" name="profile" value="profile">
                         <div class="form-title">
                             <h3>edit address info</h3>
                         </div>
 
                         <div class="form-group">
                             <label class="form-label">Street</label>
-                            <input type="text" name="aline1" class="form-control" value="{{user1['street']}}"></input>
+                            <input type="text" name="street" class="form-control" value="{{user1['street']}}"></input>
                         </div>
                         <div class="form-group">
                             <label class="form-label">City</label>
@@ -365,11 +366,12 @@
                         <div class="form-group">
                             <label class="form-label">Zipcode</label>
                             <input type="text" name="zipcode" class="form-control" value="{{user1['zipcode']}}"></input>
-                         </div>
+                        </div>
                         <button class="form-btn" type="submit">save address info</button>
+                        <input type="hidden" name="page" value="/profile">
                     </form>
-                </div>
-            </div>
+                </div> 
+            </div> 
         </div>
         <!-- payment add form -->
         <div class="modal fade" id="payment-add">
