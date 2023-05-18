@@ -242,9 +242,20 @@ def addcart():
     quantity = request.form.get('quantity')
     stock = request.form.get('stock')
     total = float(price) * int(quantity)
-    # Find the add cart function in cartController
-    addCartController(p_id, name, image, price, quantity, stock, total)
-    # request.referrer means you will be redirected to the current page you were in
+
+    cart_item = getCartItem(p_id)  # Implement this function to get cart item by product ID
+    if cart_item:
+        # Item already exists in the cart, update the quantity and total
+        new_quantity = int(cart_item['quantity']) + int(quantity)
+        for key, value in cart_item.items():
+           print(key, value)
+        new_total = float(cart_item['total_price']) + total
+        updateCartItem(p_id, new_quantity, new_total)  # Implement this function to update the cart item
+    else:
+        # Item doesn't exist in the cart, add it
+        addCartController(p_id, name, image, price, quantity, stock, total)
+
+    # Redirect back to the previous page
     return redirect(request.referrer)
 
 
