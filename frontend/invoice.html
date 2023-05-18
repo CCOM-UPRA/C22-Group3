@@ -164,7 +164,7 @@
                                     </li>
                                     <li>
                                         <h6>Arrival Date</h6>
-                                        <p>2023-04-29</p>
+                                        <p>2023-07-29</p>
                                     </li>
                                     {% for u in user %}
                                     <li>
@@ -221,8 +221,7 @@
                                         <td class="table-name"><h6>{{product['name']}}</h6></td>
                                         <td class="table-price"><h6>${{product['price']}}</h6></td>
                                         <td class="table-brand"><h6>{{product['quantity']}}</h6></td>
-                                        <td class="table-brand"><h6>${{product['total_price']}}</h6></td>
-                                    </tr>
+                                        <td class="table-brand"><h6>${{ product['price'] * product['quantity'] }}</h6></td>                                    </tr>
                                 {% endfor %}
 
                                 </tbody>

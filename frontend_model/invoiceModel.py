@@ -34,7 +34,8 @@ def getProductsModel():
     for res in results:
         productlist.append({"id": res[0], "name": res[1], "brand": res[11], "desc": res[2],
                     "waterproof": res[8], "material": res[9], "color": res[10], "img": res[3],
-                    "stock": res[4], "cost": res[6], "price": res[5], "size": res[7], "quantity": res[12]})
+                    "stock": res[4], "cost": res[6], "price": res[5], "size": res[7], "quantity": res[13]})
+    print(results)
     cur.close()
     conn.close()
 
