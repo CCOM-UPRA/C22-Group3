@@ -272,14 +272,16 @@
                             </div>
                             <div class="account-content">
                                 <div class="row">
+                                    {% for payment in payments %}
                                     <div class="col-md-6 col-lg-4 alert fade show">
                                         <div class="payment-card payment active">
-                                            <h2>{{ payments[0].card_type }}</h2>
-                                            <p>•••• •••• •••• {{ payments[0].card_number }} </p>
-                                            <h6 style="display: inline-block;">{{ payments[0].cardmon }} / </h6>
-                                            <h6 style="display: inline-block;">{{ payments[0].cardyear }}</h6>
+                                            <h2>{{ payment.card_type }}</h2>
+                                            <p>•••• •••• •••• {{ payment.card_number }} </p>
+                                            <h6 style="display: inline-block;">{{ payment.cardmon }} / </h6>
+                                            <h6 style="display: inline-block;">{{ payment.cardyear }}</h6>
                                         </div>
                                     </div>
+                                    {% endfor %}
                                 </div>
                             </div>
                         </div>
