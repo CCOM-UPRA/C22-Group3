@@ -162,8 +162,11 @@
                                         {% if session['cart'] %}
                                          {% for key, item in session['cart'].items() %}
                                         <tr>
-                                            <td class="table-image"> <a href="/static/images/product-images/{{item['img']}}">
-                                                <img src="/static/images/product-images/{{item['img']}}" alt="product"></a> </td>
+                                            <td class="table-image">
+                                                <a href="/static/images/product-images/{{ item['image'] }}">
+                                                    <img src="/static/images/product-images/{{ item['image'] }}" alt="product">
+                                                </a>
+                                            </td>
                                                 <td class="table-name"><h6>{{item['name']}}</h6></td>
                                                 <td class="table-price"><h6>${{item['price']}}</h6></td>
                                                 <td class="table-brand">
