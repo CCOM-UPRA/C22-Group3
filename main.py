@@ -185,12 +185,13 @@ def editinfo():
 
     # If editing payment info -> profileController
     elif 'card_num' in request.form:
+        old_num = request.form.get('old_card_num')
         c_type = request.form.get('card_type')
         number = request.form.get('card_num')
         exp_mon = request.form.get('card_month')
         exp_year = request.form.get('card_year')
         p_zipcode = request.form.get('p_zipcode')
-        editpaymentcontroller(c_type, number, exp_mon, exp_year, p_zipcode)
+        editpaymentcontroller(old_num, c_type, number, exp_mon, exp_year, p_zipcode)
 
     # If editing main info -> profileController
     elif 'fname' in request.form:

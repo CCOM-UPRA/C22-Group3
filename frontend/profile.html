@@ -362,6 +362,15 @@
                         <div class="form-title">
                             <h3>edit payment info</h3>
                         </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Card Brand</label>
+                            <select name="old_card_num">
+                                {% for payment in payments %}
+                                <option value="{{ payment.card_number }}">{{ payment.card_number }}</option>
+                            </select>
+                                {% endfor %}
+                        </div>
                         <div class="form-group">
                             <label class="form-label">Card Number</label>
                             <input class="form-control" name="card_num" type="number" placeholder="•••• •••• •••• {{ payments[0].card_number }} ">

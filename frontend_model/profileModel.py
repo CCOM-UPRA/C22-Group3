@@ -112,7 +112,7 @@ def editpaymentmodel(c_type, number, exp_mon, exp_year, p_zipcode):
             status = "active"
             lastfour = number[-4:]
             cur.execute("UPDATE payment_info SET card_num = %s, card_date_month = %s, card_date_year = %s,"
-                        "zipcode = %s, p_status = %s, p_brand = %s WHERE customer_id = %s", (lastfour, exp_mon, exp_year, p_zipcode, status, c_type, session['customer']))
+                        "zipcode = %s, p_status = %s, p_brand = %s WHERE customer_id = %s AND card_num = %s", (lastfour, exp_mon, exp_year, p_zipcode, status, c_type, session['customer'], session['old_num']))
             conn.commit()
             return 0
 
