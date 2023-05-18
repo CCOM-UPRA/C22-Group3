@@ -364,16 +364,16 @@
                         </div>
                         
                         <div class="form-group">
-                            <label class="form-label">Card Brand</label>
+                            <label class="form-label">Select what card you want to edit</label>
                             <select name="old_card_num">
-                                {% for payment in payments %}
+                            {% for payment in payments %}
                                 <option value="{{ payment.card_number }}">{{ payment.card_number }}</option>
+                            {% endfor %}
                             </select>
-                                {% endfor %}
                         </div>
                         <div class="form-group">
                             <label class="form-label">Card Number</label>
-                            <input class="form-control" name="card_num" type="number" placeholder="•••• •••• •••• {{ payments[0].card_number }} ">
+                            <input class="form-control" name="card_num" type="number">
                         </div>
                         <div class="form-group">
                             <label class="form-label">Card Brand</label>
@@ -384,15 +384,15 @@
                         </div>
                         <div class="form-group">
                             <label class="form-label">Expiration Month</label>
-                            <input class="form-control" name="card_month" type="text" value="{{ payments[0].cardmon }}">
+                            <input class="form-control" name="card_month" type="text">
                         </div>
                         <div class="form-group">
                             <label class="form-label">expiration Year</label>
-                            <input class="form-control" name="card_year" type="text" value="{{ payments[0].cardyear }}">
+                            <input class="form-control" name="card_year" type="text">
                         </div>
                         <div class="form-group">
                             <label class="form-label">Zip Code</label>
-                            <input class="form-control" name="p_zipcode" type="text" value="{{ payments[0].p_zipcode }}">
+                            <input class="form-control" name="p_zipcode" type="text">
                         </div>
                         <button class="form-btn" type="submit">save payment info</button>
                     </form>
