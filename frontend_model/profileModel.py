@@ -69,13 +69,12 @@ def editnumbermodel(number):
         return 1
 
 
-def editaddressmodel(aline1, aline2, state, zipcode, city):
+def editaddressmodel(street, state, zipcode, city):
     conn = pymysql.connect(host='sql9.freemysqlhosting.net', db='sql9607918',
                            user='sql9607918', password='GFQC75Bg2g', port=3306)
     cur = conn.cursor()
     try:
-        cur.execute("UPDATE customers SET street = %s, state = %s, city = %s,"
-                    "c_state = %s, zipcode = %s WHERE customer_id = %s", (aline1, aline2, city, state, zipcode, session['customer']))
+        cur.execute("UPDATE customers SET street = %s, state = %s, zipcode = %s, city = %s WHERE customer_id = %s", (street, state, zipcode, city, session['customer']))
         conn.commit()
         return 0
 
@@ -111,8 +110,9 @@ def editpaymentmodel(c_type, number, exp_mon, exp_year, p_zipcode):
     else:
         try:
             status = "active"
+            lastfour = number[-4:]
             cur.execute("UPDATE payment_info SET card_num = %s, card_date_month = %s, card_date_year = %s,"
-                        "zipcode = %s, p_status = %s, p_brand = %s WHERE customer_id = %s", (number, exp_mon, exp_year, p_zipcode, status, c_type, session['customer']))
+                        "zipcode = %s, p_status = %s, p_brand = %s WHERE customer_id = %s", (lastfour, exp_mon, exp_year, p_zipcode, status, c_type, session['customer']))
             conn.commit()
             return 0
 

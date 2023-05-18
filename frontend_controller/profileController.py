@@ -13,8 +13,8 @@ def editnumbercontroller(number):
     return editnumbermodel(number)
 
 
-def editaddresscontroller(aline1, aline2, state, zipcode, city):
-    return editaddressmodel(aline1, aline2, state, zipcode, city)
+def editaddresscontroller(street, state, zipcode, city):
+    return editaddressmodel(street, state, zipcode, city)
 
 
 def editpaymentcontroller(c_type, number, exp_mon, exp_year, p_zipcode):

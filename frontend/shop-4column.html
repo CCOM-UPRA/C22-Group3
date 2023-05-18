@@ -146,13 +146,17 @@
                         </div>
                         <div class="cart-action-group">
                             <div class="product-action">
-                                <button class="action-minus" title="Quantity Minus"><i class="icofont-minus"></i></button>
-                                <input class="action-input" title="Quantity Number" type="text" name="quantity" value="{{item['quantity']}}">
-                                <button class="action-plus" title="Quantity Plus"><i class="icofont-plus"></i></button>
-                            </div>
-                             <form action="{{url_for('editcart')}}" method="post">
+                                <form action="{{url_for('editcart')}}" method="post">
+                                    <input style="width: 50%" class="action-input" title="Quantity Number" type="number" id="quantity" name="quantity" value="{{item['quantity']}}" min="1"  max="{{item['stock']}}">
+                                    <input type="hidden" id="name" name="name" value="{{item['name']}}">
+                                    <input type="hidden" id="image" name="image" value="{{item['image']}}">
+                                    <input type="hidden" id="price" name="price" value="{{item['price']}}">
+                                    <input type="hidden" id="stock" name="stock" value="{{item['stock']}}">
+                                    <input type="hidden" id="pid" name="pid" value="{{key}}">
+                                    
                                     <button class="action">Edit</button>
-                             </form>
+                                </form>
+                            </div>
                             <h6>${{item['total_price']}}</h6>
                         </div>
                     </div>
@@ -200,16 +204,25 @@
                     <div class="col-lg-3">
 
                         <div class="shop-widget">
-                            <h6 class="shop-widget-title">Filter by Price</h6>
                             <form action="/shop" method="POST"> 
+                                <div class="shop-widget">
+                                    <h6 class="shop-widget-title">Search by Name</h6>
+                                    <div class="shop-widget-list">
+                                        <input type="text" id="stickerName" name="StickerName" placeholder="Enter sticker name here">
+                                    </div>
+                                    <input type="submit" value="Search">
+                                </div>
+                                <div class="shop-widget">
+                            <h6 class="shop-widget-title">Filter by Price</h6>
                                 <div class="shop-widget-list">
                                     <input type="radio" id="ASC" name="Order" value="ASC">
-                                    <label for="ASC">Ascending</label>
+                                    <label for="ASC">Ascending</label> 
+                                    <br>
                                     <input type="radio" id="DESC" name="Order" value="DESC">
                                     <label for="DESC">Descending</label>
                                 </div>
                                 <input type="submit" value="Search">
-                            
+                                </div>
                                 <div class="shop-widget">
                                 <h6 class="shop-widget-title">Filter by Material</h6>
                                 <ul class="shop-widget-list">
@@ -319,12 +332,13 @@
                                         </button>
                                         <div class="product-action">
                                             <form action="{{url_for('addcart')}}" method="post">
-                                            <input style="width: 50%" class="action-input" title="Quantity Number" type="number" id="quantity" name="quantity" value="1">
-                                               <input type="hidden" id="p_id" name="p_id" value="{{product['id']}}">
-                                               <input type="hidden" id="name" name="name" value="{{product['name']}}">
+                                            <input style="width: 50%" class="action-input" title="Quantity Number" type="number" id="quantity" name="quantity" value="1" min="1" max="{{product['stock']}}">
+                                                <input type="hidden" id="p_id" name="p_id" value="{{product['id']}}">
+                                                <input type="hidden" id="name" name="name" value="{{product['name']}}">
                                                 <input type="hidden" id="image" name="image" value="{{product['img']}}">
                                                 <input type="hidden" id="price" name="price" value="{{product['price']}}">
-                                              <input style="width: 30%" type="submit" value="Add">
+                                                <input type="hidden" id="stock" name="stock" value="{{product['stock']}}">
+                                                <input style="width: 30%" type="submit" value="Add">
                                               </form>
                                         </div>
                                     </div>
@@ -368,16 +382,15 @@
                                                <input type="hidden" name="name" value="{{product['name']}}">
                                                 <input type="hidden" name="image" value="{{product['img']}}">
                                                 <input type="hidden" name="price" value="{{product['price']}}">
+                                                <input type="hidden" name="stock" value="{{product['stock']}}">
                                          <div class="view-add-group">
                                         <button class="product-add" title="Add to Cart">
                                             <span>Tap to add amount</span>
                                         </button>
 
                                         <div class="product-action">
-                                            <button class="action-minus" title="Quantity Minus"><i class="icofont-minus"></i></button>
-                                            <input class="action-input" title="Quantity Number" type="text" name="quantity" value="1">
-                                            <button class="action-plus" title="Quantity Plus"><i class="icofont-plus"></i></button>
-                                        </div>
+                                            <input style="width: 50%" class="action-input" title="Quantity Number" type="number" id="quantity" name="quantity" value="1" min="1" max="{{product['stock']}}">
+                                        </div>  
                                     </div>
                                     <div class="view-action-group">
                                         <a class="view-wish wish" href="/shop" title="Add to Cart">

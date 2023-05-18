@@ -7,6 +7,8 @@ from frontend_controller.ordersController import *
 from frontend_controller.profileController import *
 from frontend_controller.shopController import *
 from frontend_controller.registerController import *
+from passlib.hash import sha256_crypt
+
 
 app = Flask(__name__, template_folder='frontend/')
 app.secret_key = 'akeythatissecret'
@@ -55,6 +57,7 @@ def login():
     email = request.form.get('email')
     passcode = request.form.get('password')
     # Receive your login information and send to the loginController's logincontroller()
+
     return logincontroller(email=email, password=passcode)
 
 
@@ -81,7 +84,7 @@ def register(message):
 @app.route("/registerinfo", methods=['POST'])
 def registerinfo():
     # TO BE CONNECTED TO MYSQL BY STUDENTS
-    # Processs the register info
+    # Process the register info
     fname = request.form.get('fname')
     lname = request.form.get('lname')
     email = request.form.get('email')
@@ -92,16 +95,44 @@ def registerinfo():
     city = request.form.get('city')
     state = request.form.get('state')
     zipcode = request.form.get('zipcode')
-    
-    if pass1 == pass2:
-        # Process register info here
-        # For now we won't have the register log you in when you create an account but rather take you to the log in screen afterwards
-        registerinfo = [fname, lname, email, pass1, phone, street, city, state, zipcode]
-        registercontroller(registerinfo=registerinfo)
 
-        return redirect('/login')
+    if email_already_in_use(email):
+        return redirect('/register/Email already in use')
+
+    if not fname or not lname or not email or not phone or not street or not city or not state or not zipcode:
+        return redirect('/register/Please fill in all fields')
+    
+    if not phone.isdigit():
+        return redirect('/register/Phone number should contain only digits')
+    
+    if len(phone) != 10:
+        return redirect('/register/Phone number should be 10 digits')
+    
+    if not state.isalpha():
+        return redirect('/register/State should contain only letters')
+
+    if len(state) != 2:
+        return redirect('/register/State should be 2 characters')
+
+    if len(zipcode) != 5:
+        return redirect('/register/Zip code should be 5 digits')
+
+    if '@' not in email:
+        return redirect('/register/Invalid email format')
+
+    if pass1 == pass2:
+        if len(pass1) >= 8 and len(pass1) <= 16:
+            # Process register info here
+            # For now, we won't have the register log you in when you create an account but rather take you to the log in screen afterwards
+            passcode = sha256_crypt.encrypt(pass1)
+            pass1 = passcode
+            registerinfo = [fname, lname, email, pass1, phone, street, city, state, zipcode]
+            registercontroller(registerinfo=registerinfo)
+            return redirect('/login')
+        else:
+            return redirect('/register/Invalid password length')
     else:
-        return redirect('/register/<message>')
+        return redirect('/register/Passwords do not match')
 
 
 @app.route("/shop", methods=["GET", "POST"])
@@ -112,7 +143,8 @@ def shop():
         material = request.form.get("Mat")
         color = request.form.get("Co")
         order = request.form.get("Order")
-        products = getFilteredProducts(size, waterproof, material, color, order)
+        name = request.form.get("StickerName")
+        products = getFilteredProducts(size, waterproof, material, color, order, name)
     else:
         products = getProducts()
 
@@ -143,15 +175,13 @@ def editinfo():
         number = request.form.get('number')
         editnumbercontroller(number)
 
-    #PARA PROPOSITOS DE LA IMPLEMENTACION DE ESTA TIENDA LA DIRECCION NO SE PUEDE CAMBIAR.
     # If editing address info, edit address -> profileController
-    #elif 'aline1' in request.form:
-    #    aline1 = request.form.get('aline1')
-    #    aline2 = request.form.get('aline2')
-    #    state = request.form.get('state')
-    #    zipcode = request.form.get('zipcode')
-    #    city = request.form.get('city')
-    #    editaddresscontroller(aline1, aline2, state, zipcode, city)
+    elif 'street' in request.form:
+        street = request.form.get('street')
+        state = request.form.get('state')
+        zipcode = request.form.get('zipcode')
+        city = request.form.get('city')
+        editaddresscontroller(street, state, zipcode, city)
 
     # If editing payment info -> profileController
     elif 'card_num' in request.form:
@@ -210,10 +240,22 @@ def addcart():
     image = request.form.get('image')
     price = request.form.get('price')
     quantity = request.form.get('quantity')
+    stock = request.form.get('stock')
     total = float(price) * int(quantity)
-    # Find the add cart function in cartController
-    addCartController(p_id, name, image, price, quantity, total)
-    # request.referrer means you will be redirected to the current page you were in
+
+    cart_item = getCartItem(p_id)  # Implement this function to get cart item by product ID
+    if cart_item:
+        # Item already exists in the cart, update the quantity and total
+        new_quantity = int(cart_item['quantity']) + int(quantity)
+        for key, value in cart_item.items():
+           print(key, value)
+        new_total = float(cart_item['total_price']) + total
+        updateCartItem(p_id, new_quantity, new_total)  # Implement this function to update the cart item
+    else:
+        # Item doesn't exist in the cart, add it
+        addCartController(p_id, name, image, price, quantity, stock, total)
+
+    # Redirect back to the previous page
     return redirect(request.referrer)
 
 
@@ -227,6 +269,17 @@ def delete(id):
 @app.route("/editcart", methods=["POST"])
 def editcart():
     # TO BE ADDED BY STUDENTS (Editing the session variable cart)
+    p_id = request.form.get('pid')
+    name = request.form.get('name')
+    image = request.form.get('image')
+    price = request.form.get('price')
+    quantity = request.form.get('quantity')
+    stock = request.form.get('stock')
+    total = float(price) * int(quantity)
+
+    deleteCartItem(p_id)
+    addCartController(p_id, name, image, price, quantity, stock, total)
+
     return redirect(request.referrer)
 
 

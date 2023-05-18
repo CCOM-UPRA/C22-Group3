@@ -64,12 +64,12 @@
                                 <h2>welcome!</h2>
                                 <p>Use your credentials to access</p>
                                 {% if message != None %}
-                                    <h2 style="color: red">Passwords do not match. Please try again.</h2>
+                                    <h2 style="color: red">{{ message }}</h2>
                                 {% endif %}
                             </div>
 
 
-                            <div style='padding: 0px 30%' class="user-form-group">
+                            <div style="padding: 0px 30%" class="user-form-group">
                                 <form class="user-form" action="{{url_for('registerinfo')}}" method="POST">
                                     <div class="form-group">
                                         First Name:
@@ -102,6 +102,7 @@
 										<input type="text" class="form-control" name="zipcode" placeholder="Zipcode">
                                     <div class="form-button">
 										<button type="submit">register</button>
+                                    </div>
                                     </div>
                                 </form>
                             </div>

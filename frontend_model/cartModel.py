@@ -32,7 +32,9 @@ def addCartModel(dictitems):
 
     # Update the session variables with the new additions
     # Pointer: POST variables can sometimes end up returning strings, so we must type_cast our variables for the operations
-    for key, item in dictitems.items():
+    session['amount'] = 0
+    session['total'] = 0
+    for key, item in session['cart'].items():
         session['amount'] += int(item['quantity'])
         session['total'] += float(item['total_price'])
     return
@@ -49,6 +51,3 @@ def deleteCartItemModel(id):
     #del session['cart'][id]
     # FOR STUDENT TO ADD
     return
-
-
-

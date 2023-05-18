@@ -106,11 +106,11 @@
         <!--=====================================
                     BANNER PART START
         =======================================-->
-        <section class="inner-section single-banner" style="background: url(static/images/sticker_background.jpg) no-repeat center;">
+        <section class="inner-section single-banner" style="background: url(/static/images/sticker_background.jpg) no-repeat center;">
             <div class="container">
                 <h2 style="color: white; font-family: 'Tilt Prism', cursive; font-size: 11em; ">Checkout</h2> <br> <br>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="/{{url_for('shop')}}">shop</a></li>
+                    <li class="breadcrumb-item"><a href="{{url_for('shop')}}">shop</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Checkout</li>
                 </ol>
             </div>
@@ -162,12 +162,26 @@
                                         {% if session['cart'] %}
                                          {% for key, item in session['cart'].items() %}
                                         <tr>
-                                            <td class="table-image"> <a href="/static/images/product-images/{{item['img']}}">
-                                                <img src="/static/images/product-images/{{item['img']}}" alt="product"></a> </td>
+                                            <td class="table-image">
+                                                <a href="/static/images/product-images/{{ item['image'] }}">
+                                                    <img src="/static/images/product-images/{{ item['image'] }}" alt="product">
+                                                </a>
+                                            </td>
                                                 <td class="table-name"><h6>{{item['name']}}</h6></td>
                                                 <td class="table-price"><h6>${{item['price']}}</h6></td>
-                                                <td class="table-brand"><h6>{{item['quantity']}}</h6></td>
-                                                 <td class="table-brand"><h6>${{item['total_price']}}</h6></td>
+                                                <td class="table-brand">
+                                                    <form action="{{url_for('editcart')}}" method="post">
+                                                        <input class="action-input" title="Quantity Number" type="number" id="quantity" name="quantity" value="{{item['quantity']}}" min="1"  max="{{item['stock']}}">
+                                                        <input type="hidden" id="name" name="name" value="{{item['name']}}">
+                                                        <input type="hidden" id="image" name="image" value="{{item['image']}}">
+                                                        <input type="hidden" id="price" name="price" value="{{item['price']}}">
+                                                        <input type="hidden" id="stock" name="stock" value="{{item['stock']}}">
+                                                        <input type="hidden" id="pid" name="pid" value="{{key}}">
+                                                        <button class="action">Edit</button>
+                                                    </form>
+                                                </td>
+                                                
+                                                <td class="table-brand"><h6>${{item['total_price']}}</h6></td>
                                                 <!--<td class="table-action">
                                                     <a class="view" href="#" title="Edit Amount" data-bs-toggle="modal" data-bs-target="#product-view-{{key}}"><i class="fas fa-edit"></i></a>
                                                     <a class="trash" href="#" title="Remove Wishlist"><i class="icofont-trash"></i></a>
@@ -187,7 +201,7 @@
                                         <label class="view-label new">{{item['stock']}} in stock</label>
                                     </div>
                                     <ul class="preview-slider">
-                                        <li><img src="static/images/product-images/{{item['image']}}" alt="product"></li>
+                                        <li><img src="/static/images/product-images/{{item['image']}}" alt="product"></li>
                                     </ul>
 
                                 </div>
@@ -290,14 +304,16 @@
                             </div>
                             <div class="account-content">
                                 <div class="row">
+                                    {% for option in payment %}
                                     <div class="col-md-6 col-lg-4 alert fade show">
                                         <div class="payment-card payment active">
-                                            <h2>{{ payment[0].card_type }}</h2>
-                                            <p>•••• •••• •••• {{ payment[0].card_number }} </p>
-                                            <h6 style="display: inline-block;">{{ payment[0].cardmon }} / </h6>
-                                            <h6 style="display: inline-block;">{{ payment[0].cardyear }}</h6>
+                                            <h2>{{ option.card_type }}</h2>
+                                            <p>•••• •••• •••• {{ option.card_number }}</p>
+                                            <h6 style="display: inline-block;">{{ option.cardmon }} / </h6>
+                                            <h6 style="display: inline-block;">{{ option.cardyear }}</h6>
                                         </div>
                                     </div>
+                                    {% endfor %}
                                 </div>
                             </div>
                         </div>
@@ -367,7 +383,7 @@
                         </div>
                         <div class="form-group">
                             <label class="form-label">Card Number</label>
-                            <input class="form-control" name="card_num" type="number" value="{{ payment[0].card_number }}">
+                            <input class="form-control" name="card_num" type="number" placeholder="•••• •••• •••• {{ payment[0].card_number }} ">
                         </div>
                         <div class="form-group">
                             <label class="form-label">Card Brand</label>
@@ -417,7 +433,7 @@
                     <div class="col-sm-6 col-xl-3">
                         <div class="footer-widget">
                             <a class="footer-logo" href="#">
-                                <img src="static/images/brand/logo_morro_pr.png" alt="logo">
+                                <img src="/static/images/brand/logo_morro_pr.png" alt="logo">
                             </a>
                             <p class="footer-desc"></p>
 
