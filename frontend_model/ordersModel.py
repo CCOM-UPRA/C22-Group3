@@ -14,7 +14,7 @@ def getOrderModel():
     conn = pymysql.connect(host='sql9.freemysqlhosting.net', db='sql9607918',
                            user='sql9607918', password='GFQC75Bg2g', port=3306)
     cur = conn.cursor()
-    cur.execute("SELECT DISTINCT tracking_number, price_total, day, order_id FROM orders NATURAL JOIN cont WHERE customer_id = %s;", session['customer'])
+    cur.execute("SELECT DISTINCT tracking_number, price_total, day, order_id FROM orders NATURAL JOIN cont",)
     results = cur.fetchall()
     
     for res in results:

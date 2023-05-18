@@ -22,7 +22,34 @@ def getProductsModel():
 # Find the specific product given the ID
 def getsingleproductmodel(prodID):
     # TO BE ADDED BY STUDENTS
-    return
+    # DB credentials found in backend_model/connectDB.py
+    db = Dbconnect()
+    conn = pymysql.connect(host='sql9.freemysqlhosting.net', db='sql9607918',
+                           user='sql9607918', password='GFQC75Bg2g', port=3306)
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM stickers WHERE sticker_id = %s LIMIT 1", (prodID,))
+    result = cur.fetchone()
+    if result:
+        product = {
+            "id": result[0],
+            "name": result[1],
+            "brand": result[11],
+            "desc": result[2],
+            "waterproof": result[8],
+            "material": result[9],
+            "color": result[10],
+            "img": result[3],
+            "stock": result[4],
+            "cost": result[6],
+            "price": result[5],
+            "size": result[7],
+            "status": result[12]
+        }
+    else:
+        product = None
+    cur.close()
+    conn.close()
+    return product
 
 
 def createNewProductModel(name, brand, video_res, wifi, color, price, cost, stock, img, status):

@@ -154,7 +154,7 @@
                 <div style='text-align: center'>
 
                         <br><br>
-                        <h2>Tello DJI Drone</h2>
+                        <h2>{{product.name}}</h2>
                         <br>
 
                     </div>
@@ -163,7 +163,7 @@
                     <div class="col-lg-6">
                         <div class="details-gallery">
                             <ul class="details-preview"> 
-                                <li><img src="../static/images/product-images/dji_tello.jpg" alt="product"></li>
+                                <li><img src="../static/images/product-images/{{ product.img }}" alt="product"></li>
                             </ul>
 
                         </div>
@@ -174,38 +174,41 @@
                             <form style="width:100%" class="modal-form"
                                   action="{{url_for('editproduct')}}" method="POST" enctype="multipart/form-data">
                                 <label class="form-label">Name:
-                                    <input type="text" name="name" class="form-control" value="Tello" required></label><br>
+                                    <input type="text" name="name" class="form-control" value="{{ product.name }}" required></label><br>
 
                                 <label class="form-label">Brand:
-                                    <input type="text" name="brand" class="form-control" value="DJI" required></input></label><br>
+                                    <input type="text" name="brand" class="form-control" value="{{ product.brand }}" required></input></label><br>
 
-                                <label class="form-label">Video resolution:
-                                    <input type="text" name="video_res" class="form-control" value="720p" required></input></label><br>
+                                <label class="form-label">Material:
+                                    <input type="text" name="material" class="form-control" value="{{ product.material }}" required></input></label><br>
 
-                                <label class="form-label">Wi-fi:
+                                    <label class="form-label">Size:
+                                        <input type="text" name="size" class="form-control" value="{{ product.size }}" required></input></label><br>
+    
+                                <label class="form-label">waterproof:<br>
                                     <input type="radio" name="yes" id="yes" value="Yes" checked>
                                     <label for="yes">Yes</label><br>
                                     <input type="radio" name="no" id="no" value="No">
                                     <label for="no">No</label><br></label><br>
 
                                 <label class="form-label">Color:
-                                    <input type="text" name="color" class="form-control" value="White" required></input></label><br>
+                                    <input type="text" name="color" class="form-control" value="{{ product.color }}" required></input></label><br>
 
 
     <!--                            <label for="cost">Cost in $: </label>-->
     <!--                            <input type="number" id='cost' value="Cost"><br>-->
                                 <label class="form-label">Price:
-                                    <input type="number" name="price" class="form-control" value="89.00" required></input></label><br>
+                                    <input type="number" name="price" class="form-control" value="{{ product.price }}" required></input></label><br>
 
                                 <label class="form-label">Cost:
-                                    <input type="number" name="cost" class="form-control" value="89.00" required></input></label><br>
+                                    <input type="number" name="cost" class="form-control" value="{{ product.cost }}" required></input></label><br>
 
                                 <label class="form-label">Stock:
-                                    <input type="text" name="stock" class="form-control" value="15" required></input></label><br>
+                                    <input type="text" name="stock" class="form-control" value="{{ product.stock }}" required></input></label><br>
 
 
                                 <label class="form-label">Description:
-                                    <input type="text" name="desc" class="form-control" value="Description..."></input></label><br>
+                                    <input type="text" name="desc" class="form-control" value="{{ product.desc }}"></input></label><br>
 
                                 <br>
                                 <label class="form-label">Image:

@@ -189,13 +189,13 @@
                                 <tbody>
                                 {% for order in orders %}
                                 <tr>
-                                        <td class="table-name"><h6>{{order['id']}}</h6></td>
+                                        <td class="table-name"><h6>{{order['o_id']}}</h6></td>
                                         <td class="table-name"><h6>{{order['c_id']}}</h6></td>
                                         <td class="table-name"><h6>{{order['tracking']}}</h6></td>
                                         <td class="table-name"><h6>{{order['status']}}</h6></td>
-                                        <td class="table-price"><h6>{{order['order_date']}}</h6></td>
-                                        <td class="table-brand"><h6>{{order['arrival_date']}}</h6></td>
-                                         <td class="table-brand"><h6>${{order['total_price']}}0</h6></td>
+                                        <td class="table-price"><h6>{{order['date']}}</h6></td>
+                                        <td class="table-brand"><h6>2023-07-16</h6></td>
+                                         <td class="table-brand"><h6>${{order['total']}}</h6></td>
                                         <td class="table-action">
                                             <a class="view" href="{{url_for('editorder', order=order['id'])}}" title="Edit Amount"><i class="fas fa-edit"></i></a>
                                         </td>

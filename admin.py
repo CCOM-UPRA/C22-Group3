@@ -54,7 +54,7 @@ def login():
     return logincontroller(email=email, password=password)
 
 
-@app.route("/profile")
+@app.route("/profile") 
 def profile():
     # VIEW AND EDIT PERSONAL PROFILE LEFT FOR STUDENTS TO ADD
     # -> profileController.py
@@ -88,7 +88,7 @@ def single_product(prodID):
     # TO BE ADDED BY STUDENTS (missing DB connection, shows dummy data in HTML)
     product = getsingleproduct(prodID)
     print("The product: ", product)
-    return render_template("single_product.html", prod=product)
+    return render_template("single_product.html", product=product)
 
 
 @app.route("/editproduct", methods=['POST'])
