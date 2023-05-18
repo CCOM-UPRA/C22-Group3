@@ -301,14 +301,16 @@
                             </div>
                             <div class="account-content">
                                 <div class="row">
+                                    {% for option in payment %}
                                     <div class="col-md-6 col-lg-4 alert fade show">
                                         <div class="payment-card payment active">
-                                            <h2>{{ payment[0].card_type }}</h2>
-                                            <p>•••• •••• •••• {{ payment[0].card_number }} </p>
-                                            <h6 style="display: inline-block;">{{ payment[0].cardmon }} / </h6>
-                                            <h6 style="display: inline-block;">{{ payment[0].cardyear }}</h6>
+                                            <h2>{{ option.card_type }}</h2>
+                                            <p>•••• •••• •••• {{ option.card_number }}</p>
+                                            <h6 style="display: inline-block;">{{ option.cardmon }} / </h6>
+                                            <h6 style="display: inline-block;">{{ option.cardyear }}</h6>
                                         </div>
                                     </div>
+                                    {% endfor %}
                                 </div>
                             </div>
                         </div>
