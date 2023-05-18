@@ -72,12 +72,12 @@
                 <div class="header-content">
                     <div class="header-media-group">
                         <button class="header-user"><img src="static/images/user.png" alt="user"></button>
-                        <a href="index.html"><img src="static/images/brand/logo_morro_pr.png" alt="logo"></a>
+                        <a href="index.html"><img src="static/images/logo.png" alt="logo"></a>
                         <button class="header-src"><i class="fas fa-search"></i></button>
                     </div>
 
                     <a href="index.html" class="header-logo">
-                        <img src="static/images/brand/logo_morro_pr.png" alt="logo">
+                        <img src="static/images/logo.png" alt="logo">
                     </a>
 <!--                    <a href="{{url_for('profile')}}" class="header-widget" title="My Account">-->
 <!--                        <img src="static/images/user.png" alt="user">-->
@@ -156,6 +156,11 @@
                         <br><br>
                         <h2>Orders</h2>
 
+                     <form class="header-form" action="{{url_for('orders_filter')}}" method="POST">
+                        <input type="text" name="order_search" placeholder="Search by customer ID (c12, c9...) or order ID (o14, o9...)">
+                        <button><i class="fas fa-search"></i></button>
+                    </form>
+
                      <div style='padding: 0 40%' class="view-add-group">
 
                     </div>
@@ -172,6 +177,7 @@
                                 <thead>
                                     <tr>
                                         <th scope="col">Order ID</th>
+                                        <th scope="col">Customer ID</th>
                                         <th scope="col">Tracking Number</th>
                                         <th scope="col">Status</th>
                                         <th scope="col">Order Date</th>
@@ -181,16 +187,17 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                {% for key, order in orders.items() %}
+                                {% for order in orders %}
                                 <tr>
-                                        <td class="table-name"><h6>{{key}}</h6></td>
-                                        <td class="table-name"><h6>{{order['tracking_num']}}</h6></td>
+                                        <td class="table-name"><h6>{{order['id']}}</h6></td>
+                                        <td class="table-name"><h6>{{order['c_id']}}</h6></td>
+                                        <td class="table-name"><h6>{{order['tracking']}}</h6></td>
                                         <td class="table-name"><h6>{{order['status']}}</h6></td>
                                         <td class="table-price"><h6>{{order['order_date']}}</h6></td>
                                         <td class="table-brand"><h6>{{order['arrival_date']}}</h6></td>
-                                         <td class="table-brand"><h6>{{order['total']}}</h6></td>
+                                         <td class="table-brand"><h6>${{order['total_price']}}0</h6></td>
                                         <td class="table-action">
-                                            <a class="view" href="{{url_for('editorder', order=key)}}" title="Edit Amount"><i class="fas fa-edit"></i></a>
+                                            <a class="view" href="{{url_for('editorder', order=order['id'])}}" title="Edit Amount"><i class="fas fa-edit"></i></a>
                                         </td>
                                     </tr>
                                 {% endfor %}

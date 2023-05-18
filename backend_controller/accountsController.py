@@ -1,10 +1,14 @@
 from backend_model.accountsModel import *
 
 
-def getaccounts():
-    return getaccountsmodel()
+def getaccounts(userType):
+    return getaccountsmodel(userType)
 
 
-def getaccount(acc):
-    return getaccountmodel(acc)
+def getaccount(acc, userType):
+    return getaccountmodel(acc, userType)
+
+
+def updateAccountController(userInfo, userType, id):
+    return updateAccountModel(userInfo, userType, id)
 

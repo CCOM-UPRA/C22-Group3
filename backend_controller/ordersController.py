@@ -5,6 +5,10 @@ def ordersController():
     return ordersModel()
 
 
+def filterOrder(search, column):
+    return filterOrdersModel(search, column)
+
+
 def getorder(ID):
     return getordermodel(ID)
 

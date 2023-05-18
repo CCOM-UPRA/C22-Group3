@@ -3,12 +3,13 @@ from flask import redirect, render_template
 
 
 def logincontroller(email, password):
-    # print("hi2")
+
     result = loginmodel(email=email, password=password)
-    print("testing login")
+    print("Logging in...")
+
     if result is "true":
-        print("login true")
+        print("Login successful!")
         return redirect("/products")
     else:
-        print("login false")
+        print("Login failed ;-;")
         return redirect("/message")

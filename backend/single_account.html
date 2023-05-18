@@ -72,12 +72,12 @@
                 <div class="header-content">
                     <div class="header-media-group">
                         <button class="header-user"><img src="static/images/user.png" alt="user"></button>
-                        <a href="index.html"><img src="static/images/brand/logo_morro_pr.png" alt="logo"></a>
+                        <a href="index.html"><img src="static/images/logo.png" alt="logo"></a>
                         <button class="header-src"><i class="fas fa-search"></i></button>
                     </div>
 
                     <a href="index.html" class="header-logo">
-                        <img src="static/images/brand/logo_morro_pr.png" alt="logo">
+                        <img src="static/images/logo.png" alt="logo">
                     </a>
 <!--                    <a href="{{url_for('profile')}}" class="header-widget" title="My Account">-->
 <!--                        <img src="static/images/user.png" alt="user">-->
@@ -156,108 +156,113 @@
                         <br><br>
                         <h2>Edit Account</h2>
                         <br>
-
+                {% if message == 'added' %}
+                    <h3 style="text-align:center; color:green">Account updated!!</h3>
+                 {% endif %}
                     </div>
 
                 <div style='display:flex; justify-content:center' class="row">
                     <div class="col-lg-6">
                         <div class="details-content">
                             <div style="width:100%">
-                                 <form style="width:100%" class="modal-form">
+                                <form action="{{url_for('updateaccount')}}", method="post">
+                                 <div style="width:100%" class="modal-form">
                                     <div class="form-title">
                                         <h3>general info</h3>
                                     </div>
-
+                                    {% for acc in account %}
                                     <div class="form-group">
                                         <label class="form-label">First Name</label>
-                                        <input type="text" name="fname" class="form-control" value="{{acc['c_first_name']}}">
+                                        <input type="text" name="fname" class="form-control" value="{{acc['first_name']}}">
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label">Last Name</label>
-                                        <input type="text" name="lname" class="form-control" value="{{acc['c_last_name']}}">
+                                        <input type="text" name="lname" class="form-control" value="{{acc['last_name']}}">
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label">Phone Number</label>
-                                        <input type="number" name="pnumber" class="form-control" value="{{acc['c_phone_number']}}">
+                                        <input type="number" name="pnumber" class="form-control" value="{{acc['phone_number']}}">
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label">email</label>
-                                        <input type="text" name="email" class="form-control" value="{{acc['c_email']}}">
+                                        <input type="text" name="email" class="form-control" value="{{acc['email']}}" disabled>
                                     </div>
-                                     {% if acc['c_status'] == 'active' %}
+                                     {% if acc['status'] == 'active' %}
                                          <div class="form-group">
                                             <label class="form-label">status</label><br>
                                              <label for="active">Active</label>
-                                            <input type="radio" id='active' value="Active" name="group1" checked><br>
+                                            <input type="radio" id='active' value="active" name="group1" checked><br>
                                              <label for="inactive">Inactive</label>
-                                            <input type="radio" id='inactive' value="Inactive" name="group1">
+                                            <input type="radio" id='inactive' value="inactive" name="group1">
                                         </div>
                                      {% else %}
                                         <div class="form-group">
                                             <label class="form-label">status</label><br>
                                              <label for="active1">Active</label>
-                                            <input type="radio" id='active1' value="Active" name="group1" checked><br>
+                                            <input type="radio" id='active1' value="active" name="group1"><br>
                                              <label for="inactive1">Inactive</label>
-                                            <input type="radio" id='inactive1' value="Inactive" name="group1">
+                                            <input type="radio" id='inactive1' value="inactive" name="group1" checked>
                                         </div>
                                      {% endif %}
-                                </form>
-                                <form style="width:100%" class="modal-form">
+                                </div>
+                                {% if userType == 'customer' %}
+                                <div style="width:100%" class="modal-form">
                                     <div class="form-title">
                                         <h3>address info</h3>
                                     </div>
 
                                     <div class="form-group">
                                         <label class="form-label">Address Line 1</label>
-                                        <input type="text" name="aline1" class="form-control" value="{{acc['c_address_line_1']}}"></input>
+                                        <input type="text" name="aline1" class="form-control" value="{{acc['aline1']}}"></input>
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label">Address Line 2</label>
-                                        <input type="text" name="aline2" class="form-control" value="{{acc['c_address_line_2']}}"></input>
+                                        <input type="text" name="aline2" class="form-control" value="{{acc['aline2']}}"></input>
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label">City</label>
-                                        <input type="text" name="city" class="form-control" value="{{acc['c_city']}}"></input>
+                                        <input type="text" name="city" class="form-control" value="{{acc['city']}}"></input>
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label">State</label>
-                                        <input type="text" name="state" class="form-control" value="{{acc['c_state']}}"></input>
+                                        <input type="text" name="state" class="form-control" value="{{acc['state']}}"></input>
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label">Zipcode</label>
-                                        <input type="text" name="zipcode" class="form-control" value="{{acc['c_zipcode']}}"></input>
+                                        <input type="text" name="zipcode" class="form-control" value="{{acc['zipcode']}}"></input>
                                     </div>
-                                </form>
-                                <form style="width:100%" class="modal-form">
+                                </div>
+                                <div style="width:100%" class="modal-form">
                                     <div class="form-title">
                                         <h3>payment info</h3>
                                     </div>
 
                                     <div class="form-group">
                                         <label class="form-label">Name on card</label>
-                                        <input type="text" name="cname" class="form-control" value="{{acc['c_card_name']}}"></input>
+                                        <input type="text" name="cname" class="form-control" value="{{acc['card_name']}}"></input>
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label">Card number</label>
-                                        <input type="number" name="cnumber" class="form-control" value="{{acc['c_card_num']}}"></input>
+                                        <input type="number" name="cnumber" class="form-control" value="{{acc['card_number']}}"></input>
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label">Card type</label>
-                                        <input type="text" name="ctype" class="form-control" value="{{acc['c_card_type']}}"></input>
+                                        <input type="text" name="ctype" class="form-control" value="{{acc['card_type']}}"></input>
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label">Expiration Date</label>
-                                        <input type="date" name="cdate" class="form-control" value="{{acc['c_exp_date']}}"></input>
+                                        <input type="date" name="cdate" class="form-control" value="{{acc['exp_date']}}"></input>
                                     </div>
-                                </form>
-                            </div>
+                                </div>
+                                    {% endif %}
 
                             <div class="details-add-group">
-                                <form action="{{url_for('accounts')}}">
-                                <button class="product-add" title="Save changes">
-                                    <span>Save changes</span>
-                                </button></form>
-                            </form>
+                                    <input type="hidden" name="id" value="{{acc['id']}}">
+                                    <input type="hidden" name="userType" value="{{userType}}">
+                                <input type="submit" value="Save changes" class="product-add" title="Save changes">
+                                </input>
+                                </div></form>
+                            {% endfor %}
 
                         </div>
                     </div>
