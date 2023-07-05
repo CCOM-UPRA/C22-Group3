@@ -203,19 +203,19 @@
                                     <div class="col-md-6 col-lg-4">
                                         <div class="form-group">
                                             <label class="form-label">name</label>
-                                            <input class="form-control" type="text" placeholder="{{user1['name']}}">
+                                            <input class="form-control" type="text" placeholder="{{user1['name']}}" disabled>
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-lg-4">
                                         <div class="form-group">
                                             <label class="form-label">last name</label>
-                                            <input class="form-control" type="text" placeholder="{{user1['last_name']}}">
+                                            <input class="form-control" type="text" placeholder="{{user1['last_name']}}" disabled>
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-lg-4">
                                         <div class="form-group">
                                             <label class="form-label">Email</label>
-                                            <input class="form-control" type="email" placeholder="{{user1['email']}}">
+                                            <input class="form-control" type="email" placeholder="{{user1['email']}}" disabled>
                                         </div>
                                     </div>
                                     <div class="col-lg-2">
@@ -269,6 +269,7 @@
                                 <h4>payment option</h4>
                                 <button data-bs-toggle="modal" data-bs-target="#payment-adds">add payment info</button>
                                 <button data-bs-toggle="modal" data-bs-target="#payment-add">edit payment info</button>
+                                <button data-bs-toggle="modal" data-bs-target="#payment-delete">delete payment</button>
                             </div>
                             <div class="account-content">
                                 <div class="row">
@@ -432,6 +433,31 @@
                         <div class="form-group">
                             <label class="form-label">Zip Code</label>
                             <input class="form-control" name="p_zipcode" type="text">
+                        </div>
+                        <button class="form-btn" type="submit">save payment info</button>
+                        <input type="hidden" name="page" value="/profile">
+                    </form>
+                </div> 
+            </div> 
+        </div>
+
+        <!-- payment delete form -->
+        <div class="modal fade" id="payment-delete">
+            <div class="modal-dialog modal-dialog-centered"> 
+                <div class="modal-content">
+                    <button class="modal-close" data-bs-dismiss="modal"><i class="icofont-close"></i></button>
+                    <form class="modal-form" action="{{url_for('del_card')}}" method="post">
+                        <input type="hidden" name="profile" value="profile">
+                        <div class="form-title">
+                            <h3>delete payment info</h3>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Select the card you want to delete</label>
+                            <select name="del_num">
+                            {% for payment in payments %}
+                                <option value="{{ payment.card_number }}">{{ payment.card_number }}</option>
+                            {% endfor %}
+                            </select>
                         </div>
                         <button class="form-btn" type="submit">save payment info</button>
                         <input type="hidden" name="page" value="/profile">

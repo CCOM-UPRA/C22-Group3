@@ -46,7 +46,7 @@ def getPaymentModel():
         user.append({"card_number": users[0], "card_type": users[1], "cardmon": users[2], "cardyear": users[3], "p_zipcode": users[4]})
 
     if len(user) == 0:
-        user = ["", "", "", "", ""]  
+        user = []  
 
     return user
 
@@ -92,7 +92,7 @@ def editpaymentmodel(old_num, c_type, number, exp_mon, exp_year, p_zipcode):
                            user='sql9607918', password='GFQC75Bg2g', port=3306)
     cur = conn.cursor()
     user = getPaymentModel()
-    if (user == ["", "", "", "", ""] ):
+    if (user == [] ):
         try:
             status = "active"
             cur.execute("INSERT INTO payment_info SET card_num = %s, card_date_month = %s, card_date_year = %s,"
@@ -157,5 +157,14 @@ def addcardmodel(c_type, number, exp_mon, exp_year, p_zipcode):
         cur.execute("INSERT INTO payment_info SET card_num = %s, card_date_month = %s, card_date_year = %s,"
                     "zipcode = %s, p_status = %s, p_brand = %s, customer_id = %s", (number, exp_mon, exp_year, p_zipcode, status, c_type, session['customer']))
         conn.commit()
+    cur.close()
+    return 0
+
+def delcardmodel(del_num):
+    conn = pymysql.connect(host='sql9.freemysqlhosting.net', db='sql9607918',
+                           user='sql9607918', password='GFQC75Bg2g', port=3306)
+    cur = conn.cursor()
+    cur.execute("DELETE FROM payment_info WHERE card_num = %s", (del_num))
+    conn.commit()
     cur.close()
     return 0

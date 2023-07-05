@@ -23,6 +23,9 @@ def editpaymentcontroller(old_num, c_type, number, exp_mon, exp_year, p_zipcode)
 def addcardcontroller(c_type, number, exp_mon, exp_year, p_zipcode):
     return addcardmodel(c_type, number, exp_mon, exp_year, p_zipcode)
 
+def delcardcontroller(del_num):
+    return delcardmodel(del_num)
+
 
 def editprofilecontroller(fname, lname, email):
     return editprofilemodel(fname, lname, email)

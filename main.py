@@ -220,6 +220,12 @@ def add_card():
         return redirect("/profile")
     elif 'checkout' in request.form:
         return redirect("/checkout")
+    
+@app.route("/del_card", methods=["POST"])
+def del_card():
+    del_num = request.form.get('del_num')
+    delcardcontroller(del_num)
+    return redirect("/profile")
 
 
 @app.route("/password", methods=["GET", "POST"])
