@@ -312,9 +312,9 @@ def checkout(message):
     if 'customer' in session:
         # > profileController
         user = getUser()
-        payment = getPayment()
+        payments = getPayment()
 
-        return render_template("checkout.html", user=user, message=message, payment=payment)
+        return render_template("checkout.html", user=user, message=message, payments=payments)
 
     else:
         # If customer isn't logged in, create session variable to tell us we're headed to checkout

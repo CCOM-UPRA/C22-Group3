@@ -301,17 +301,17 @@
                         <div class="account-card mb-0">
                             <div class="account-title">
                                 <h4>payment option</h4>
-                                <button data-bs-toggle="modal" data-bs-target="#payment-add">edit payment info</button>
+                                <button data-bs-toggle="modal" data-bs-target="#payment-adds">add payment info</button>
                             </div>
                             <div class="account-content">
                                 <div class="row">
-                                    {% for option in payment %}
+                                    {% for payment in payments %}
                                     <div class="col-md-6 col-lg-4 alert fade show">
                                         <div class="payment-card payment active">
-                                            <h2>{{ option.card_type }}</h2>
-                                            <p>•••• •••• •••• {{ option.card_number }}</p>
-                                            <h6 style="display: inline-block;">{{ option.cardmon }} / </h6>
-                                            <h6 style="display: inline-block;">{{ option.cardyear }}</h6>
+                                            <h2>{{ payment.card_type }}</h2>
+                                            <p>•••• •••• •••• {{ payment.card_number }} </p>
+                                            <h6 style="display: inline-block;">{{ payment.cardmon }} / </h6>
+                                            <h6 style="display: inline-block;">{{ payment.cardyear }}</h6>
                                         </div>
                                     </div>
                                     {% endfor %}
@@ -346,7 +346,7 @@
                 <div class="modal-content">
                     <button class="modal-close" data-bs-dismiss="modal"><i class="icofont-close"></i></button>
                     <form class="modal-form" action="{{url_for('editinfo')}}" method="post">
-                        <input type="hidden" name="profile" value="profile">
+                        <input type="hidden" name="checkout" value="checkout">
                         <div class="form-title">
                             <h3>edit address info</h3>
                         </div>
@@ -368,32 +368,24 @@
                             <input type="text" name="zipcode" class="form-control" value="{{user1['zipcode']}}"></input>
                         </div>
                         <button class="form-btn" type="submit">save address info</button>
-                        <input type="hidden" name="page" value="/profile">
+                        <input type="hidden" name="page" value="/checkout">
                     </form>
                 </div> 
             </div> 
         </div>
         <!-- payment add form -->
-        <div class="modal fade" id="payment-add">
-            <div class="modal-dialog modal-dialog-centered">
+        <div class="modal fade" id="payment-adds">
+            <div class="modal-dialog modal-dialog-centered"> 
                 <div class="modal-content">
                     <button class="modal-close" data-bs-dismiss="modal"><i class="icofont-close"></i></button>
-                    <form class="modal-form" action="{{url_for('editinfo')}}" method="post">
+                    <form class="modal-form" action="{{url_for('add_card')}}" method="post">
                         <input type="hidden" name="checkout" value="checkout">
                         <div class="form-title">
                             <h3>edit payment info</h3>
                         </div>
                         <div class="form-group">
-                            <label class="form-label">Select what card you want to edit</label>
-                            <select name="old_card_num">
-                            {% for option in payment %}
-                                <option value="{{ option.card_number }}">{{ option.card_number }}</option>
-                            {% endfor %}
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Card Number</label>
-                            <input class="form-control" name="card_num" type="number" placeholder="•••• •••• •••• {{ payment[0].card_number }} ">
+                            <label class="form-label">Full Card Number</label>
+                            <input class="form-control" name="card_num" type="number">
                         </div>
                         <div class="form-group">
                             <label class="form-label">Card Brand</label>
@@ -404,20 +396,21 @@
                         </div>
                         <div class="form-group">
                             <label class="form-label">Expiration Month</label>
-                            <input class="form-control" name="card_month" type="text" value="{{ payment[0].cardmon }}">
+                            <input class="form-control" name="card_month" type="text">
                         </div>
                         <div class="form-group">
                             <label class="form-label">expiration Year</label>
-                            <input class="form-control" name="card_year" type="text" value="{{ payment[0].cardyear }}">
+                            <input class="form-control" name="card_year" type="text">
                         </div>
                         <div class="form-group">
                             <label class="form-label">Zip Code</label>
-                            <input class="form-control" name="p_zipcode" type="text" value="{{ payment[0].p_zipcode }}">
+                            <input class="form-control" name="p_zipcode" type="text">
                         </div>
                         <button class="form-btn" type="submit">save payment info</button>
+                        <input type="hidden" name="page" value="/checkout">
                     </form>
-                </div>
-            </div>
+                </div> 
+            </div> 
         </div>
                             <div class="checkout-proced">
                                 <a href="{{url_for('validate')}}" class="btn btn-inline">proceed to checkout</a>
