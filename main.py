@@ -272,10 +272,10 @@ def addcart():
         for key, value in cart_item.items():
            print(key, value)
         new_total = float(cart_item['total_price']) + total
-        updateCartItem(p_id, new_quantity, new_total)  # Implement this function to update the cart item
+        updateCartItem(p_id, new_quantity, round(new_total, 2))  # Implement this function to update the cart item
     else:
         # Item doesn't exist in the cart, add it
-        addCartController(p_id, name, image, price, quantity, stock, total)
+        addCartController(p_id, name, image, price, quantity, stock, round(total, 2))
 
     # Redirect back to the previous page
     return redirect(request.referrer)
