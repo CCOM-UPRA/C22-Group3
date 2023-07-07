@@ -60,3 +60,6 @@ def createNewProductModel(name, brand, video_res, wifi, color, price, cost, stoc
 
     db.execute(query, (name, brand, video_res, wifi, color, price, cost, stock, img, status))
     return
+
+def updateproductmodel(name, brand, desc, material, size, water, color, cost, price, img , stock, status):
+    print(status)
