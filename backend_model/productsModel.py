@@ -61,5 +61,23 @@ def createNewProductModel(name, brand, video_res, wifi, color, price, cost, stoc
     db.execute(query, (name, brand, video_res, wifi, color, price, cost, stock, img, status))
     return
 
-def updateproductmodel(name, brand, desc, material, size, water, color, cost, price, img , stock, status):
-    print(status)
+def updateproductmodel(name, brand, desc, material, size, water, color, cost, price, img , stock, status, id):
+    print(material)
+    print(color)
+    conn = pymysql.connect(host='sql9.freemysqlhosting.net', db='sql9607918',
+                           user='sql9607918', password='GFQC75Bg2g', port=3306)
+    cur = conn.cursor()
+    try:
+        cur.execute("UPDATE stickers SET s_name = %s, s_brand = %s, description = %s, material = %s, size = %s, waterproof = %s,"
+                    "color = %s, cost = %s, price = %s, image_link = %s, stock = %s, s_status = %s WHERE sticker_id = %s",
+                    (name, brand, desc, material, size, water, color, cost, price, img, stock, status, id))
+        conn.commit()
+        return 0
+
+    except pymysql.Error as error:
+        print(error)
+        return 0
+
+    else:
+        cur.close()
+        return 1

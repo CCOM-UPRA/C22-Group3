@@ -173,29 +173,59 @@
                             <h3 class="details-name"><a href="#">Details</a></h3>
                             <form style="width:100%" class="modal-form"
                                   action="{{url_for('editproduct')}}" method="POST" enctype="multipart/form-data">
+
+                                <label class="form-label">Product ID: {{ product.id }}
+                                    <input style="width: 55px; display: none;" type="text" name="id" class="form-control" value="{{ product.id }}" required></label><br>
+
                                 <label class="form-label">Name:
                                     <input type="text" name="name" class="form-control" value="{{ product.name }}" required></label><br>
 
                                 <label class="form-label">Brand:
                                     <input type="text" name="brand" class="form-control" value="{{ product.brand }}" required></input></label><br>
                                 
-                                    <label class="form-label">Description:
-                                        <input style="height: 50px; width: 500px;" type="text" name="desc" class="form-control" value="{{ product.desc }}" required></input></label><br>
+                                <label class="form-label">Description:
+                                    <input style="height: 50px; width: 500px;" type="text" name="desc" class="form-control" value="{{ product.desc }}" required></input></label><br>
 
                                 <label class="form-label">Material:
-                                    <input type="text" name="material" class="form-control" value="{{ product.material }}" required></input></label><br>
+                                    <select name="material" class="form-control" required>
+                                        <option value="Solid" {% if product.material == "Solid" %}selected{% endif %}>Solid</option>
+                                        <option value="Glossy" {% if product.material == "Glossy" %}selected{% endif %}>Glossy</option>
+                                        <option value="Metalic" {% if product.material == "Metallic" %}selected{% endif %}>Metalic</option>
+                                    </select>
+                                </label><br>                                                                           
 
                                 <label class="form-label">Size:
-                                    <input type="text" name="size" class="form-control" value="{{ product.size }}" required></input></label><br>
+                                    <select name="size" class="form-control" required>
+                                        <option value="Circle 3x3" {% if product.size == "Circle 3x3" %}selected{% endif %}>Circle 3x3</option>
+                                        <option value="Oval 2x3" {% if product.size == "Oval 2x3" %}selected{% endif %}>Oval 2x3</option>
+                                        <option value="Square 3x3" {% if product.size == "Square 3x3" %}selected{% endif %}>Square 3x3</option>
+                                        <option value="Square 5x5" {% if product.size == "Square 5x5" %}selected{% endif %}>Square 5x5</option>
+                                        <option value="Bumper 8x4" {% if product.size == "Bumper 8x4" %}selected{% endif %}>Bumper 8x4</option>
+                                        <option value="Custom" {% if product.size == "Custom" %}selected{% endif %}>Custom</option>
+                                    </select>
+                                </label><br> 
     
                                 <label class="form-label">waterproof:<br>
-                                    <input type="radio" name="water" value="YES">
+                                    <input type="radio" name="waterproof" value="YES" {% if product['waterproof'] == 'YES' %}checked="checked"{% endif %}>
                                 <label for="yes">Yes</label>
-                                    <input type="radio" name="water" value="NO">
-                                    <label for="no">No</label><br></label><br>
+                                    <input type="radio" name="waterproof" value="NO" {% if product['waterproof'] == 'NO' %}checked="checked"{% endif %}>
+                                <label for="no">No</label><br></label><br>
 
-                                <label class="form-label">Color:
-                                    <input type="text" name="color" class="form-control" value="{{ product.color }}" required></input></label><br>
+                                <label class="form-label">Size:
+                                    <select name="color" class="form-control" required>
+                                        <option value="Rainbow" {% if product.color == "Rainbow" %}selected{% endif %}>Rainbow</option>
+                                        <option value="Monocrome" {% if product.color == "Monocrome" %}selected{% endif %}>Monocrome</option>
+                                        <option value="Red" {% if product.color == "Red" %}selected{% endif %}>Red</option>
+                                        <option value="Blue" {% if product.color == "Blue" %}selected{% endif %}>Blue</option>
+                                        <option value="Yellow" {% if product.color == "Yellow" %}selected{% endif %}>Yellow</option>
+                                        <option value="Orange" {% if product.color == "Orange" %}selected{% endif %}>Orange</option>
+                                        <option value="Green" {% if product.color == "Green" %}selected{% endif %}>Green</option>
+                                        <option value="Purple" {% if product.color == "Purple" %}selected{% endif %}>Purple</option>
+                                        <option value="Pink" {% if product.color == "Pink" %}selected{% endif %}>Pink</option>
+                                        <option value="Brown" {% if product.color == "Brown" %}selected{% endif %}>Brown</option>
+                                        <option value="Black" {% if product.color == "Black" %}selected{% endif %}>Black</option>
+                                    </select>
+                                </label><br> 
 
                                 <label class="form-label">Cost:
                                     <input type="number" name="cost" class="form-control" value="{{ product.cost }}" required></input></label><br>
@@ -210,10 +240,10 @@
                                     <input type="text" name="stock" class="form-control" value="{{ product.stock }}" required></input></label><br>
 
                                     <label class="form-label">Status:<br>
-                                        <input type="radio" name="status" value="active">
+                                        <input type="radio" name="status" value="active" {% if product['status'] == 'active' %}checked="checked"{% endif %}>
                                     <label for="yes">Active</label>
-                                        <input type="radio" name="status" value="inactive">
-                                        <label for="no">Inactive</label><br></label><br>
+                                        <input type="radio" name="status" value="inactive" {% if product['status'] == 'inactive' %}checked="checked"{% endif %}>
+                                    <label for="no">Inactive</label><br></label><br>
 
                                 <div class="details-add-group">
                                     <button type="submit" class="product-add" title="Save changes">

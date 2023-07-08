@@ -93,19 +93,20 @@ def single_product(prodID):
 
 @app.route("/editproduct", methods=['POST'])
 def editproduct():
+    id = request.form.get('id')
     name = request.form.get('name')
     brand = request.form.get('brand')
     desc = request.form.get('desc')
     material = request.form.get('material')
     size = request.form.get('size')
-    water = request.form.get('water')
+    water = request.form.get('waterproof')
     color = request.form.get('color')
     cost = request.form.get('cost')
     price = request.form.get('price')
     img = request.form.get('img')
     stock = request.form.get('stock')
     status = request.form.get('status')
-    updateproductcontroller(name, brand, desc, material, size, water, color, cost, price, img , stock, status)
+    updateproductcontroller(name, brand, desc, material, size, water, color, cost, price, img , stock, status, id)
     return redirect('/products')
 
 
