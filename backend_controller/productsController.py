@@ -11,10 +11,11 @@ def getsingleproduct(prodID):
     return getsingleproductmodel(prodID)
 
 
-def createNewProduct(name, brand, video_res, wifi, color, price, cost, stock, img, status):
+def createNewProduct(name, brand, desc, material, size, water, color, cost, price, img , stock, status):
     price = float(price)
     cost = float(cost)
     stock = int(stock)
+    createNewProductmodel(name, brand, desc, material, size, water, color, cost, price, img , stock, status)
 
 def updateproductcontroller(name, brand, desc, material, size, water, color, cost, price, img , stock, status, id):
     return updateproductmodel(name, brand, desc, material, size, water, color, cost, price, img , stock, status, id)

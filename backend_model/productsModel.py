@@ -52,18 +52,16 @@ def getsingleproductmodel(prodID):
     return product
 
 
-def createNewProductModel(name, brand, video_res, wifi, color, price, cost, stock, img, status):
+def createNewProductmodel(name, brand, desc, material, size, water, color, cost, price, img, stock, status):
     # DB credentials found in backend_model/connectDB.py
     db = Dbconnect()
-    query = "INSERT INTO products(p_name, p_brand, p_video_res, p_wifi, color, p_price, p_cost," \
-            "stock, p_img, p_status) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+    query = "INSERT INTO stickers(sticker_id, s_name, s_brand, description, material, size, waterproof, color, cost, price," \
+            "image_link, stock, s_status) VALUES (NULL, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
 
-    db.execute(query, (name, brand, video_res, wifi, color, price, cost, stock, img, status))
+    db.execute(query, (name, brand, desc, material, size, water, color, cost, price, img, stock, status))
     return
 
 def updateproductmodel(name, brand, desc, material, size, water, color, cost, price, img , stock, status, id):
-    print(material)
-    print(color)
     conn = pymysql.connect(host='sql9.freemysqlhosting.net', db='sql9607918',
                            user='sql9607918', password='GFQC75Bg2g', port=3306)
     cur = conn.cursor()

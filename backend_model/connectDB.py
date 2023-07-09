@@ -5,8 +5,8 @@ import pymysql.cursors
 # Use this to access database
 class Dbconnect:
     def __init__(self) -> None:
-        self.connection = pymysql.connect(host='sql9.freemysqlhosting.net',
-                                          db='sql9607918', port=3306, user='sql9607918', password='GFQC75Bg2g')
+        self.connection = pymysql.connect(host='sql9.freemysqlhosting.net', db='sql9607918',
+                                          user='sql9607918', password='GFQC75Bg2g', port=3306)
         self.cursor = self.connection.cursor(pymysql.cursors.DictCursor)
 
     def select(self, sql, params=None):

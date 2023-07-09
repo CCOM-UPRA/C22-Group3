@@ -87,7 +87,6 @@ def single_product(prodID):
     # Return product page for single product selected
     # TO BE ADDED BY STUDENTS (missing DB connection, shows dummy data in HTML)
     product = getsingleproduct(prodID)
-    print("The product: ", product)
     return render_template("single_product.html", product=product)
 
 
@@ -121,37 +120,30 @@ def addproduct(message):
 def createproduct():
     # Receive data from add_product.html
     name = request.form.get('name')
-    print("name: ", name)
     brand = request.form.get('brand')
-    video_res = request.form.get('video_res')
-
-    if 'yes' in request.form:
-        wifi = 'Yes'
-    else:
-        wifi = 'No'
-
+    desc = request.form.get('desc')
+    material = request.form.get('material')
+    size = request.form.get('size')
+    water = request.form.get('waterproof')
     color = request.form.get('color')
-    price = request.form.get('price')
     cost = request.form.get('cost')
+    price = request.form.get('price')
+    img = request.form.get('img')
     stock = request.form.get('stock')
+    status = request.form.get('status')
 
     # Photo is received from a file and will save the file into your product-images folder
-    img = request.files['myfile']
-    img2 = img
-    filename = secure_filename(img.filename)
+    #img = request.files['myfile']
+    #img2 = img
+    #filename = secure_filename(img.filename)
     # Adjust to your directory
     # WARNING: Can cause issues if filename has spaces
-    img.save(os.path.join(r"C:\Users\javie\PycharmProjects\pythonProjectTemplate3\static\images\product-images/", filename))
+    #img.save(os.path.join(r"C:\Users\javie\PycharmProjects\pythonProjectTemplate3\static\images\product-images/", filename))
 
-    print("img: ", img2.filename)
-
-    if 'active' in request.form:
-        status = 'active'
-    else:
-        status = 'inactive'
+    #print("img: ", img2.filename)
 
     # -> productsController.py
-    createNewProduct(name, brand, video_res, wifi, color, price, cost, stock, img2.filename, status)
+    createNewProduct(name, brand, desc, material, size, water, color, cost, price, img , stock, status)
 
     # Send message back to html page that product has been added
     message = 'added'

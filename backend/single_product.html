@@ -190,7 +190,7 @@
                                     <select name="material" class="form-control" required>
                                         <option value="Solid" {% if product.material == "Solid" %}selected{% endif %}>Solid</option>
                                         <option value="Glossy" {% if product.material == "Glossy" %}selected{% endif %}>Glossy</option>
-                                        <option value="Metalic" {% if product.material == "Metallic" %}selected{% endif %}>Metalic</option>
+                                        <option value="Metallic" {% if product.material == "Metallic" %}selected{% endif %}>Metallic</option>
                                     </select>
                                 </label><br>                                                                           
 
@@ -237,7 +237,7 @@
                                     <input type="text" name="img" class="form-control" value="{{ product.img }}" required></input></label><br>
                                 
                                 <label class="form-label">Stock:
-                                    <input type="text" name="stock" class="form-control" value="{{ product.stock }}" required></input></label><br>
+                                    <input type="number" name="stock" class="form-control" value="{{ product.stock }}" required></input></label><br>
 
                                     <label class="form-label">Status:<br>
                                         <input type="radio" name="status" value="active" {% if product['status'] == 'active' %}checked="checked"{% endif %}>
@@ -246,8 +246,10 @@
                                     <label for="no">Inactive</label><br></label><br>
 
                                 <div class="details-add-group">
-                                    <button type="submit" class="product-add" title="Save changes">
-                                        <span>Edit Product</span></button>
+                                    <button type="submit" title="Save changes" style="background-color: green; color: white; border: none; border-radius: 5px; padding: 15px 30px; font-size: 18px;">
+                                        Edit Product
+                                    </button>
+                                    
                                     </div>
                             </form>
                     </div>

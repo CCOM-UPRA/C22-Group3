@@ -156,92 +156,93 @@
                 {% endif %}
 
                 <div style='text-align: center'>
-
-                        <br><br>
-                        <h2>Product Name</h2>
-                        <br>
-
-                    </div>
+                    <br><br>
+                    <h2>Add Product</h2>
+                    <br>
+                </div>
 
                 <div class="row">
-                    <div class="col-lg-6">
-                        <div class="details-gallery">
-                            <ul class="details-preview">
-                                <li><img src="#" alt="product"></li>
-                            </ul>
-
-                        </div>
-                    </div>
                     <div class="col-lg-6">
                         <div class="details-content">
                             <h3 class="details-name"><a href="#">Details</a></h3>
                             <form style="width:100%" class="modal-form"
                                   action="{{url_for('createproduct')}}" method="POST" enctype="multipart/form-data">
+
                                 <label class="form-label">Name:
-                                    <input type="text" name="name" class="form-control" placeholder="Product name" required></label><br>
+                                    <input type="text" name="name" class="form-control" required></label><br>
 
                                 <label class="form-label">Brand:
-                                    <input type="text" name="brand" class="form-control" placeholder="Product brand" required></input></label><br>
+                                    <input type="text" name="brand" class="form-control" required></input></label><br>
+                                
+                                <label class="form-label">Description:
+                                    <input style="height: 50px; width: 500px;" type="text" name="desc" class="form-control" required></input></label><br>
 
                                 <label class="form-label">Material:
-                                    <input type="text" name="material" class="form-control" placeholder="Metalic, Solid, Glossy" required></input></label><br>
-                                
-                                    <label class="form-label">Size:
-                                        <input type="text" name="size" class="form-control" placeholder="Square 5x5, Custom, Bumper 8x4..." required></input></label><br>
-                                        
-                                <label class="form-label">Waterproof:
-                                    <input type="radio" name="yes" id="yes" value="Yes" checked>
-                                    <label for="yes">Yes</label><br>
-                                    <input type="radio" name="no" id="no" value="No">
-                                    <label for="no">No</label><br></label><br>
+                                    <select name="material" class="form-control" required>
+                                        <option value="Solid" >Solid</option>
+                                        <option value="Glossy" >Glossy</option>
+                                        <option value="Metallic" >Metallic</option>
+                                    </select>
+                                </label><br>                                                                           
 
-                                <label class="form-label">Color:
-                                    <input type="text" name="color" class="form-control" placeholder="White, Red, etc..." required></input></label><br>
+                                <label class="form-label">Size:
+                                    <select name="size" class="form-control" required>
+                                        <option value="Circle 3x3" >Circle 3x3</option>
+                                        <option value="Oval 2x3" >Oval 2x3</option>
+                                        <option value="Square 3x3" >Square 3x3</option>
+                                        <option value="Square 5x5" >Square 5x5</option>
+                                        <option value="Bumper 8x4" >Bumper 8x4</option>
+                                        <option value="Custom" >Custom</option>
+                                    </select>
+                                </label><br> 
+    
+                                <label class="form-label">waterproof:<br>
+                                    <input type="radio" name="waterproof" value="YES">
+                                <label for="yes">Yes</label>
+                                    <input type="radio" name="waterproof" value="NO">
+                                <label for="no">No</label><br></label><br>
 
-
-    <!--                            <label for="cost">Cost in $: </label>-->
-    <!--                            <input type="number" id='cost' value="Cost"><br>-->
-                                <label class="form-label">Price:
-                                    <input type="text" name="price" class="form-control" placeholder="$$..." required></input></label><br>
+                                <label class="form-label">Size:
+                                    <select name="color" class="form-control" required>
+                                        <option value="Rainbow">Rainbow</option>
+                                        <option value="Monocrome">Monocrome</option>
+                                        <option value="Red">Red</option>
+                                        <option value="Blue">Blue</option>
+                                        <option value="Yellow">Yellow</option>
+                                        <option value="Orange">Orange</option>
+                                        <option value="Green">Green</option>
+                                        <option value="Purple">Purple</option>
+                                        <option value="Pink">Pink</option>
+                                        <option value="Brown">Brown</option>
+                                        <option value="Black">Black</option>
+                                    </select>
+                                </label><br> 
 
                                 <label class="form-label">Cost:
-                                    <input type="text" name="cost" class="form-control" placeholder="$$..." required></input></label><br>
+                                    <input type="text" name="cost" class="form-control" pattern="\d{1,5}\.\d{2}" title="Por favor ingrese un número válido con un máximo de 5 dígitos antes del punto y 2 dígitos después del número (por ejemplo, 12345.67)" required></label><br>
 
+                                <label class="form-label">Price:
+                                    <input type="text" name="price" class="form-control" pattern="\d{1,5}\.\d{2}" title="Por favor ingrese un número válido con un máximo de 5 dígitos antes del punto y 2 dígitos después del número (por ejemplo, 12345.67)" required></label><br>
+                                    
+                                <label class="form-label">Image link:
+                                    <input type="text" name="img" class="form-control" required></input></label><br>
+                                
                                 <label class="form-label">Stock:
-                                    <input type="text" name="stock" class="form-control" placeholder="..." required></input></label><br>
+                                    <input type="number" name="stock" class="form-control" required></input></label><br>
 
+                                <label class="form-label">Status:<br>
+                                    <input type="radio" name="status" value="active">
+                                <label for="yes">Active</label>
+                                    <input type="radio" name="status" value="inactive">
+                                <label for="no">Inactive</label><br></label><br>
 
-                                <label class="form-label">Description:
-                                    <input type="text" name="desc" class="form-control" placeholder="Description..."></input></label><br>
-
-                                <br>
-                                <label class="form-label">Image:
-                                    <input type="file" name="myfile"></label><br>
-
-<!--                                <label for="myfile">Select an image:</label>-->
-<!--                                    <input type="file" id="myfile" name="myfile">-->
-
-                                <br><label class="form-label">Status: </label><br>
-                                <label for="active">Active</label>
-                                    <input type="radio" id="active" name="active" value="Active" checked>
-                                <label for="inactive">Inactive</label>
-                                    <input type="radio" id="inactive" name="inactive" value="Inactive">
-
-<!--                                <label for="myfile">Select an image:</label>-->
-<!--                                <input type="file" id="myfile" name="myfile">-->
-
-<!--                                <p>Status:</p>-->
-
-<!--                                        <input type="radio" id="active" name="status" value="Active" checked>-->
-<!--                                        <label for="active">Active</label>-->
-<!--                                        <input type="radio" id="inactive" name="status" value="Inactive">-->
-<!--                                        <label for="inactive">Inactive</label><br>-->
-
-
+                                <!--<label class="form-label">Image:
+                                    <input type="file" name="myfile"></label><br>-->
 
                                 <div class="details-add-group">
-                                    <button type="submit" class="product-add" title="Save changes">
-                                        <span>Add Product</span></button>
+                                    <button type="submit" title="Save changes" style="background-color: green; color: white; border: none; border-radius: 5px; padding: 15px 30px; font-size: 18px;">
+                                        Add Product
+                                    </button>
                                     </div>
                             </form>
 
