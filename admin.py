@@ -128,22 +128,22 @@ def createproduct():
     color = request.form.get('color')
     cost = request.form.get('cost')
     price = request.form.get('price')
-    img = request.form.get('img')
+    img_link = request.form.get('img_link')
     stock = request.form.get('stock')
     status = request.form.get('status')
 
     # Photo is received from a file and will save the file into your product-images folder
-    #img = request.files['myfile']
-    #img2 = img
-    #filename = secure_filename(img.filename)
+    img = request.files['imgfile']
+    img2 = img
+    filename = secure_filename(img.filename)
     # Adjust to your directory
     # WARNING: Can cause issues if filename has spaces
-    #img.save(os.path.join(r"C:\Users\javie\PycharmProjects\pythonProjectTemplate3\static\images\product-images/", filename))
+    img.save(os.path.join(r"C:\Users\Emanuel\Documents\GitHub\C22-Group3\static\images\product-images", filename))
 
-    #print("img: ", img2.filename)
+    print("img: ", img2.filename)
 
     # -> productsController.py
-    createNewProduct(name, brand, desc, material, size, water, color, cost, price, img , stock, status)
+    createNewProduct(name, brand, desc, material, size, water, color, cost, price, img_link , stock, status)
 
     # Send message back to html page that product has been added
     message = 'added'
