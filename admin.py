@@ -261,9 +261,10 @@ def editorder(order):
     # TO BE ADDED BY STUDENTS, HTML will only show dummy data
     # Receive from orders page an order via its id (our 'order' variable from the url)
     # Fetch the products in that order
-    orderProducts = getorderproducts('1')
+    orderProducts = getorderproducts(order)
     # Fetch the order itself.
-    order = getorder('1')
+    order = getorder(order)
+    print(order)
     # Go to separate page for that order
     return render_template('order.html', products=orderProducts, order=order)
 

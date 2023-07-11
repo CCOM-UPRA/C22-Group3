@@ -141,19 +141,11 @@ def ordersModel():
     conn = pymysql.connect(host='sql9.freemysqlhosting.net', db='sql9607918',
                            user='sql9607918', password='GFQC75Bg2g', port=3306)
     cur = conn.cursor()
-    cur.execute("SELECT DISTINCT tracking_number, price_total, day, order_id FROM orders NATURAL JOIN cont ;")
+    cur.execute("SELECT DISTINCT order_id, customer_id, tracking_number, o_status, day, price_total FROM orders NATURAL JOIN cont ;")
     results = cur.fetchall()
     
     for res in results:
-        products = []
-        amountproducts = 0
-        cur.execute("SELECT s_name, image_link, s_brand, price, quantity FROM orders NATURAL JOIN cont NATURAL JOIN stickers GROUP BY s_name")
-        results2 = cur.fetchall()
-        
-        for res2 in results2:
-            products.append({"s_name": res2[0], "img": res2[1], "brand": res2[2], "price": res2[3], "quantity": res2[4],})
-            amountproducts = amountproducts + res2[4]
-        orderlist.append({"tracking": res[0], "total": res[1], "date": res[2], "o_id": res[3], "products": products, "amount": amountproducts})
+        orderlist.append({"o_id": res[0], "c_id": res[1], "tracking": res[2], "o_status": res[3], "date": res[4], "total": res[5]})
     
     cur.close()
     conn.close()
@@ -179,22 +171,42 @@ def filterOrdersModel(search, column):
 
 
 def getordermodel(ID):
-    for key, order in ordersList.items():
-        if key == ID:
-            return order
+    #for key, order in ordersList.items():
+    #    if key == ID:
+    #        return order
+    db = Dbconnect()
+    orderlist = []
+    quantity = 0
+    conn = pymysql.connect(host='sql9.freemysqlhosting.net', db='sql9607918',
+                           user='sql9607918', password='GFQC75Bg2g', port=3306)
+    cur = conn.cursor()
+    cur.execute("SELECT quantity, sticker_id FROM orders NATURAL JOIN cont WHERE order_id = %s;",(ID))
+    quan = cur.fetchall()
+    for sticker in quan:
+        quantity = quantity + sticker[0]
+    cur.execute("SELECT DISTINCT o_status, day, price_total FROM orders NATURAL JOIN cont WHERE order_id = %s;",(ID))
+    results = cur.fetchall()
+    
+    for res in results:
+        orderlist.append({"o_status": res[0], "date": res[1], "total": res[2], "quantity": quantity})
+    
+    cur.close()
+    conn.close()
+
+    return orderlist
 
 
 def getorderproductsmodel(ID):
     returnList = {}
-    num = 1
-    for key, product in productsList.items():
-        if product['order_id'] == ID:
-            if returnList == {}:
-                returnList = {'1': product}
-            else:
-                num += 1
-                returnList = MagerDicts(returnList, {str(num): product})
-    print(returnList)
+    #num = 1
+    #for key, product in productsList.items():
+    #    if product['order_id'] == ID:
+    #        if returnList == {}:
+    #            returnList = {'1': product}
+    #        else:
+    #            num += 1
+    #            returnList = MagerDicts(returnList, {str(num): product})
+    #print(returnList)
     return returnList
 
 

@@ -192,12 +192,12 @@
                                         <td class="table-name"><h6>{{order['o_id']}}</h6></td>
                                         <td class="table-name"><h6>{{order['c_id']}}</h6></td>
                                         <td class="table-name"><h6>{{order['tracking']}}</h6></td>
-                                        <td class="table-name"><h6>{{order['status']}}</h6></td>
+                                        <td class="table-name"><h6>{{order['o_status']}}</h6></td>
                                         <td class="table-price"><h6>{{order['date']}}</h6></td>
                                         <td class="table-brand"><h6>2023-07-16</h6></td>
                                          <td class="table-brand"><h6>${{order['total']}}</h6></td>
                                         <td class="table-action">
-                                            <a class="view" href="{{url_for('editorder', order=order['id'])}}" title="Edit Amount"><i class="fas fa-edit"></i></a>
+                                            <a class="view" href="{{url_for('editorder', order=order['o_id'])}}" title="Edit Amount"><i class="fas fa-edit"></i></a>
                                         </td>
                                     </tr>
                                 {% endfor %}

@@ -154,7 +154,7 @@
                 <div style='text-align: center'>
 
                         <br><br>
-                        <h2>Orders</h2>
+                        <h2>Order</h2>
 
                      <div style='padding: 0 40%' class="view-add-group">
                          <form action="{{url_for('orders')}}">
@@ -162,7 +162,7 @@
                        </form>
                     </div>
 
-
+            {% for order in order %}
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="account-card">
@@ -173,7 +173,7 @@
                                 <ul class="invoice-details">
                                     <li>
                                         <h6>Order Date</h6>
-                                        <p>{{order['order_date']}}</p>
+                                        <p>{{order['date']}}</p>
                                     </li>
                                     <li>
                                         <h6>Arrival Date</h6>
@@ -201,11 +201,11 @@
                                 <ul class="invoice-details">
                                     <li>
                                         <h6>Total Items</h6>
-                                        <p># items</p>
+                                        <p>{{order['quantity']}}</p>
                                     </li>
                                     <li>
                                         <h6>Total</h6>
-                                        <p>$10224.3231</p>
+                                        <p>{{order['total']}}</p>
                                     </li>
 
                                 </ul>
@@ -252,6 +252,7 @@
                         </div>
                     </div>
                 </div>
+            {% endfor %}
             </div>
             </div>
         </section>
