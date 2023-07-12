@@ -198,6 +198,7 @@ def getordermodel(ID):
 
 def getorderproductsmodel(ID):
     returnList = {}
+    total = 0
     #num = 1
     #for key, product in productsList.items():
     #    if product['order_id'] == ID:
@@ -207,8 +208,31 @@ def getorderproductsmodel(ID):
     #            num += 1
     #            returnList = MagerDicts(returnList, {str(num): product})
     #print(returnList)
+    db = Dbconnect()
+    conn = pymysql.connect(host='sql9.freemysqlhosting.net', db='sql9607918',
+                           user='sql9607918', password='GFQC75Bg2g', port=3306)
+    cur = conn.cursor()
+    cur.execute("SELECT  sticker_id, s_name, s_brand, price, quantity FROM stickers NATURAL JOIN cont WHERE order_id = %s;", (ID))
+    results = cur.fetchall()
+
+    for res in results:
+        total = res[3] * res[4]
+        product = {
+            "s_id": res[0],
+            "name": res[1],
+            "brand": res[2],
+            "price": res[3],
+            "quantity": res[4],
+            "total": total
+        }
+        if not returnList:
+            returnList['1'] = product
+        else:
+            num = len(returnList) + 1
+            returnList[str(num)] = product
+        total = 0
+
+    cur.close()
+    conn.close()
+
     return returnList
-
-
-
-

@@ -162,7 +162,6 @@
                        </form>
                     </div>
 
-            {% for order in order %}
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="account-card">
@@ -173,19 +172,19 @@
                                 <ul class="invoice-details">
                                     <li>
                                         <h6>Order Date</h6>
-                                        <p>{{order['date']}}</p>
+                                        <p>{{order[0]['date']}}</p>
                                     </li>
                                     <li>
                                         <h6>Arrival Date</h6>
-                                        <p>{{order['arrival_date']}}</p>
+                                        <p>2023-07-16</p>
                                     </li>
                                     <li>
                                         <h6>Status</h6>
                                         <select id="status" name="status">
-                                              <option value="cancelled">Cancelled</option>
-                                              <option value="processed">Processed</option>
-                                              <option value="shipped">Shipped</option>
-                                              <option value="delivered">Delivered</option>
+                                              <option value="cancelled" {% if order[0]['o_status'] == "cancelled" %}selected{% endif %}>Cancelled</option>
+                                              <option value="placed" {% if order[0]['o_status'] == "placed" %}selected{% endif %}>Placed</option>
+                                              <option value="shipped" {% if order[0]['o_status'] == "shipped" %}selected{% endif %}>Shipped</option>
+                                              <option value="delivered" {% if order[0]['o_status'] == "delivered" %}selected{% endif %}>Delivered</option>
                                         </select>
                                     </li>
                                 </ul>
@@ -201,11 +200,11 @@
                                 <ul class="invoice-details">
                                     <li>
                                         <h6>Total Items</h6>
-                                        <p>{{order['quantity']}}</p>
+                                        <p>{{order[0]['quantity']}}</p>
                                     </li>
                                     <li>
                                         <h6>Total</h6>
-                                        <p>{{order['total']}}</p>
+                                        <p>{{order[0]['total']}}</p>
                                     </li>
 
                                 </ul>
@@ -233,12 +232,12 @@
                                 <tbody>
                                 {% for key, prod in products.items() %}
                                 <tr>
-                                        <td class="table-name"><h6>{{key}}</h6></td>
+                                        <td class="table-name"><h6>{{prod['s_id']}}</h6></td>
                                         <td class="table-name"><h6>{{prod['name']}}</h6></td>
                                         <td class="table-name"><h6>{{prod['brand']}}</h6></td>
                                         <td class="table-price"><h6>${{prod['price']}}</h6></td>
                                         <td class="table-brand"><h6>{{prod['quantity']}}</h6></td>
-                                         <td class="table-brand"><h6>${{prod['total_price']}}</h6></td>
+                                         <td class="table-brand"><h6>${{prod['total']}}</h6></td>
 
                                     </tr>
                                 {% endfor %}
@@ -252,7 +251,6 @@
                         </div>
                     </div>
                 </div>
-            {% endfor %}
             </div>
             </div>
         </section>

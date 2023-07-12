@@ -262,9 +262,9 @@ def editorder(order):
     # Receive from orders page an order via its id (our 'order' variable from the url)
     # Fetch the products in that order
     orderProducts = getorderproducts(order)
+    print(orderProducts)
     # Fetch the order itself.
     order = getorder(order)
-    print(order)
     # Go to separate page for that order
     return render_template('order.html', products=orderProducts, order=order)
 
