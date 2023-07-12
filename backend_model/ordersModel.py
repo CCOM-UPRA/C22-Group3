@@ -155,19 +155,37 @@ def ordersModel():
 
 def filterOrdersModel(search, column):
     # DB credentials found in backend_model/connectDB.py
-    db = Dbconnect()
-    orders = []
-    if column == "customer":
-        query = "SELECT * FROM orders WHERE c_id = %s"
-    elif column == "order":
-        query = "SELECT * FROM orders WHERE order_id = %s"
+    #db = Dbconnect()
+    #orders = []
+    #if column == "customer":
+    #    query = "SELECT * FROM orders WHERE customer_id = %s"
+    #elif column == "order":
+    #    query = "SELECT * FROM orders WHERE order_id = %s"
 
-    ordersFound = db.select(query, search)
-    for o in ordersFound:
-        orders.append({"id": o['order_id'], "c_id": o['c_id'], "tracking": o['tracking_number'], "transaction":
-                       o['transaction_number'], "order_date": o['order_date'], "arrival_date": o['arrival_date'],
-                       "ship_date": o['ship_date'], "total_price": o['total_price'], "status": o['order_status']})
-    return orders
+    #ordersFound = db.select(query, search)
+    #for o in ordersFound:
+    #    orders.append({"id": o['order_id'], "c_id": o['c_id'], "tracking": o['tracking_number'], "transaction":
+    #                   o['transaction_number'], "order_date": o['order_date'], "arrival_date": o['arrival_date'],
+    #                   "ship_date": o['ship_date'], "total_price": o['total_price'], "status": o['order_status']})
+    #return orders
+    db = Dbconnect()
+    orderlist = []
+    conn = pymysql.connect(host='sql9.freemysqlhosting.net', db='sql9607918',
+                           user='sql9607918', password='GFQC75Bg2g', port=3306)
+    cur = conn.cursor()
+    if column == "customer":
+        cur.execute("SELECT DISTINCT order_id, customer_id, tracking_number, o_status, day, price_total FROM orders NATURAL JOIN cont WHERE customer_id = %s;",(search))
+    else:
+        cur.execute("SELECT DISTINCT order_id, customer_id, tracking_number, o_status, day, price_total FROM orders NATURAL JOIN cont WHERE order_id = %s;",(search))
+    results = cur.fetchall()
+    
+    for res in results:
+        orderlist.append({"o_id": res[0], "c_id": res[1], "tracking": res[2], "o_status": res[3], "date": res[4], "total": res[5]})
+    
+    cur.close()
+    conn.close()
+
+    return orderlist
 
 
 def getordermodel(ID):
