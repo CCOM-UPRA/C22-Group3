@@ -182,7 +182,9 @@
                                     <tr>
                                         <th scope="col">First Name</th>
                                         <th scope="col">Last Name</th>
+                                        {% if userType == 'customer' %}
                                         <th scope="col">Phone Number</th>
+                                        {% endif %}
                                         <th scope="col">Email</th>
                                         <th scope="col">Status</th>
                                         <th scope="col"></th>
@@ -193,7 +195,9 @@
                                 <tr>
                                         <td class="table-name"><h6>{{acc['first_name']}}</h6></td>
                                         <td class="table-name"><h6>{{acc['last_name']}}</h6></td>
+                                        {% if userType == 'customer' %}
                                         <td class="table-price"><h6>{{acc['phone_number']}}</h6></td>
+                                        {% endif %}
                                         <td class="table-brand"><h6>{{acc['email']}}</h6></td>
                                          <td class="table-brand"><h6>{{acc['status']}}</h6></td>
                                         <td class="table-action">

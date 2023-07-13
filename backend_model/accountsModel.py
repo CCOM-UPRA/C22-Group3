@@ -97,17 +97,16 @@ def getpaymentaccountmodel(acc):
         payments.append({"number": payment[0], "expmon": payment[1], "expyear": payment[2], "zipcode": payment[3], "status": payment[4], "brand": payment[5],})
     return payments
 
-def updateAccountModel(userInfo, userType, id):
+def updateAccountModel(userInfo, userType, id, kind):
     db = Dbconnect()
-    usersList = []
     if userType == 'admin':
-        query = "UPDATE admin SET a_firstname = %s, a_lastname = %s, a_phone_number = %s, a_status = %s" \
+        query = "UPDATE admin SET a_firstname = %s, a_lastname = %s, a_status = %s" \
                 "WHERE admin_id = %s"
-        db.execute(query, (userInfo[0], userInfo[1], userInfo[2], userInfo[3], id))
-    elif userType == 'customer':
-        query = "UPDATE customer SET c_first_name = %s, c_last_name = %s, address_line_1 = %s, address_line_2 = %s, " \
-                "c_city = %s, c_state = %s, c_zipcode = %s, c_phone_number = %s, c_card_name = %s," \
-                "c_card_type = %s, c_card_number = %s, c_exp_date = %s, c_status = %s WHERE c_id = %s"
+        db.execute(query, (userInfo[0], userInfo[1], userInfo[2], id))
+    elif userType == 'customer' and kind == 'general':
+        query = "UPDATE customers SET c_firstname = %s, c_lastname = %s, street = %s, city = %s, " \
+                "state = %s, zipcode = %s, phonenum = %s, c_status = %s" \
+                "WHERE customer_id = %s"
         db.execute(query, (userInfo[0], userInfo[1], userInfo[2], userInfo[3], userInfo[4], userInfo[5], userInfo[6],
-                           userInfo[7], userInfo[8], userInfo[9], userInfo[10], userInfo[11], userInfo[12], id))
+                           userInfo[7], id))
     return

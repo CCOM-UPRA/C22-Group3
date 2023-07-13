@@ -192,9 +192,9 @@ def editaccount(acc):
 
     # -> accountsController.py
     account = getaccount(acc, userType)
-    print("Account ID: ", acc)
-    print("UserType: ", userType)
-    print(account)
+    #print("Account ID: ", acc)
+    #print("UserType: ", userType)
+    #print(account)
     if userType == 'customer':
         payments = getpaymentaccount(acc)
     else:
@@ -204,31 +204,26 @@ def editaccount(acc):
 
 @app.route("/updateaccount", methods=['POST'])
 def updateaccount():
+    kind = request.form.get('change')
     id = request.form.get('id')
     userType = request.form.get('userType')
     fname = request.form.get('fname')
     lname = request.form.get('lname')
-    phone_number = request.form.get('pnumber')
-    status = request.form.get('group1')
+    status = request.form.get('status')
 
-    if userType == 'customer':
-        aline1 = request.form.get('aline1')
-        aline2 = request.form.get('aline2')
+    if userType == 'customer' and kind == 'general':
+        phone_number = request.form.get('pnumber')
+        street = request.form.get('street')
         city = request.form.get('city')
         state = request.form.get('state')
         zipcode = request.form.get('zipcode')
-        cname = request.form.get('cname')
-        cnumber = request.form.get('cnumber')
-        ctype = request.form.get('ctype')
-        cdate = request.form.get('cdate')
-        userInfo = [fname, lname, aline1, aline2, city, state, zipcode, phone_number, cname,
-                    ctype, cnumber, cdate, status]
-        updateAccountController(userInfo, userType, id)
+        userInfo = [fname, lname, street, city, state, zipcode, phone_number, status]
+        updateAccountController(userInfo, userType, id, kind)
     else:
-        userInfo = [fname, lname, phone_number, status]
+        userInfo = [fname, lname, status]
         # Our user info will depend on whether we're updating an admin or customer
         # -> accountsController.py
-        updateAccountController(userInfo, userType, id)
+        updateAccountController(userInfo, userType, id, "NULL")
 
     # Go back to edit page with message
     return redirect(url_for('editaccount', acc=id, userType=userType, message='added'))

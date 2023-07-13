@@ -9,8 +9,8 @@ def getaccount(acc, userType):
     return getaccountmodel(acc, userType)
 
 
-def updateAccountController(userInfo, userType, id):
-    return updateAccountModel(userInfo, userType, id)
+def updateAccountController(userInfo, userType, id, kind):
+    return updateAccountModel(userInfo, userType, id, kind)
 
 def getpaymentaccount(acc):
     return getpaymentaccountmodel(acc)
