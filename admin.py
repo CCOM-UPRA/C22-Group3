@@ -194,7 +194,12 @@ def editaccount(acc):
     account = getaccount(acc, userType)
     print("Account ID: ", acc)
     print("UserType: ", userType)
-    return render_template("single_account.html", account=account, userType=userType, message=message)
+    print(account)
+    if userType == 'customer':
+        payments = getpaymentaccount(acc)
+    else:
+        payments = []
+    return render_template("single_account.html", acc=account, userType=userType, message=message, payments=payments)
 
 
 @app.route("/updateaccount", methods=['POST'])

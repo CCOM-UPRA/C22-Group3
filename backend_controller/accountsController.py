@@ -12,3 +12,5 @@ def getaccount(acc, userType):
 def updateAccountController(userInfo, userType, id):
     return updateAccountModel(userInfo, userType, id)
 
+def getpaymentaccount(acc):
+    return getpaymentaccountmodel(acc)

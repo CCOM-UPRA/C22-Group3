@@ -47,16 +47,16 @@ def getaccountsmodel(userType):
 
         for user in adminFound:
             usersList.append({"id": user['admin_id'], "first_name": user['a_firstname'], "last_name": user['a_lastname'],
-                          "email": user['a_email'], "phone_number": user['a_phone_number'],
+                          "email": user['a_email'],
                           "status": user['a_status']})
     elif userType == 'customer':
-        query = "SELECT * from customer"
+        query = "SELECT * from customers"
         customerFound = db.select(query)
 
         for user in customerFound:
             usersList.append(
-                {"id": user['c_id'], "first_name": user['c_first_name'], "last_name": user['c_last_name'],
-                 "email": user['c_email'], "phone_number": user['c_phone_number'],
+                {"id": user['customer_id'], "first_name": user['c_firstname'], "last_name": user['c_lastname'],
+                 "email": user['c_email'], "phone_number": user['phonenum'],
                  "status": user['c_status']})
     return usersList
 
@@ -64,29 +64,38 @@ def getaccountsmodel(userType):
 # Get the specific account requested
 # In this case, we're requesting it via the key
 def getaccountmodel(acc, userType):
-    db = Dbconnect()
     usersList = []
+    conn = pymysql.connect(host='sql9.freemysqlhosting.net', db='sql9607918',
+                           user='sql9607918', password='GFQC75Bg2g', port=3306)
+    cur = conn.cursor()
     if userType == 'customer':
-        query = "SELECT * from customer WHERE c_id = %s"
-        customerFound = db.select(query, acc)
+        cur.execute("SELECT * FROM customers WHERE customer_id = %s",(acc))
+        customerFound = cur.fetchall()
 
         for user in customerFound:
-            usersList.append({"id": user['c_id'], "first_name": user['c_first_name'], "last_name": user['c_last_name'],
-                          "email": user['c_email'], "aline1": user['address_line_1'], "aline2": user['address_line_2'],
-                          "city": user['c_city'], "state": user['c_state'], "zipcode": user['c_zipcode'],
-                        "phone_number": user['c_phone_number'], "card_name": user["c_card_name"], "card_type": user['c_card_type'],
-                        "card_number": user['c_card_number'], "exp_date": user['c_exp_date'], "status": user['c_status']})
+            usersList.append({"id": user[0], "name": user[1], "last_name": user[2], "email": user[3],
+                     "phonenum": user[5], "street": user[6], "city": user[7], "state": user[8],
+                     "zipcode": user[9], "status": user[10]})
     elif userType == 'admin':
-        query = "SELECT * from admin WHERE admin_id = %s"
-        adminFound = db.select(query, acc)
+        cur.execute("SELECT * FROM admin WHERE admin_id = %s",(acc))
+        adminFound = cur.fetchall()
 
         for user in adminFound:
-            usersList.append(
-                {"id": user['admin_id'], "first_name": user['a_firstname'], "last_name": user['a_lastname'],
-                 "email": user['a_email'], "phone_number": user['a_phone_number'],
-                 "status": user['a_status']})
+            usersList.append({"id": user[0], "name": user[1], "last_name": user[2], "email": user[3],
+                     "status": user[5]})
     return usersList
 
+def getpaymentaccountmodel(acc):
+    payments = []
+    conn = pymysql.connect(host='sql9.freemysqlhosting.net', db='sql9607918',
+                           user='sql9607918', password='GFQC75Bg2g', port=3306)
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM payment_info WHERE customer_id = %s",(acc))
+    paymentsFound = cur.fetchall()
+
+    for payment in paymentsFound:
+        payments.append({"number": payment[0], "expmon": payment[1], "expyear": payment[2], "zipcode": payment[3], "status": payment[4], "brand": payment[5],})
+    return payments
 
 def updateAccountModel(userInfo, userType, id):
     db = Dbconnect()
