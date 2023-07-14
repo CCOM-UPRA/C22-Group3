@@ -219,6 +219,16 @@ def updateaccount():
         zipcode = request.form.get('zipcode')
         userInfo = [fname, lname, street, city, state, zipcode, phone_number, status]
         updateAccountController(userInfo, userType, id, kind)
+    elif userType == 'customer' and kind == 'payment':
+        number = request.form.get('cnumber')
+        brand = request.form.get('cbrand')
+        expmon = request.form.get('expmon')
+        expyear = request.form.get('expyear')
+        czip = request.form.get('czip')
+        pstatus = request.form.get('p_status')
+        oldnum = request.form.get('oldnum')
+        paymentinfo = (brand, expmon, expyear, czip, pstatus, number, oldnum)
+        updateAccountController(paymentinfo, userType, id, kind)
     else:
         userInfo = [fname, lname, status]
         # Our user info will depend on whether we're updating an admin or customer

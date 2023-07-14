@@ -250,10 +250,10 @@
                                     <div class="form-title">
                                         <h3>payment info</h3>
                                     </div>
-
+                                    <form action="{{url_for('updateaccount')}}", method="post">
                                     <div class="form-group">
                                         <label class="form-label">Card Brand</label>
-                                        <input type="text" name="cname" class="form-control" value="{{payment['brand']}}"></input>
+                                        <input type="text" name="cbrand" class="form-control" value="{{payment['brand']}}"></input>
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label">Card number</label>
@@ -261,17 +261,42 @@
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label">Exp. Month</label>
-                                        <input type="text" name="ctype" class="form-control" value="{{payment['expmon']}}"></input>
+                                        <input type="text" name="expmon" class="form-control" value="{{payment['expmon']}}"></input>
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label">Exp. Year</label>
-                                        <input type="text" name="ctype" class="form-control" value="{{payment['expyear']}}"></input>
+                                        <input type="text" name="expyear" class="form-control" value="{{payment['expyear']}}"></input>
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label">Zip Code</label>
-                                        <input type="text" name="ctype" class="form-control" value="{{payment['zipcode']}}"></input>
+                                        <input type="text" name="czip" class="form-control" value="{{payment['zipcode']}}"></input>
                                     </div>
+                                    {% if payment['status'] == 'active' %}
+                                         <div class="form-group">
+                                            <label class="form-label">status</label><br>
+                                             <label for="active">Active</label>
+                                            <input type="radio" id='active' value="active" name="p_status" checked><br>
+                                             <label for="inactive">Inactive</label>
+                                            <input type="radio" id='inactive' value="inactive" name="p_status">
+                                        </div>
+                                     {% else %}
+                                     <div class="form-group">
+                                        <label class="form-label">status</label><br>
+                                         <label for="active1">Active</label>
+                                        <input type="radio" id='active1' value="active" name="p_status"><br>
+                                         <label for="inactive1">Inactive</label>
+                                        <input type="radio" id='inactive1' value="inactive" name="p_status" checked>
+                                    </div>
+                                 {% endif %}
                                 </div>
+                                <div class="details-add-group">
+                                    <input type="hidden" name="id" value="{{acc[0]['id']}}">
+                                    <input type="hidden" name="userType" value="{{userType}}">
+                                    <input type="hidden" name="change" value="payment">
+                                    <input type="hidden" name="oldnum" value="{{payment['number']}}">
+                                <button type="submit" value="Save changes" class="product-add" title="Save Changes">Edit Payment Info
+                                </button>
+                                </div></form>
                                 {% endfor %}
                                 {% endif %}
 

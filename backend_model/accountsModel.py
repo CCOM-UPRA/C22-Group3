@@ -99,6 +99,7 @@ def getpaymentaccountmodel(acc):
 
 def updateAccountModel(userInfo, userType, id, kind):
     db = Dbconnect()
+    print(userInfo)
     if userType == 'admin':
         query = "UPDATE admin SET a_firstname = %s, a_lastname = %s, a_status = %s" \
                 "WHERE admin_id = %s"
@@ -109,4 +110,10 @@ def updateAccountModel(userInfo, userType, id, kind):
                 "WHERE customer_id = %s"
         db.execute(query, (userInfo[0], userInfo[1], userInfo[2], userInfo[3], userInfo[4], userInfo[5], userInfo[6],
                            userInfo[7], id))
+    elif userType == 'customer' and kind == 'payment':
+        query = "UPDATE payment_info SET p_brand = %s, card_date_month = %s, card_date_year = %s, zipcode = %s, " \
+                "p_status = %s, card_num = %s" \
+                "WHERE card_num = %s AND customer_id = %s"
+        db.execute(query, (userInfo[0], userInfo[1], userInfo[2], userInfo[3], userInfo[4], userInfo[5], userInfo[6],
+                            id))
     return
