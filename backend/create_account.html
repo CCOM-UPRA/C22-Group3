@@ -163,10 +163,13 @@
                     <div class="col-lg-6">
                         <div class="details-content">
                             <div style="width:100%">
-                                 <form style="width:100%" class="modal-form">
+                                <form action="{{url_for('addaccount')}}", method="post" style="width:100%" class="modal-form">
                                     <div class="form-title">
                                         <h3>general info</h3>
                                     </div>
+                                    {% if message == 'added' %}
+                                        <h2 style='text-align: center; color: green'>Account Created!</h2>
+                                    {% endif %}
 
                                     <div class="form-group">
                                         <label class="form-label">First Name</label>
@@ -184,26 +187,24 @@
                                         <label class="form-label">email</label>
                                         <input type="text" name="email" class="form-control" placeholder="email"></input>
                                     </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Password</label>
+                                        <input type="text" name="pass" class="form-control" placeholder="Password"></input>
+                                    </div>
                                      <div class="form-group">
                                         <label class="form-label">status</label><br>
                                          <label for="active">Active</label>
-                                        <input type="radio" id='active' value="Active" name="group1" checked><br>
+                                        <input type="radio" id='active' value="active" name="status"><br>
                                          <label for="inactive">Inactive</label>
-                                        <input type="radio" id='inactive' value="Inactive" name="group1">
+                                        <input type="radio" id='inactive' value="inactive" name="status">
                                     </div>
-                                </form>
-                                <form style="width:100%" class="modal-form">
                                     <div class="form-title">
                                         <h3>address info</h3>
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="form-label">Address Line 1</label>
-                                        <input type="text" name="aline1" class="form-control" placeholder="line1"></input>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="form-label">Address Line 2</label>
-                                        <input type="text" name="aline2" class="form-control" placeholder="line2"></input>
+                                        <label class="form-label">Street</label>
+                                        <input type="text" name="street" class="form-control" placeholder="Street"></input>
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label">City</label>
@@ -215,40 +216,15 @@
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label">Zipcode</label>
-                                        <input type="text" name="zipcode" class="form-control" placeholder="zip"></input>
+                                        <input type="text" name="zipcode" class="form-control" placeholder="zipcode"></input>
                                     </div>
-                                </form>
-                                <form style="width:100%" class="modal-form">
-                                    <div class="form-title">
-                                        <h3>payment info</h3>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label class="form-label">Name on card</label>
-                                        <input type="text" name="cname" class="form-control" placeholder="name"></input>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="form-label">Card number</label>
-                                        <input type="number" name="cnumber" class="form-control" ></input>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="form-label">Card type</label>
-                                        <input type="text" name="ctype" class="form-control" placeholder="type"></input>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="form-label">Expiration Date</label>
-                                        <input type="date" name="cdate" class="form-control"></input>
+                                    <div class="details-add-group">
+                                    <button type="submit" value="Save changes" class="product-add" title="Save changes">
+                                    <span>Save changes</span>
+                                    </button>
                                     </div>
                                 </form>
                             </div>
-
-                            <div class="details-add-group">
-                                <form action="{{url_for('accounts')}}">
-                                <button class="product-add" title="Save changes">
-                                    <span>Save changes</span>
-                                </button></form>
-                            </form>
-
                         </div>
                     </div>
                 </div>

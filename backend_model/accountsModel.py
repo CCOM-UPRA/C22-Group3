@@ -117,3 +117,11 @@ def updateAccountModel(userInfo, userType, id, kind):
         db.execute(query, (userInfo[0], userInfo[1], userInfo[2], userInfo[3], userInfo[4], userInfo[5], userInfo[6],
                             id))
     return
+
+def createaccountmodel(userInfo):
+    db = Dbconnect()
+    query = "INSERT INTO customers(c_firstname, c_lastname, phonenum, c_email, c_status, street, city, state, zipcode," \
+            "c_password) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+    db.execute(query, (userInfo[0], userInfo[1], userInfo[2], userInfo[3], userInfo[4], userInfo[5], userInfo[6],
+                            userInfo[7], userInfo[8], userInfo[9]))
+    return

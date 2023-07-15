@@ -172,6 +172,22 @@ def createaccount():
     # TO BE ADDED BY STUDENTS
     return render_template("create_account.html")
 
+@app.route("/addaccount", methods=['POST'])
+def addaccount():
+    name = request.form.get('fname')
+    last = request.form.get('lname')
+    number = request.form.get('pnumber')
+    email = request.form.get('email')
+    status = request.form.get('status')
+    street = request.form.get('street')
+    city = request.form.get('city')
+    state = request.form.get('state')
+    zipcode = request.form.get('zipcode')
+    password = request.form.get('pass')
+    passworde = sha256_crypt.encrypt(password)
+    userInfo = [name, last, number, email, status, street, city, state, zipcode, passworde]
+    createaccountcontroller(userInfo)
+    return render_template("create_account.html", message = "added")
 
 @app.route("/editaccount/<acc>")
 def editaccount(acc):
