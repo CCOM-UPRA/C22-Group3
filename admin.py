@@ -6,7 +6,7 @@ from flask import Flask, render_template, redirect, request, session, url_for
 from werkzeug.utils import secure_filename
 
 from backend_controller.loginController import *
-from backend_controller.ordersController import ordersController, getorder, getorderproducts, filterOrder
+from backend_controller.ordersController import *
 from backend_controller.productsController import *
 from backend_controller.accountsController import *
 from backend_controller.reportsController import getDatedReport, getStockReport, getReport, getNames
@@ -288,11 +288,17 @@ def editorder(order):
     # Receive from orders page an order via its id (our 'order' variable from the url)
     # Fetch the products in that order
     orderProducts = getorderproducts(order)
-    print(orderProducts)
     # Fetch the order itself.
     order = getorder(order)
     # Go to separate page for that order
     return render_template('order.html', products=orderProducts, order=order)
+
+@app.route("/updateorder/<order>", methods=['POST'])
+def updateorder(order):
+    ostatus = request.form.get('status')
+    actualizarorden(order, ostatus)
+    
+    return redirect("/orders")
 
 
 @app.route("/reports")

@@ -157,9 +157,8 @@
                         <h2>Order</h2>
 
                      <div style='padding: 0 40%' class="view-add-group">
-                         <form action="{{url_for('orders')}}">
-                           <button style="" class="product-add">Save changes</button>
-                       </form>
+                         <form action="{{url_for('updateorder', order=order[0]['o_id'])}}", method="post">
+                           <button class="product-add">Save changes</button>
                     </div>
 
                 <div class="row">
@@ -187,6 +186,7 @@
                                               <option value="delivered" {% if order[0]['o_status'] == "delivered" %}selected{% endif %}>Delivered</option>
                                         </select>
                                     </li>
+                                </form>
                                 </ul>
                             </div>
                         </div>

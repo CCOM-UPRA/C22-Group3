@@ -202,11 +202,11 @@ def getordermodel(ID):
     quan = cur.fetchall()
     for sticker in quan:
         quantity = quantity + sticker[0]
-    cur.execute("SELECT DISTINCT o_status, day, price_total FROM orders NATURAL JOIN cont WHERE order_id = %s;",(ID))
+    cur.execute("SELECT DISTINCT o_status, day, price_total, order_id FROM orders NATURAL JOIN cont WHERE order_id = %s;",(ID))
     results = cur.fetchall()
     
     for res in results:
-        orderlist.append({"o_status": res[0], "date": res[1], "total": res[2], "quantity": quantity})
+        orderlist.append({"o_status": res[0], "date": res[1], "total": res[2], "o_id": res[3], "quantity": quantity})
     
     cur.close()
     conn.close()
@@ -254,3 +254,16 @@ def getorderproductsmodel(ID):
     conn.close()
 
     return returnList
+
+def updateordermodel(ID, status):
+    conn = pymysql.connect(host='sql9.freemysqlhosting.net', db='sql9607918',
+                           user='sql9607918', password='GFQC75Bg2g', port=3306)
+    cur = conn.cursor()
+
+    cur.execute("UPDATE orders SET o_status = %s WHERE order_id = %s",(status, ID))
+    conn.commit()
+    
+    cur.close()
+    conn.close()
+
+    return

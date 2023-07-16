@@ -15,3 +15,6 @@ def getorder(ID):
 
 def getorderproducts(ID):
     return getorderproductsmodel(ID)
+
+def actualizarorden(order, status):
+    return updateordermodel(order, status)
