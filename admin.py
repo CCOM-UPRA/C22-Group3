@@ -254,6 +254,13 @@ def updateaccount():
     # Go back to edit page with message
     return redirect(url_for('editaccount', acc=id, userType=userType, message='added'))
 
+@app.route("/deletepayment", methods=['POST'])
+def deletepayment():
+    c_id = request.form.get('id')
+    p_num = request.form.get('num')
+    deletepaymentcontroller(c_id, p_num)
+    return redirect(url_for('accounts'))
+
 
 @app.route("/orders")
 def orders():
@@ -272,6 +279,8 @@ def orders_filter():
             column = 'customer'
         elif search[0] == 'o':  # If string starts with o, look for orders by order ID
             column = 'order'
+        else:
+            return redirect("/orders")
         search = search[1:]  # Remove first char from string to search by numerical ID
 
         # -> ordersController.py

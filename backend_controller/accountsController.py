@@ -17,3 +17,6 @@ def getpaymentaccount(acc):
 
 def createaccountcontroller(userInfo):
     return createaccountmodel(userInfo)
+
+def deletepaymentcontroller(c_id, p_num):
+    return deletepaymentmodel(c_id, p_num)

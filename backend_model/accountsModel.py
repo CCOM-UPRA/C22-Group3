@@ -125,3 +125,16 @@ def createaccountmodel(userInfo):
     db.execute(query, (userInfo[0], userInfo[1], userInfo[2], userInfo[3], userInfo[4], userInfo[5], userInfo[6],
                             userInfo[7], userInfo[8], userInfo[9]))
     return
+
+def deletepaymentmodel(c_id, p_num):
+    conn = pymysql.connect(host='sql9.freemysqlhosting.net', db='sql9607918',
+                           user='sql9607918', password='GFQC75Bg2g', port=3306)
+    cur = conn.cursor()
+
+    cur.execute("DELETE FROM payment_info WHERE card_num = %s AND customer_id = %s",(p_num, c_id))
+    conn.commit()
+    
+    cur.close()
+    conn.close()
+
+    return

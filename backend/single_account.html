@@ -173,17 +173,17 @@
 
                                     <div class="form-group">
                                         <label class="form-label">First Name</label>
-                                        <input type="text" name="fname" class="form-control" value="{{acc[0]['name']}}">
+                                        <input type="text" name="fname" class="form-control" value="{{acc[0]['name']}}" required>
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label">Last Name</label>
-                                        <input type="text" name="lname" class="form-control" value="{{acc[0]['last_name']}}">
+                                        <input type="text" name="lname" class="form-control" value="{{acc[0]['last_name']}}" required>
                                     </div>
                                     {% if userType == 'customer' %}
                                     <div class="form-group">
                                         <label class="form-label">Phone Number</label>
-                                        <input type="number" name="pnumber" class="form-control" value="{{acc[0]['phonenum']}}">
-                                    </div>
+                                        <input type="tel" name="pnumber" class="form-control" value="{{acc[0]['phonenum']}}" required>
+                                    </div>                                    
                                     {% endif %}
                                     <div class="form-group">
                                         <label class="form-label">email</label>
@@ -223,19 +223,77 @@
 
                                     <div class="form-group">
                                         <label class="form-label">Street</label>
-                                        <input type="text" name="street" class="form-control" value="{{acc[0]['street']}}"></input>
+                                        <input type="text" name="street" class="form-control" value="{{acc[0]['street']}}" required></input>
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label">City</label>
-                                        <input type="text" name="city" class="form-control" value="{{acc[0]['city']}}"></input>
+                                        <input type="text" name="city" class="form-control" value="{{acc[0]['city']}}" required></input>
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label">State</label>
-                                        <input type="text" name="state" class="form-control" value="{{acc[0]['state']}}"></input>
+                                        <select name="state" class="form-control" required>
+                                            <option value="AL" {% if acc[0]['state'] == 'AL' %}selected{% endif %}>Alabama</option>
+                                            <option value="AK" {% if acc[0]['state'] == 'AK' %}selected{% endif %}>Alaska</option>
+                                            <option value="AZ" {% if acc[0]['state'] == 'AZ' %}selected{% endif %}>Arizona</option>
+                                            <option value="AR" {% if acc[0]['state'] == 'AR' %}selected{% endif %}>Arkansas</option>
+                                            <option value="CA" {% if acc[0]['state'] == 'CA' %}selected{% endif %}>California</option>
+                                            <option value="CO" {% if acc[0]['state'] == 'CO' %}selected{% endif %}>Colorado</option>
+                                            <option value="CT" {% if acc[0]['state'] == 'CT' %}selected{% endif %}>Connecticut</option>
+                                            <option value="DE" {% if acc[0]['state'] == 'DE' %}selected{% endif %}>Delaware</option>
+                                            <option value="FL" {% if acc[0]['state'] == 'FL' %}selected{% endif %}>Florida</option>
+                                            <option value="GA" {% if acc[0]['state'] == 'GA' %}selected{% endif %}>Georgia</option>
+                                            <option value="HI" {% if acc[0]['state'] == 'HI' %}selected{% endif %}>Hawaii</option>
+                                            <option value="ID" {% if acc[0]['state'] == 'ID' %}selected{% endif %}>Idaho</option>
+                                            <option value="IL" {% if acc[0]['state'] == 'IL' %}selected{% endif %}>Illinois</option>
+                                            <option value="IN" {% if acc[0]['state'] == 'IN' %}selected{% endif %}>Indiana</option>
+                                            <option value="IA" {% if acc[0]['state'] == 'IA' %}selected{% endif %}>Iowa</option>
+                                            <option value="KS" {% if acc[0]['state'] == 'KS' %}selected{% endif %}>Kansas</option>
+                                            <option value="KY" {% if acc[0]['state'] == 'KY' %}selected{% endif %}>Kentucky</option>
+                                            <option value="LA" {% if acc[0]['state'] == 'LA' %}selected{% endif %}>Louisiana</option>
+                                            <option value="ME" {% if acc[0]['state'] == 'ME' %}selected{% endif %}>Maine</option>
+                                            <option value="MD" {% if acc[0]['state'] == 'MD' %}selected{% endif %}>Maryland</option>
+                                            <option value="MA" {% if acc[0]['state'] == 'MA' %}selected{% endif %}>Massachusetts</option>
+                                            <option value="MI" {% if acc[0]['state'] == 'MI' %}selected{% endif %}>Michigan</option>
+                                            <option value="MN" {% if acc[0]['state'] == 'MN' %}selected{% endif %}>Minnesota</option>
+                                            <option value="MS" {% if acc[0]['state'] == 'MS' %}selected{% endif %}>Mississippi</option>
+                                            <option value="MO" {% if acc[0]['state'] == 'MO' %}selected{% endif %}>Missouri</option>
+                                            <option value="MT" {% if acc[0]['state'] == 'MT' %}selected{% endif %}>Montana</option>
+                                            <option value="NE" {% if acc[0]['state'] == 'NE' %}selected{% endif %}>Nebraska</option>
+                                            <option value="NV" {% if acc[0]['state'] == 'NV' %}selected{% endif %}>Nevada</option>
+                                            <option value="NH" {% if acc[0]['state'] == 'NH' %}selected{% endif %}>New Hampshire</option>
+                                            <option value="NJ" {% if acc[0]['state'] == 'NJ' %}selected{% endif %}>New Jersey</option>
+                                            <option value="NM" {% if acc[0]['state'] == 'NM' %}selected{% endif %}>New Mexico</option>
+                                            <option value="NY" {% if acc[0]['state'] == 'NY' %}selected{% endif %}>New York</option>
+                                            <option value="NC" {% if acc[0]['state'] == 'NC' %}selected{% endif %}>North Carolina</option>
+                                            <option value="ND" {% if acc[0]['state'] == 'ND' %}selected{% endif %}>North Dakota</option>
+                                            <option value="OH" {% if acc[0]['state'] == 'OH' %}selected{% endif %}>Ohio</option>
+                                            <option value="OK" {% if acc[0]['state'] == 'OK' %}selected{% endif %}>Oklahoma</option>
+                                            <option value="OR" {% if acc[0]['state'] == 'OR' %}selected{% endif %}>Oregon</option>
+                                            <option value="PA" {% if acc[0]['state'] == 'PA' %}selected{% endif %}>Pennsylvania</option>
+                                            <option value="RI" {% if acc[0]['state'] == 'RI' %}selected{% endif %}>Rhode Island</option>
+                                            <option value="SC" {% if acc[0]['state'] == 'SC' %}selected{% endif %}>South Carolina</option>
+                                            <option value="SD" {% if acc[0]['state'] == 'SD' %}selected{% endif %}>South Dakota</option>
+                                            <option value="TN" {% if acc[0]['state'] == 'TN' %}selected{% endif %}>Tennessee</option>
+                                            <option value="TX" {% if acc[0]['state'] == 'TX' %}selected{% endif %}>Texas</option>
+                                            <option value="UT" {% if acc[0]['state'] == 'UT' %}selected{% endif %}>Utah</option>
+                                            <option value="VT" {% if acc[0]['state'] == 'VT' %}selected{% endif %}>Vermont</option>
+                                            <option value="VA" {% if acc[0]['state'] == 'VA' %}selected{% endif %}>Virginia</option>
+                                            <option value="WA" {% if acc[0]['state'] == 'WA' %}selected{% endif %}>Washington</option>
+                                            <option value="WV" {% if acc[0]['state'] == 'WV' %}selected{% endif %}>West Virginia</option>
+                                            <option value="WI" {% if acc[0]['state'] == 'WI' %}selected{% endif %}>Wisconsin</option>
+                                            <option value="WY" {% if acc[0]['state'] == 'WY' %}selected{% endif %}>Wyoming</option>
+                                            <option value="DC" {% if acc[0]['state'] == 'DC' %}selected{% endif %}>District of Columbia</option>
+                                            <option value="AS" {% if acc[0]['state'] == 'AS' %}selected{% endif %}>American Samoa</option>
+                                            <option value="GU" {% if acc[0]['state'] == 'GU' %}selected{% endif %}>Guam</option>
+                                            <option value="MP" {% if acc[0]['state'] == 'MP' %}selected{% endif %}>Northern Mariana Islands</option>
+                                            <option value="PR" {% if acc[0]['state'] == 'PR' %}selected{% endif %}>Puerto Rico</option>
+                                            <option value="UM" {% if acc[0]['state'] == 'UM' %}selected{% endif %}>United States Minor Outlying Islands</option>
+                                            <option value="VI" {% if acc[0]['state'] == 'VI' %}selected{% endif %}>Virgin Islands</option>
+                                        </select>
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label">Zipcode</label>
-                                        <input type="text" name="zipcode" class="form-control" value="{{acc[0]['zipcode']}}"></input>
+                                        <input type="text" name="zipcode" class="form-control" value="{{acc[0]['zipcode']}}" required></input>
                                     </div>
                                 </div>
                                 <div class="details-add-group">
@@ -251,25 +309,28 @@
                                         <h3>payment info</h3>
                                     </div>
                                     <form action="{{url_for('updateaccount')}}", method="post">
-                                    <div class="form-group">
-                                        <label class="form-label">Card Brand</label>
-                                        <input type="text" name="cbrand" class="form-control" value="{{payment['brand']}}"></input>
-                                    </div>
+                                        <div class="form-group">
+                                            <label class="form-label">Card Brand</label>
+                                            <select name="cbrand" class="form-control" required>
+                                                <option value="Visa" {% if payment['brand'] == 'Visa' %}selected{% endif %}>Visa</option>
+                                                <option value="Mastercard" {% if payment['brand'] == 'Mastercard' %}selected{% endif %}>Mastercard</option>
+                                            </select>
+                                        </div>
                                     <div class="form-group">
                                         <label class="form-label">Card number</label>
-                                        <input type="number" name="cnumber" class="form-control" value="{{payment['number']}}"></input>
+                                        <input type="number" name="cnumber" class="form-control" value="{{payment['number']}}" required></input>
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label">Exp. Month</label>
-                                        <input type="text" name="expmon" class="form-control" value="{{payment['expmon']}}"></input>
+                                        <input type="text" name="expmon" class="form-control" value="{{payment['expmon']}}" required></input>
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label">Exp. Year</label>
-                                        <input type="text" name="expyear" class="form-control" value="{{payment['expyear']}}"></input>
+                                        <input type="text" name="expyear" class="form-control" value="{{payment['expyear']}}" required></input>
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label">Zip Code</label>
-                                        <input type="text" name="czip" class="form-control" value="{{payment['zipcode']}}"></input>
+                                        <input type="text" name="czip" class="form-control" value="{{payment['zipcode']}}" required></input>
                                     </div>
                                     {% if payment['status'] == 'active' %}
                                          <div class="form-group">
@@ -295,6 +356,12 @@
                                     <input type="hidden" name="change" value="payment">
                                     <input type="hidden" name="oldnum" value="{{payment['number']}}">
                                 <button type="submit" value="Save changes" class="product-add" title="Save Changes">Edit Payment Info
+                                </button>
+                                </div></form>
+                                <form action="{{url_for('deletepayment')}}", method="post"><div class="details-add-group">
+                                    <input type="hidden" name="id" value="{{acc[0]['id']}}">
+                                    <input type="hidden" name="num" value="{{payment['number']}}">
+                                <button style="background-color: #a50000;" type="submit" value="Save changes" class="product-add" title="Save Changes" onclick="confirmDelete()">Delete Payment
                                 </button>
                                 </div></form>
                                 {% endfor %}
@@ -387,6 +454,14 @@
                     JS LINK PART START
         =======================================-->
          <!-- VENDOR -->
+         <script>
+            function confirmDelete() {
+                if (confirm("Are you sure you want to delete the payment method?")) {
+                    // Si el usuario confirma, envía el formulario
+                    document.getElementById("delete-payment-form").submit();
+                }
+            }
+        </script>
         <script src="{{url_for('static', filename='vendor/bootstrap/jquery-1.12.4.min.js')}}"></script>
         <script src="{{url_for('static', filename='vendor/bootstrap/popper.min.js')}}"></script>
         <script src="{{url_for('static', filename='vendor/bootstrap/bootstrap.min.js')}}"></script>
