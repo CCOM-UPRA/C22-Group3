@@ -293,7 +293,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label">Zipcode</label>
-                                        <input type="text" name="zipcode" class="form-control" value="{{acc[0]['zipcode']}}" required></input>
+                                        <input type="text" name="zipcode" class="form-control" pattern="[0-9]{5}" value="{{acc[0]['zipcode']}}" required oninvalid="this.setCustomValidity('Please enter a valid zipcode.')"></input>
                                     </div>
                                 </div>
                                 <div class="details-add-group">
@@ -318,20 +318,37 @@
                                         </div>
                                     <div class="form-group">
                                         <label class="form-label">Card number</label>
-                                        <input type="number" name="cnumber" class="form-control" value="{{payment['number']}}" required></input>
+                                        <input type="text" name="cnumber" class="form-control" pattern="[0-9]{4,}" value="{{payment['number']}}" required oninvalid="this.setCustomValidity('Please enter the entire card number.')"></input>
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label">Exp. Month</label>
-                                        <input type="text" name="expmon" class="form-control" value="{{payment['expmon']}}" required></input>
+                                        <select name="expmon" class="form-control" required>
+                                            {% for month in range(1, 13) %}
+                                            {% set monthValue = "%02d"|format(month) %}
+                                            {% if monthValue == payment['expmon'] %}
+                                                <option value="{{ monthValue }}" selected>{{ monthValue }}</option>
+                                            {% else %}
+                                                <option value="{{ monthValue }}">{{ monthValue }}</option>
+                                            {% endif %}
+                                            {% endfor %}
+                                        </select>
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label">Exp. Year</label>
-                                        <input type="text" name="expyear" class="form-control" value="{{payment['expyear']}}" required></input>
+                                        <select name="expyear" class="form-control" required>
+                                            {% for year in range(2020, 2029) %}
+                                                {% if year == payment['expyear'] %}
+                                                    <option value="{{ year }}" selected>{{ year }}</option>
+                                                {% else %}
+                                                    <option value="{{ year }}">{{ year }}</option>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </select>
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label">Zip Code</label>
-                                        <input type="text" name="czip" class="form-control" value="{{payment['zipcode']}}" required></input>
-                                    </div>
+                                        <input type="text" name="czip" class="form-control" pattern="[0-9]{5}" value="{{payment['zipcode']}}" required oninvalid="this.setCustomValidity('Please enter a valid zipcode.')"></input>
+                                    </div>                                    
                                     {% if payment['status'] == 'active' %}
                                          <div class="form-group">
                                             <label class="form-label">status</label><br>
