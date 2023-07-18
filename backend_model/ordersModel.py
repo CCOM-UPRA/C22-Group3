@@ -230,7 +230,7 @@ def getorderproductsmodel(ID):
     conn = pymysql.connect(host='sql9.freemysqlhosting.net', db='sql9607918',
                            user='sql9607918', password='GFQC75Bg2g', port=3306)
     cur = conn.cursor()
-    cur.execute("SELECT  sticker_id, s_name, s_brand, price, quantity FROM stickers NATURAL JOIN cont WHERE order_id = %s;", (ID))
+    cur.execute("SELECT  sticker_id, s_name, s_brand, price, quantity, image_link FROM stickers NATURAL JOIN cont WHERE order_id = %s;", (ID))
     results = cur.fetchall()
 
     for res in results:
@@ -241,6 +241,7 @@ def getorderproductsmodel(ID):
             "brand": res[2],
             "price": res[3],
             "quantity": res[4],
+            "img_link":res[5],
             "total": total
         }
         if not returnList:

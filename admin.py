@@ -236,7 +236,7 @@ def updateaccount():
         userInfo = [fname, lname, street, city, state, zipcode, phone_number, status]
         updateAccountController(userInfo, userType, id, kind)
     elif userType == 'customer' and kind == 'payment':
-        number = request.form.get('cnumber')
+        number = request.form.get('cnumber')[-4:]
         brand = request.form.get('cbrand')
         expmon = request.form.get('expmon')
         expyear = request.form.get('expyear')
