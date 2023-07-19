@@ -58,14 +58,20 @@ def login():
 def profile():
     # VIEW AND EDIT PERSONAL PROFILE LEFT FOR STUDENTS TO ADD
     # -> profileController.py
-    admin = getUser(session['admin'])
+    admin = getUser()
     return render_template("profile.html", user1=admin)
 
 
 @app.route("/editinfo", methods=["POST"])
 def editinfo():
     # make changes to profile info
-    # FOR STUDENTS TO ADD
+    fname = request.form.get('fname')
+    lname = request.form.get('lname')
+    email = request.form.get('email')
+    status = request.form.get('status')
+    aid = request.form.get('ID')
+
+    updateprofilecontroller(fname, lname, email, status, aid)
     return redirect("/profile")
 
 

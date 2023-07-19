@@ -1,3 +1,6 @@
+from flask import session
+import pymysql
+
 dictUser1 = {1: {'c_first_name': "Milena", 'c_last_name': "Ríos",
                 'c_email': "milena.rios2@upr.edu", 'c_password': "aghetyeifc",
                 'c_phone_number': 7871621782, 'c_status': 'active',
@@ -33,8 +36,31 @@ userList = MagerDicts(userList, dictUser2)
 userList = MagerDicts(userList, dictUser3)
 
 
-def getUserModel(customer):
-    for key, user in userList.items():
-        if customer == user['c_first_name']:
-            return user
+def getUserModel():
+    admin_results = []
+    conn = pymysql.connect(host='sql9.freemysqlhosting.net', db='sql9607918',
+                       user='sql9607918', password='GFQC75Bg2g', port=3306)
+    cur = conn.cursor()
+    cur.execute("SELECT admin_id, a_firstname, a_lastname, a_email, a_status FROM admin WHERE admin_id = %s", (session['admin']))
+    adminfound = cur.fetchone()
 
+    if adminfound:
+        admin_results = {"admin_id": adminfound[0], "fname": adminfound[1], "lname": adminfound[2], "email": adminfound[3], "status": adminfound[4]}
+
+    cur.close()
+    conn.close()
+
+    return admin_results
+
+def updateprofilemodel(fname, lname, email, status, aid):
+    conn = pymysql.connect(host='sql9.freemysqlhosting.net', db='sql9607918',
+                           user='sql9607918', password='GFQC75Bg2g', port=3306)
+    cur = conn.cursor()
+
+    cur.execute("UPDATE admin SET a_firstname = %s, a_lastname = %s, a_email = %s, a_status = %s WHERE admin_id = %s;",(fname, lname, email, status, aid))
+    conn.commit()
+    
+    cur.close()
+    conn.close()
+
+    return

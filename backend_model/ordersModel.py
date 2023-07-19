@@ -230,8 +230,11 @@ def getorderproductsmodel(ID):
     conn = pymysql.connect(host='sql9.freemysqlhosting.net', db='sql9607918',
                            user='sql9607918', password='GFQC75Bg2g', port=3306)
     cur = conn.cursor()
-    cur.execute("SELECT  sticker_id, s_name, s_brand, price, quantity, image_link FROM stickers NATURAL JOIN cont WHERE order_id = %s;", (ID))
+    cur.execute("SELECT stickers.sticker_id, stickers.s_name, stickers.s_brand, cont.price, cont.quantity, stickers.image_link "
+                "FROM stickers INNER JOIN cont ON stickers.sticker_id = cont.sticker_id "
+                "WHERE cont.order_id = %s;", (ID))
     results = cur.fetchall()
+    print(results)
 
     for res in results:
         total = res[3] * res[4]

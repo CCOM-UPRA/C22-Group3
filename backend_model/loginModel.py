@@ -21,7 +21,7 @@ def loginmodel(email, password):
     for u in user:
         #print("Hashed password from user: ", u['password'])
         if email == u['email']: #and sha256_crypt.verify(password, u['password']):
-            session['customer'] = u['id']
+            session['admin'] = u['id']
             # Create the session['customer'] saving the customer ID if user is found
             return "true"
     return "false"
