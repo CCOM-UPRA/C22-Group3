@@ -75,7 +75,7 @@ def editinfo():
     return redirect("/profile")
 
 
-@app.route("/password", methods=["POST"])
+@app.route("/password")
 def password():
     # make password changes
     # optional for students to implement or not
