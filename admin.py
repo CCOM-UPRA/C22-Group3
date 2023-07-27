@@ -77,9 +77,23 @@ def editinfo():
 
 @app.route("/password")
 def password():
+    adminid = request.args.get('adminid')
     # make password changes
     # optional for students to implement or not
-    return render_template("change-password.html")
+    return render_template("change-password.html", adminid=adminid)
+
+@app.route("/updatepassword", methods=["POST"])
+def updatepassword():
+    oldpass = request.form.get('oldpass')
+    pass1 = request.form.get('pass1')
+    pass2 = request.form.get('pass2')
+    adminid = request.form.get('adminid')
+    if pass1 != pass2:
+        return render_template("change-password.html", message = "nomatch")
+    else:
+        updatepasswordcontroller(oldpass, pass1, adminid)
+    
+    return render_template("change-password.html", message = "changed")
 
 
 @app.route("/products")

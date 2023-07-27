@@ -64,3 +64,16 @@ def updateprofilemodel(fname, lname, email, status, aid):
     conn.close()
 
     return
+
+def updatepasswordmodel(oldpass, pass1, adminid):
+    conn = pymysql.connect(host='sql9.freemysqlhosting.net', db='sql9607918',
+                           user='sql9607918', password='GFQC75Bg2g', port=3306)
+    cur = conn.cursor()
+
+    cur.execute("UPDATE admin SET a_password = %s WHERE admin_id = %s;",(pass1, adminid))
+    conn.commit()
+    
+    cur.close()
+    conn.close()
+
+    return
