@@ -343,7 +343,6 @@ def product_report():
     # Function for Single Product Sales Report
     # All Products Sales and Inventory Reports are for STUDENTS TO ADD
     product = request.form.get('product')
-    print(product)
     if "report_month" in request.form:
         print(request.form.get('report_month'))
         month = request.form.get('report_month')
@@ -390,11 +389,12 @@ def product_report():
     earnings = 0
     for order in orders:
         print(order)
-        #total += float(order['p_total_price'])
-        #print("total = ", total)
+        total += float(order['quantity'] * order['price'])
+        total = round(total, 2)
 
         # Earnings part of order added in model
         earnings += float(order['earnings'])
+        earnings = round(earnings, 2)
 
     # Timeframe: "Day", "Week", "Month"
     # product: product name for the HTML page to show

@@ -57,7 +57,7 @@ def getReportModel(timeframe, query, start_date, end_date, product):
     else:
         ordersFound = db.select(query, (start_date, end_date, product))
         for p in ordersFound:
-            p['earnings'] = (float(p['p_price']) - float(p['p_cost'])) * int(p['product_quantity'])
+            p['earnings'] = (float(p['price']) - float(p['cost'])) * int(p['quantity'])
             print(p)
         return ordersFound
 

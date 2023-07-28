@@ -273,8 +273,8 @@
                                                 <label for="products1">Choose a product:</label>
                                                 <select id="products1" name="product">
                                                  {% for name in names %}
-                                                          <option value="{{name['p_name']}}">{{name['p_name']}}</option>
-                                                    {% endfor %}
+                                                          <option value="{{name['s_name']}}">{{name['s_name']}}</option>
+                                                {% endfor %}
                                                 </select>
                                             </li>
                                             <li>
@@ -300,7 +300,7 @@
                                                 <label for="products2">Choose a product:</label>
                                                 <select id="products2" name="product">
                                                   {% for name in names %}
-                                                          <option value="{{name['p_name']}}">{{name['p_name']}}</option>
+                                                          <option value="{{name['s_name']}}">{{name['s_name']}}</option>
                                                     {% endfor %}
                                                 </select>
                                             </li>
