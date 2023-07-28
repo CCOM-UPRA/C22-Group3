@@ -51,7 +51,7 @@ def getReportModel(timeframe, query, start_date, end_date, product):
         ordersFound = db.select(query, (start_date, product))
 
         for p in ordersFound:
-            p['earnings'] = (float(p['p_price']) - float(p['p_cost'])) * int(p['product_quantity'])
+            p['earnings'] = (float(p['price']) - float(p['cost'])) * int(p['quantity'])
         return ordersFound
 
     else:
@@ -65,7 +65,7 @@ def getReportModel(timeframe, query, start_date, end_date, product):
 def getNamesModel():
     # DB credentials found in backend_model/connectDB.py
     db = Dbconnect()
-    query = "SELECT DISTINCT p_name FROM products ORDER BY p_name ASC"
+    query = "SELECT DISTINCT s_name FROM stickers ORDER BY s_name ASC"
     names = db.select(query)
     return names
 

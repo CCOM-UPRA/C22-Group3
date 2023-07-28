@@ -180,13 +180,13 @@
                                 {% for order in orders %}
                                 <tr>
                                         <td class="table-name"><h6>{{order['order_id']}}</h6></td>
-                                        <td class="table-name"><h6>{{order['p_name']}}</h6></td>
-                                        <td class="table-price"><h6>{{order['p_brand']}}</h6></td>
-                                        <td class="table-brand"><h6>{{order['order_date']}}</h6></td>
-                                         <td class="table-brand"><h6>${{order['p_price']}}0</h6></td>
-                                         <td class="table-brand"><h6>{{order['product_quantity']}}</h6></td>
+                                        <td class="table-name"><h6>{{order['s_name']}}</h6></td>
+                                        <td class="table-price"><h6>{{order['s_brand']}}</h6></td>
+                                        <td class="table-brand"><h6>{{order['day']}}</h6></td>
+                                         <td class="table-brand"><h6>${{order['price']}}0</h6></td>
+                                         <td class="table-brand"><h6>{{order['quantity']}}</h6></td>
                                          <td class="table-brand"><h6>${{order['p_total_price']}}0</h6></td>
-                                         <td class="table-brand"><h6>${{order['p_cost']}}0</h6></td>
+                                         <td class="table-brand"><h6>${{order['cost']}}0</h6></td>
                                         <td class="table-brand"><h6>${{order['earnings']}}0</h6></td>
                                     </tr>
                                 {% endfor %}

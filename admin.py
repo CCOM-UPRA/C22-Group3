@@ -390,8 +390,8 @@ def product_report():
     earnings = 0
     for order in orders:
         print(order)
-        total += float(order['p_total_price'])
-        print("total = ", total)
+        #total += float(order['p_total_price'])
+        #print("total = ", total)
 
         # Earnings part of order added in model
         earnings += float(order['earnings'])
