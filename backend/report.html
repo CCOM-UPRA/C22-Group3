@@ -202,19 +202,21 @@
                                 {% else %}
                                     <thead>
                                     <tr>
+                                        <th scope="col">Image</th>
                                         <th scope="col">Product ID</th>
                                         <th scope="col">Name</th>
                                         <th scope="col">Brand</th>
-                                        <th scope="col">Quantity</th>
+                                        <th scope="col">Stock</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                {% for key, product in stock_report.items() %}
+                                {% for product in stock_report %}
                                 <tr>
-                                        <td class="table-name"><h6>{{key}}</h6></td>
-                                        <td class="table-name"><h6>{{product['name']}}</h6></td>
-                                        <td class="table-price"><h6>{{product['brand']}}</h6></td>
-                                        <td class="table-brand"><h6>{{product['quantity']}}</h6></td>
+                                    <td class="table-name"><img src="/static/images/product-images/{{product['image_link']}}" style="width: 52px; height: 52px;"></td>
+                                        <td class="table-name"><h6>{{product['sticker_id']}}</h6></td>
+                                        <td class="table-name"><h6>{{product['s_name']}}</h6></td>
+                                        <td class="table-price"><h6>{{product['s_brand']}}</h6></td>
+                                        <td class="table-brand"><h6>{{product['stock']}}</h6></td>
                                     </tr>
                                 {% endfor %}
 
@@ -234,7 +236,7 @@
 
                 <div style='padding: 0 40%' class="view-add-group">
                        <form action="{{url_for('reports')}}">
-                           <button style="" class="product-add">Return</button>
+                           <button class="product-add">Return</button>
                        </form>
                 </div>
 

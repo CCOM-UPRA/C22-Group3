@@ -75,4 +75,8 @@ def getDatedReportModel():
 
 
 def getStockReportModel():
-    return productsList
+    db = Dbconnect()
+    productList = []
+    query = "SELECT image_link, sticker_id, s_name, s_brand, stock FROM stickers ORDER BY sticker_id ASC"
+    productList = db.select(query)
+    return productList
