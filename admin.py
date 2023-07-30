@@ -415,7 +415,10 @@ def report():
     # If we're going for any of the reports that have a date, get the information and save in date_report
     # All cases give the same results in this case, no matter your date or product input
     if 'report_day' in request.form:
-        date_report = getDatedReport()
+        day = request.form.get('report_day')
+        frame = "day"
+        end = ""
+        date_report = getDatedReport(day, end, frame)
     if 'report_week' in request.form:
         date_report = getDatedReport()
     if 'report_month' in request.form:
@@ -428,8 +431,9 @@ def report():
     # If we're going for any of the reports with dates, we need a total at the end
     # Calculate the total according to the sum of the total_prices for each item in the report
     if date_report != {}:
-        for key, order in date_report.items():
-            total += order['total_price']
+        for order in date_report:
+            total += float(order['quantity'] * order['price'])
+            total = round(total, 2)
 
     # We send to the report page all variables whether empty or not
     # The HTML will validate which variable is empty and will show the appropriate information

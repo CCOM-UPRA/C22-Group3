@@ -175,15 +175,15 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                {% for key, order in date_report.items() %}
+                                    {% for order in date_report %}
                                 <tr>
-                                        <td class="table-name"><h6>{{key}}</h6></td>
-                                        <td class="table-name"><h6>{{order['name']}}</h6></td>
-                                        <td class="table-price"><h6>{{order['brand']}}</h6></td>
-                                        <td class="table-brand"><h6>{{order['date']}}</h6></td>
+                                        <td class="table-name"><h6>{{order['tracking_number']}}</h6></td>
+                                        <td class="table-name"><h6>{{order['s_name']}}</h6></td>
+                                        <td class="table-price"><h6>{{order['s_brand']}}</h6></td>
+                                        <td class="table-brand"><h6>{{order['day']}}</h6></td>
                                          <td class="table-brand"><h6>{{order['price']}}</h6></td>
                                          <td class="table-brand"><h6>{{order['quantity']}}</h6></td>
-                                         <td class="table-brand"><h6>{{order['total_price']}}</h6></td>
+                                         <td class="table-brand"><h6>${{order['price'] * order['quantity']}}</h6></td>
                                     </tr>
                                 {% endfor %}
 
@@ -194,7 +194,7 @@
                                     <ul>
                                         <li>
                                             <span>Total</span>
-                                            <span>${{total}}0</span>
+                                            <span>${{total}}</span>
                                         </li>
                                     </ul>
                                 </div>

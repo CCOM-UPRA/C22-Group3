@@ -70,8 +70,12 @@ def getNamesModel():
     return names
 
 
-def getDatedReportModel():
-    return ordersList
+def getDatedReportModel(start_date, end_date, frame, query):
+    db = Dbconnect()
+    if frame == "day":
+        ordersFound = db.select(query, (start_date))
+        print(ordersFound)
+        return ordersFound
 
 
 def getStockReportModel():

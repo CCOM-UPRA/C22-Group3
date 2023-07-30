@@ -17,8 +17,17 @@ def getNames():
     return getNamesModel()
 
 
-def getDatedReport():
-    return getDatedReportModel()
+def getDatedReport(start_date, end_date, frame):
+    if frame == "day":
+        query = """
+        SELECT orders.tracking_number, s_name, s_brand, day, cont.price, quantity
+        FROM orders
+        JOIN cont ON orders.order_id = cont.order_id
+        JOIN stickers ON cont.sticker_id = stickers.sticker_id
+        WHERE day = %s;
+        """
+
+    return getDatedReportModel(start_date, end_date, frame, query)
 
 
 def getStockReport():
