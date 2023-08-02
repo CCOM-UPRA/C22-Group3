@@ -9,7 +9,7 @@ from backend_controller.loginController import *
 from backend_controller.ordersController import *
 from backend_controller.productsController import *
 from backend_controller.accountsController import *
-from backend_controller.reportsController import getDatedReport, getStockReport, getReport, getNames
+from backend_controller.reportsController import getDatedReport, getStockReport, getReport, getNames, getimagecontroller
 from backend_controller.profileController import *
 from backend_controller.changePassController import *
 
@@ -399,8 +399,12 @@ def product_report():
     # Timeframe: "Day", "Week", "Month"
     # product: product name for the HTML page to show
     # date: the range of dates used in the report for the HTML page to show
+    if len(orders) > 0 and 'image_link' in orders[0]:
+        pimage = orders[0]['image_link']
+    else:
+        pimage = getimagecontroller(product)
     return render_template("single_product_report.html", orders=orders,
-                           timeframe=timeframe, date=date, total=total, earnings=earnings, product=product)
+                           timeframe=timeframe, date=date, total=total, earnings=earnings, product=product, pimage=pimage)
 
 
 @app.route("/report", methods=['POST'])
@@ -420,9 +424,17 @@ def report():
         end = ""
         date_report = getDatedReport(day, end, frame)
     if 'report_week' in request.form:
-        date_report = getDatedReport()
+        week = request.form.get('report_week')
+        start_date = datetime.strptime(week + '-1', "%Y-W%W-%w")
+        end_date = start_date + timedelta(days=6)
+        frame = "week"
+        date_report = getDatedReport(start_date, end_date, frame)
     if 'report_month' in request.form:
-        date_report = getDatedReport()
+        month = request.form.get('report_month')
+        frame = "Month"
+        start_date = month + "-01"
+        end_date = month + "-31"
+        date_report = getDatedReport(start_date, end_date, frame)
 
     # If we're going for the inventory/stock report, get the data and save in stock_report
     if 'stock_report' in request.form:

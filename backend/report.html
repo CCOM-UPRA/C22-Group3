@@ -165,6 +165,7 @@
                                 {% if date_report|length %}
                                 <thead>
                                     <tr>
+                                        <th scope="col">Order ID</th>
                                         <th scope="col">Order Tracking Number</th>
                                         <th scope="col">Product Name</th>
                                         <th scope="col">Brand</th>
@@ -177,13 +178,14 @@
                                 <tbody>
                                     {% for order in date_report %}
                                 <tr>
+                                        <td class="table-name"><h6>{{order['order_id']}}</h6></td>
                                         <td class="table-name"><h6>{{order['tracking_number']}}</h6></td>
                                         <td class="table-name"><h6>{{order['s_name']}}</h6></td>
                                         <td class="table-price"><h6>{{order['s_brand']}}</h6></td>
                                         <td class="table-brand"><h6>{{order['day']}}</h6></td>
-                                         <td class="table-brand"><h6>{{order['price']}}</h6></td>
-                                         <td class="table-brand"><h6>{{order['quantity']}}</h6></td>
-                                         <td class="table-brand"><h6>${{order['price'] * order['quantity']}}</h6></td>
+                                        <td class="table-brand"><h6>{{order['price']}}</h6></td>
+                                        <td class="table-brand"><h6>{{order['quantity']}}</h6></td>
+                                        <td class="table-brand"><h6>${{order['price'] * order['quantity']}}</h6></td>
                                     </tr>
                                 {% endfor %}
 

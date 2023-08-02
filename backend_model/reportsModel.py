@@ -74,9 +74,10 @@ def getDatedReportModel(start_date, end_date, frame, query):
     db = Dbconnect()
     if frame == "day":
         ordersFound = db.select(query, (start_date))
-        print(ordersFound)
         return ordersFound
-
+    else:
+        ordersFound = db.select(query, (start_date, end_date))
+        return ordersFound
 
 def getStockReportModel():
     db = Dbconnect()
@@ -84,3 +85,9 @@ def getStockReportModel():
     query = "SELECT image_link, sticker_id, s_name, s_brand, stock FROM stickers ORDER BY sticker_id ASC"
     productList = db.select(query)
     return productList
+
+def getimagemodel(query, product):
+    db = Dbconnect()
+    imageq = db.select(query, (product))
+    image = imageq[0]['image_link']
+    return image
