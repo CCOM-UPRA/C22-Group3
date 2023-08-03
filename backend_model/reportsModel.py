@@ -51,14 +51,15 @@ def getReportModel(timeframe, query, start_date, end_date, product):
         ordersFound = db.select(query, (start_date, product))
 
         for p in ordersFound:
-            p['earnings'] = (float(p['price']) - float(p['cost'])) * int(p['quantity'])
+            earnings = (float(p['price']) - float(p['cost'])) * int(p['quantity'])
+            p['earnings'] = "{:.2f}".format(earnings)  # Formatea a dos decimales
         return ordersFound
 
     else:
         ordersFound = db.select(query, (start_date, end_date, product))
         for p in ordersFound:
-            p['earnings'] = (float(p['price']) - float(p['cost'])) * int(p['quantity'])
-            print(p)
+            earnings = (float(p['price']) - float(p['cost'])) * int(p['quantity'])
+            p['earnings'] = "{:.2f}".format(earnings)  # Formatea a dos decimales
         return ordersFound
 
 

@@ -403,6 +403,7 @@ def product_report():
         pimage = orders[0]['image_link']
     else:
         pimage = getimagecontroller(product)
+
     return render_template("single_product_report.html", orders=orders,
                            timeframe=timeframe, date=date, total=total, earnings=earnings, product=product, pimage=pimage)
 
@@ -446,10 +447,16 @@ def report():
         for order in date_report:
             total += float(order['quantity'] * order['price'])
             total = round(total, 2)
+    
+    earnings = 0
+    for order in date_report:
+        earnings += (order['price'] - order['cost']) * order['quantity']
+        print(earnings)
+    earnings = "{:.2f}".format(earnings)
 
     # We send to the report page all variables whether empty or not
     # The HTML will validate which variable is empty and will show the appropriate information
-    return render_template("report.html", date_report=date_report, stock_report=stock_report, total=total)
+    return render_template("report.html", date_report=date_report, stock_report=stock_report, total=total, earnings=earnings)
 
 
 # Press the green button in the gutter to run the script.

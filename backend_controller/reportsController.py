@@ -20,14 +20,14 @@ def getNames():
 def getDatedReport(start_date, end_date, frame):
     if frame == "day":
         query = """
-        SELECT orders.order_id, orders.tracking_number, s_name, s_brand, day, cont.price, quantity
+        SELECT orders.order_id, orders.tracking_number, s_name, s_brand, day, cont.price, quantity, cost
         FROM orders
         JOIN cont ON orders.order_id = cont.order_id
         JOIN stickers ON cont.sticker_id = stickers.sticker_id
         WHERE day = %s ORDER BY order_id ASC;
         """
     else:
-        query = "SELECT orders.order_id, orders.tracking_number, s_name, s_brand, day, cont.price, quantity " \
+        query = "SELECT orders.order_id, orders.tracking_number, s_name, s_brand, day, cont.price, quantity, cost " \
                 "FROM orders JOIN cont JOIN stickers WHERE orders.order_id = cont.order_id AND cont.sticker_id = stickers.sticker_id " \
                 "AND day BETWEEN %s AND %s ORDER BY order_id ASC"
 
