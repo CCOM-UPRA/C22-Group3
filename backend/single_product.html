@@ -117,7 +117,7 @@
                         <div class="navbar-content">
                             <ul class="navbar-list">
                                 <li class="navbar-item dropdown">
-                                    <a class="navbar-link" href="{{url_for('products')}}">Products</a>
+                                    <a class="navbar-link" href="{{url_for('products')}}">Stickers</a>
                                 </li>
 
                                 <li class="navbar-item dropdown">
@@ -211,7 +211,7 @@
                                     <input type="radio" name="waterproof" value="NO" {% if product['waterproof'] == 'NO' %}checked="checked"{% endif %}>
                                 <label for="no">No</label><br></label><br>
 
-                                <label class="form-label">Size:
+                                <label class="form-label">Color:
                                     <select name="color" class="form-control" required>
                                         <option value="Rainbow" {% if product.color == "Rainbow" %}selected{% endif %}>Rainbow</option>
                                         <option value="Monocrome" {% if product.color == "Monocrome" %}selected{% endif %}>Monocrome</option>

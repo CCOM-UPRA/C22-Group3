@@ -110,7 +110,7 @@
                         <div class="navbar-content">
                             <ul class="navbar-list">
                                 <li class="navbar-item dropdown">
-                                    <a class="navbar-link" href="#">Products</a>
+                                    <a class="navbar-link" href="#">Stickers</a>
                                 </li>
 
                                 <li class="navbar-item dropdown">
@@ -151,11 +151,11 @@
                     <div style='text-align: center'>
 
                         <br><br>
-                        <h2>Products</h2>
+                        <h2>Stickers</h2>
 
                         <div style='padding: 0 40%' class="view-add-group">
                        <form action="{{url_for('addproduct')}}">
-                           <button class="product-add">Add product</button>
+                           <button class="product-add">Add sticker</button>
                        </form>
                         </div>
 
@@ -174,7 +174,7 @@
                                             <img src="static/images/product-images/{{product['img']}}" alt="product">
                                         </a>
                                         <div class="product-widget">
-                                            <a title="Edit Product" href="{{url_for('single_product', prodID=product['id'])}}" class="fas fa-edit"></a>
+                                            <a title="Edit Sticker" href="{{url_for('single_product', prodID=product['id'])}}" class="fas fa-edit"></a>
                                         </div>
                                     </div>
                                     <div class="product-content">
@@ -193,68 +193,9 @@
                                         <h6 class="product-name">
                                             <a>Status: {{product['status']}}</a>
                                         </h6>
-
-                                        <!--<div class="product-action">
-                                            <form action="{{url_for('single_product', prodID=product['id']) }}" method="post">
-                                            <input style="width: 50%" class="action-input" title="Quantity Number" type="number" id="quantity" name="quantity" value="1">
-                                               <input type="hidden" id="p_id" name="p_id" value="{{product['id']}}">
-                                               <input type="hidden" id="name" name="name" value="{{product['name']}}">
-                                               <input type="hidden" id="desc" name="desc" value="{{product['desc']}}">
-                                               <input type="hidden" id="image" name="image" value="{{product['img']}}">
-                                               <input type="hidden" id="stock" name="stock" value="{{product['stock']}}">
-                                                <input type="hidden" id="price" name="price" value="{{product['price']}}">
-                                                <input type="hidden" id="cost" name="cost" value="{{product['cost']}}">
-                                                <input type="hidden" id="brand" name="brand" value="{{product['brand']}}">
-                                                <input type="hidden" id="water" name="water" value="{{product['waterproof']}}">
-                                                <input type="hidden" id="color" name="color" value="{{product['color']}}">
-                                                <input type="hidden" id="videores" name="videores" value="{{product['video_res']}}">
-                                              <input style="width: 30%" type="submit" value="Add">
-                                                <button class="action">View</button>
-                                              </form>
-                                        </div>-->
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="modal fade" id="product-view-{{product['id']}}">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <button class="modal-close icofont-close" data-bs-dismiss="modal"></button>
-                    <div class="product-view">
-                        <div class="row">
-                            <div class="col-md-6 col-lg-6">
-                                <div class="view-gallery">
-                                    <div class="view-label-group">
-                                        <label class="view-label new">{{product['stock']}} in stock</label>
-                                    </div>
-                                    <ul class="preview-slider">
-                                        <li><img src="static/images/product-images/{{product['img']}}" alt="product"></li>
-                                    </ul>
-
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-lg-6">
-                                <div class="view-details">
-                                    <h3 class="view-name">
-                                        <a href="product-video.html">{{product['name']}}</a>
-                                    </h3>
-                                    <div class="view-meta">
-                                        <p>Brand:<span>{{product['brand']}}</span></p><br>
-                                        <p>Wi-fi: {{product['wifi']}}</p><br>
-                                        <p>Video Res: {{product['video_res']}}</p>
-                                    </div>
-                                    <h3 class="view-price">
-                                        <span>{{product['price']}}</span>
-                                    </h3>
-                                    <p class="view-desc">Lorem ipsum dolor sit amet consectetur adipisicing elit non tempora magni repudiandae sint suscipit tempore quis maxime explicabo veniam eos reprehenderit fuga</p>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
                             {% endfor %}
 
 

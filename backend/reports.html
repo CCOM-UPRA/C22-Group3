@@ -120,7 +120,7 @@
                         <div class="navbar-content">
                             <ul class="navbar-list">
                                 <li class="navbar-item dropdown">
-                                    <a class="navbar-link" href="{{url_for('products')}}">Products</a>
+                                    <a class="navbar-link" href="{{url_for('products')}}">Stickers</a>
                                 </li>
 
                                 <li class="navbar-item dropdown">
@@ -158,7 +158,7 @@
                     <div class="col-lg-12">
                         <div class="orderlist">
                             <div class="orderlist-head">
-                                <h5>Sales Report for All Products</h5>
+                                <h5>Sales Report for All Stickers</h5>
                             </div>
                             <div class="orderlist-body">
                                 <div class="row">
@@ -227,7 +227,7 @@
 
                         <div class="orderlist">
                             <div class="orderlist-head">
-                                <h5>Sales Report for Single Product</h5>
+                                <h5>Sales Report for Single Sticker</h5>
                             </div>
                             <div class="orderlist-body">
                                 <div class="row">
@@ -242,7 +242,7 @@
                                                 <input id='day1' name='report_day' type="date" required>
                                             </li>
                                             <li>
-                                                <label for="products">Choose a product:</label>
+                                                <label for="products">Choose a sticker:</label>
                                                 <select id="products" name="product">
                                                     {% for name in names %}
                                                           <option value="{{name['s_name']}}">{{name['s_name']}}</option>
@@ -270,7 +270,7 @@
                                                 <input id='week1' name='report_week' type="week" required>
                                             </li>
                                             <li>
-                                                <label for="products1">Choose a product:</label>
+                                                <label for="products1">Choose a sticker:</label>
                                                 <select id="products1" name="product">
                                                  {% for name in names %}
                                                           <option value="{{name['s_name']}}">{{name['s_name']}}</option>
@@ -297,7 +297,7 @@
                                                 <input id='month1' name='report_month' type="month" required>
                                             </li>
                                             <li>
-                                                <label for="products2">Choose a product:</label>
+                                                <label for="products2">Choose a sticker:</label>
                                                 <select id="products2" name="product">
                                                   {% for name in names %}
                                                           <option value="{{name['s_name']}}">{{name['s_name']}}</option>

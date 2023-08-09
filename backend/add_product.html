@@ -117,7 +117,7 @@
                         <div class="navbar-content">
                             <ul class="navbar-list">
                                 <li class="navbar-item dropdown">
-                                    <a class="navbar-link" href="{{url_for('products')}}">Products</a>
+                                    <a class="navbar-link" href="{{url_for('products')}}">Stickers</a>
                                 </li>
 
                                 <li class="navbar-item dropdown">
@@ -157,7 +157,7 @@
 
                 <div style='text-align: center'>
                     <br><br>
-                    <h2>Add Product</h2>
+                    <h2>Add Sticker</h2>
                     <br>
                 </div>
 
@@ -168,7 +168,7 @@
                             <form style="width:100%" class="modal-form"
                                   action="{{url_for('createproduct')}}" method="POST" enctype="multipart/form-data">
 
-                                <label class="form-label">Name:
+                                <label class="form-label">Display Name:
                                     <input type="text" name="name" class="form-control" required></label><br>
 
                                 <label class="form-label">Brand:
@@ -199,7 +199,7 @@
                                 <label class="form-label">waterproof:<br>
                                     <input type="radio" name="waterproof" value="YES">
                                 <label for="yes">Yes</label>
-                                    <input type="radio" name="waterproof" value="NO">
+                                    <input type="radio" name="waterproof" value="NO" checked>
                                 <label for="no">No</label><br></label><br>
 
                                 <label class="form-label">Size:
@@ -241,7 +241,7 @@
 
                                 <div class="details-add-group">
                                     <button type="submit" title="Save changes" style="background-color: green; color: white; border: none; border-radius: 5px; padding: 15px 30px; font-size: 18px;">
-                                        Add Product
+                                        Add Sticker
                                     </button>
                                     </div>
                             </form>

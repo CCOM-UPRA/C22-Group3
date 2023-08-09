@@ -117,7 +117,7 @@
                         <div class="navbar-content">
                             <ul class="navbar-list">
                                <li class="navbar-item dropdown">
-                                    <a class="navbar-link" href="{{url_for('products')}}">Products</a>
+                                    <a class="navbar-link" href="{{url_for('products')}}">Stickers</a>
                                 </li>
 
                                 <li class="navbar-item dropdown">
@@ -377,8 +377,7 @@
                                 <form action="{{url_for('deletepayment')}}", method="post"><div class="details-add-group">
                                     <input type="hidden" name="id" value="{{acc[0]['id']}}">
                                     <input type="hidden" name="num" value="{{payment['number']}}">
-                                <button style="background-color: #a50000;" type="submit" value="Save changes" class="product-add" title="Save Changes" onclick="confirmDelete()">Delete Payment
-                                </button>
+                                    <button style="background-color: #a50000;" type="submit" class="product-add" title="Save Changes" onclick="return confirmDelete()">Delete Payment</button>
                                 </div></form>
                                 {% endfor %}
                                 {% endif %}
@@ -470,10 +469,13 @@
          <!-- VENDOR -->
          <script>
             function confirmDelete() {
-                if (confirm("Are you sure you want to delete the payment method?")) {
-                    // Si el usuario confirma, envía el formulario
-                    document.getElementById("delete-payment-form").submit();
+                var result = confirm("Are you sure you want to delete this payment?");
+                if (result) {
+                    document.getElementById("deleteForm").submit();
+                } else {
+                    location.reload();
                 }
+                return false; 
             }
         </script>
         <script src="{{url_for('static', filename='vendor/bootstrap/jquery-1.12.4.min.js')}}"></script>
