@@ -76,6 +76,8 @@ def getaccountmodel(acc, userType):
             usersList.append({"id": user[0], "name": user[1], "last_name": user[2], "email": user[3],
                      "phonenum": user[5], "street": user[6], "city": user[7], "state": user[8],
                      "zipcode": user[9], "status": user[10]})
+        cur.close()
+        conn.close()
     elif userType == 'admin':
         cur.execute("SELECT * FROM admin WHERE admin_id = %s",(acc))
         adminFound = cur.fetchall()
@@ -83,6 +85,8 @@ def getaccountmodel(acc, userType):
         for user in adminFound:
             usersList.append({"id": user[0], "name": user[1], "last_name": user[2], "email": user[3],
                      "status": user[5]})
+        cur.close()
+        conn.close()
     return usersList
 
 def getpaymentaccountmodel(acc):
@@ -95,6 +99,8 @@ def getpaymentaccountmodel(acc):
 
     for payment in paymentsFound:
         payments.append({"number": payment[0], "expmon": payment[1], "expyear": payment[2], "zipcode": payment[3], "status": payment[4], "brand": payment[5],})
+    cur.close()
+    conn.close()
     return payments
 
 def updateAccountModel(userInfo, userType, id, kind):

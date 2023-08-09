@@ -181,7 +181,6 @@
                                         <th scope="col">Tracking Number</th>
                                         <th scope="col">Status</th>
                                         <th scope="col">Order Date</th>
-                                        <th scope="col">Arrival Date</th>
                                         <th scope="col">Total</th>
                                         <th scope="col">View/edit</th>
                                     </tr>
@@ -194,7 +193,6 @@
                                         <td class="table-name"><h6>{{order['tracking']}}</h6></td>
                                         <td class="table-name"><h6>{{order['o_status']}}</h6></td>
                                         <td class="table-price"><h6>{{order['date']}}</h6></td>
-                                        <td class="table-brand"><h6>2023-07-16</h6></td>
                                          <td class="table-brand"><h6>${{order['total']}}</h6></td>
                                         <td class="table-action">
                                             <a class="view" href="{{url_for('editorder', order=order['o_id'])}}" title="Edit Amount"><i class="fas fa-edit"></i></a>

@@ -202,11 +202,11 @@ def getordermodel(ID):
     quan = cur.fetchall()
     for sticker in quan:
         quantity = quantity + sticker[0]
-    cur.execute("SELECT DISTINCT o_status, day, price_total, order_id FROM orders NATURAL JOIN cont WHERE order_id = %s;",(ID))
+    cur.execute("SELECT DISTINCT o_status, day, price_total, order_id, tracking_number FROM orders NATURAL JOIN cont WHERE order_id = %s;",(ID))
     results = cur.fetchall()
     
     for res in results:
-        orderlist.append({"o_status": res[0], "date": res[1], "total": res[2], "o_id": res[3], "quantity": quantity})
+        orderlist.append({"o_status": res[0], "date": res[1], "total": res[2], "o_id": res[3], "tracking": res[4], "quantity": quantity})
     
     cur.close()
     conn.close()

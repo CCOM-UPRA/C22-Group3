@@ -1,5 +1,6 @@
 from flask import session
 import pymysql
+from passlib.hash import sha256_crypt
 
 dictUser1 = {1: {'c_first_name': "Milena", 'c_last_name': "Ríos",
                 'c_email': "milena.rios2@upr.edu", 'c_password': "aghetyeifc",
@@ -69,11 +70,19 @@ def updatepasswordmodel(oldpass, pass1, adminid):
     conn = pymysql.connect(host='sql9.freemysqlhosting.net', db='sql9607918',
                            user='sql9607918', password='GFQC75Bg2g', port=3306)
     cur = conn.cursor()
-
-    cur.execute("UPDATE admin SET a_password = %s WHERE admin_id = %s;",(pass1, adminid))
-    conn.commit()
-    
-    cur.close()
-    conn.close()
-
-    return
+    cur.execute("SELECT a_password FROM admin WHERE admin_id = %s;",(adminid))
+    result = cur.fetchall()
+    for res in result:
+        password = res[0]
+    print(password)
+    print(oldpass)
+    if oldpass == password:
+        cur.execute("UPDATE admin SET a_password = %s WHERE admin_id = %s;",(pass1, adminid))
+        conn.commit()
+        cur.close()
+        conn.close()
+        return True
+    else:
+        cur.close()
+        conn.close()
+        return False

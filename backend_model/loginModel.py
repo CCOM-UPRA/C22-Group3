@@ -17,10 +17,12 @@ def loginmodel(email, password):
         user.append({"id": users[0], "name": users[1], "last_name": users[2],
                      "email": users[3], "password": users[4],
                      "status": users[5]})
+    cur.close()
+    conn.close()
     
     for u in user:
         #print("Hashed password from user: ", u['password'])
-        if email == u['email']: #and sha256_crypt.verify(password, u['password']):
+        if email == u['email'] and password == u['password']:
             session['admin'] = u['id']
             # Create the session['customer'] saving the customer ID if user is found
             return "true"

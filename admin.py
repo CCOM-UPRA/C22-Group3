@@ -88,13 +88,16 @@ def updatepassword():
     pass1 = request.form.get('pass1')
     pass2 = request.form.get('pass2')
     adminid = request.form.get('adminid')
+    if pass1 == "" or pass2 == "":
+         return render_template("change-password.html", adminid=adminid, message = "incomplete")
     if pass1 != pass2:
-        return render_template("change-password.html", message = "nomatch")
+        return render_template("change-password.html", adminid=adminid, message = "nomatch")
     else:
-        updatepasswordcontroller(oldpass, pass1, adminid)
-    
-    return render_template("change-password.html", message = "changed")
-
+        suc = updatepasswordcontroller(oldpass, pass1, adminid)
+        if suc:
+            return render_template("change-password.html", adminid=adminid, message = "changed")
+        else:
+            return render_template("change-password.html", adminid=adminid, message = "wrong")
 
 @app.route("/products")
 def products():

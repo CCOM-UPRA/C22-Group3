@@ -154,7 +154,7 @@
                 <div style='text-align: center'>
 
                         <br><br>
-                        <h2>Order</h2>
+                        <h2>Order {{order[0]['o_id']}}</h2>
 
                      <div style='padding: 0 40%' class="view-add-group">
                          <form action="{{url_for('updateorder', order=order[0]['o_id'])}}", method="post">
@@ -174,8 +174,8 @@
                                         <p>{{order[0]['date']}}</p>
                                     </li>
                                     <li>
-                                        <h6>Arrival Date</h6>
-                                        <p>2023-07-16</p>
+                                        <h6>Tracking Number</h6>
+                                        <p>{{order[0]['tracking']}}</p>
                                     </li>
                                     <li>
                                         <h6>Status</h6>

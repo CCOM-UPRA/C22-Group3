@@ -70,12 +70,17 @@ def updateproductmodel(name, brand, desc, material, size, water, color, cost, pr
                     "color = %s, cost = %s, price = %s, image_link = %s, stock = %s, s_status = %s WHERE sticker_id = %s",
                     (name, brand, desc, material, size, water, color, cost, price, img, stock, status, id))
         conn.commit()
+        cur.close()
+        conn.close()
         return 0
 
     except pymysql.Error as error:
         print(error)
+        cur.close()
+        conn.close()
         return 0
 
     else:
         cur.close()
+        conn.close()
         return 1
